@@ -1,0 +1,269 @@
+@media (max-width: 1024px) {
+    .confidence-left {
+        max-width: 100%;
+    }
+
+    .confidence-container {
+        flex-direction: column;
+    }
+
+    .conversation-block-grey, .conversation-block-blue {
+        width: 100%;
+    }
+
+    .grey-title {
+        color: #707070;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        max-width: 98%;
+        margin: 0 auto;
+    }
+
+    header #collapsingNavbar a {
+        font-size: 14px;
+        color: #000;
+        margin: 12px;
+    }
+
+    .header-inner {
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    header .social-list {
+        position: absolute;
+        top: 0;
+        right: 25px;
+    }
+
+    .home-container-inner {
+        height: auto;
+        padding: 15px;
+        margin-bottom: 0;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .navbar-expand-md {
+        margin-top: 30px;
+    }
+
+    .hired-banner {
+        margin-top: 30px;
+    }
+
+    .mt-lg-30 {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 760px) {
+    .confidence-right {
+        max-width: 100%;
+    }
+
+    .h-box {
+        width: 100%;
+    }
+
+    .hired-conversation-fixed.hired-conversation {
+        margin-left: 20px;
+    }
+
+    .hired-conversation {
+        margin-left: 0;
+    }
+
+    .font-big {
+        font-size: 30px !important;
+    }
+
+    .slider-box {
+        margin: 60px 10px;
+    }
+
+    .mb30 {
+        margin-bottom: 30px;
+    }
+
+    .flex-col-reverse {
+        flex-direction: column-reverse;
+    }
+
+    .home-main h2 {
+        font-size: 15px;
+        margin-bottom: 0px !important;
+    }
+
+    .home-main h3 {
+        font-size: 30px;
+    }
+
+    .home-container-inner, .covered-section {
+        margin-bottom: 0px;
+    }
+
+    .home-contact-form {
+        margin: 0 auto 30px;
+    }
+
+    .home-container-inner {
+        padding: 15px;
+    }
+
+    .covered-inner h3 {
+        font-size: 26px;
+    }
+
+    .covered-inner h2 {
+        font-size: 26px;
+        margin-bottom: 0px;
+    }
+
+    .covered-description {
+        padding-left: 15px;
+    }
+
+    .navbar-expand-md {
+        margin-top: 10px;
+    }
+
+    .navbar-collapse ul {
+        flex-direction: column;
+    }
+
+    .menu-box {
+        position: absolute;
+        left: 0;
+        top: 73px;
+        background: #fff;
+        z-index: 1;
+        padding: 0 8px 15px 6px;
+        width: 100%;
+    }
+
+    header .navbar-toggler-icon {
+        background-image: url(../images/btn.svg) !important;
+    }
+
+    .navbar-toggler:focus, .navbar-toggler:hover {
+        text-decoration: none;
+        outline: none;
+    }
+
+    .sign-in-container {
+        width: 98%;
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .registration-banner {
+        margin-left: 0px;
+        min-width: 153px;
+        position: absolute;
+        right: 53px;
+        top: 30px;
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        right: 0;
+        top: 26px;
+    }
+
+    header {
+        position: relative;
+    }
+
+    header .btn-generic {
+        font-size: 14px;
+        height: 34px;
+        padding: 0 12px;
+        line-height: 29px;
+    }
+
+
+    .navbar {
+        justify-content: space-between;
+        padding: 0 !important;
+        margin-top: 15px;
+    }
+
+    .navbar-dark .navbar-brand {
+        color: #fff;
+        width: 130px;
+    }
+
+    .steps-container {
+        width: 100%;
+        margin: 40px auto 0;
+        padding: 15px;
+    }
+
+    .two-form {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .two-form .form-group {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer {
+        background: #3C3C3C;
+        padding: 20px;
+    }
+
+    .footer h2 {
+        margin-top: 10px;
+    }
+
+    .feedback-slider-box {
+        padding: 15px 1px;
+        background: #02044F;
+        color: #fff;
+    }
+}
+
+@media (max-width: 560px) {
+    .follow-banner {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+    .follow-banner p{
+        margin: 0;
+    }
+    .follow-details .dropdown-menu {
+        right: 0;
+        left: -42% !important;
+    }
+    .network-banner{
+        position: relative;
+    }
+     .network-banner .d-flex   img{
+        padding: 0 32%;
+        margin-bottom: 20px;
+
+    }
+    .network-banner, .network-banner .d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+}

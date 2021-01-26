@@ -1,0 +1,156 @@
+
+
+
+/*****************************************steps*****************************/
+.steps-container {
+    clear: both;
+}
+
+
+
+
+
+.steps-title {
+    font-size: 25px;
+    font-family: "HelveticaRounded-Bold";
+    color: #2D2D2D;
+    text-align: center;
+    max-width: 70%;
+    margin: 0 auto 20px;
+}
+
+.steps-description {
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    font-style: italic;
+}
+
+.steps-block {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.steps-block .steps-detail-banner-line {
+    width: 48%;
+}
+
+.condition-details h2 {
+    font-size: 20px;
+    color: #2D2D2D;
+}
+
+.steps-decoration {
+    color: #575757;
+    font-size: 18px;
+    text-align: center;
+}
+
+.steps-container {
+    width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+
+
+.steps-decoration.custom-step-info {
+    text-align: left;
+    padding-left: 0;
+    display: flex;
+}
+
+
+
+.steps-pagination {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #000000;
+    font-size: 16px;
+}
+
+.back-to-home {
+    color: #3450ad;
+    text-decoration: none;
+    margin: 20px;
+    display: block;
+}
+
+.steps-page-heading {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    height: 200px;
+    justify-content: center;
+    text-align: center;
+}
+
+.progress-decoration {
+    display: flex;
+}
+
+.progress-decoration p {
+    color: #000000;
+    font-size: 16px;
+}
+
+.steps-detail-banner-line {
+    display: block;
+    margin: 10px 0;
+    background-color: #E1E6F5;
+    padding: 6px 30px;
+    border: 2px solid #E1E6F5;
+    font-size: 18px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.steps-detail-banner-line.clicked {
+    background-color: transparent;
+    border: 2px solid #00C9B9;
+}
+.steps-btn {
+    margin: 65px 0 120px;
+    display: flex;
+    justify-content: flex-start;
+}
+.steps-btn button{
+    margin-right: 10px;
+}
+
+.steps-container .progress {
+    border-radius: 10px;
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    /* box-shadow: inset 0 1px 2px rgba(0,0,0,.1); */
+    border: 1px solid #AAB6DC;
+}
+
+.progress .progress-bar {
+    background-color: #3450AD;
+}
+
+.progress-bar-striped {
+    background-image: none !Important;
+}
+
+.steps-container .form-check-group span {
+    margin: -2px 0 0 3px;
+    display: block;
+    color: #707070;
+    font-family: "Muli";
+}
+.light-txt{
+    color: #B1B1B1;
+}
+#textarea-form{
+    height: 140px;
+}
