@@ -181,7 +181,7 @@
                         </div>
                         <button type="button" class="sign-up">
                             <a href="{{route('signup')}}">
-                               Sign up with email</a>
+                                Sign up with email</a>
                         </button>
                         <div class="position-relative">
                             <div class="custom-control custom-checkbox sign-in-checkbox mt-3">
