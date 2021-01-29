@@ -9,7 +9,6 @@ use App\Models\Follow;
 class Post extends Model
 {
     protected $fillable = [
-        'id',
         'title',
         'details',
         'description',

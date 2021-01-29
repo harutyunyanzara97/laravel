@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'about',
     ];
 
     /**
@@ -43,5 +44,8 @@ class User extends Authenticatable
     public function getId()
     {
         return $this->id;
+    }
+    public function follow(){
+        return $this->hasMany(Follow::class,'user_id','id');
     }
 }

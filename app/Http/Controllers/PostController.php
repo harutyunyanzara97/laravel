@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -9,12 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 class PostController extends Controller
 {
-//    public function index(Request $request)
-//    {
-//        $posts = Post::where('user_id', Auth::user()->getId())->with('categories')->get();
-//        return view('network', compact('posts', $posts));
-//    }
-    public function create(Request $request){
+
+    public function create(PostRequest $request){
         $post = new Post();
         $categories = Category::where('id',$post->category_id)->get();
         return view('createPost',compact('post','categories'));

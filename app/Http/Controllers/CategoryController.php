@@ -6,20 +6,19 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories= Category::where('user_id', Auth::user()->getId())->get();
+        $categories= Category::with('followers')->where('user_id',Auth::user()->getId())->get();
         return view('network', compact('categories', $categories));
     }
     public function insertFollows(Request $request)
     {
         $follows = Follow::where(['user_id' => Auth::user()->getId(), 'category_id' => $request->id])->first();
-        if ($follows) {
-            $follows->save();
-        } else {
+        if (!$follows) {
             $follows = new Follow();
             $follows->user_id = Auth::user()->getId();
             $follows->category_id = $request->id;
@@ -35,11 +34,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function editCategory(Request $request,$id)
+    public function editCategory(Request $request)
     {
-        $category=Category::where('id',$id)->first();
-        dd($category);
-        return view('category',compact('category',$category));
+        $modal_category=Category::where('id',$request->id)->first();
+        return view('category',compact('modal_category'));
     }
     public function update(Request $request) {
         $category=Category::where('id',$request->cat_id)->first();
@@ -48,6 +46,7 @@ class CategoryController extends Controller
         $category->save();
         if($request->hasfile('photo'))
         {
+
             foreach($request->file('photo') as $image)
             {
                 $name=time().$image->getClientOriginalName();
@@ -60,7 +59,10 @@ class CategoryController extends Controller
         , 'history.go(-1);'
         , '</script>';
     }
-
+    public function showPosts(Request $request,$id) {
+        $category=Category::with('posts')->where('id',$id)->first();
+        return view('posts',compact('category',$category));
+}
 }
 
 //$cat = Category::where('id', $request->id)->update(['name' => $request->name]);

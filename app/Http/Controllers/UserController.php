@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -66,6 +67,21 @@ class UserController extends Controller
             auth()->login($user);
         }
         return view('home',compact('user',$user));
+
+     }
+    public function  profile(){
+        $user = User::where('id', Auth::user()->getId())
+            ->first();
+        return view('profile',compact('user',$user));
+    }
+    public function editProfile(Request $request){
+        $user = User::where('id', Auth::user()->getId())
+            ->first();
+      dd($request->about);
+      $user->save();
+        echo '<script type="text/javascript">'
+        , 'history.go(-1);'
+        , '</script>';
 
     }
 

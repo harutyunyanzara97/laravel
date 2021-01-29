@@ -1,7 +1,6 @@
 
-<section>
-    <div class="modal fade right" id="rightSideModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+    <div class="modal show right" id="rightSideModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="display: block">
         <div class="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
             <!--Content-->
             <div class="modal-content">
@@ -31,7 +30,7 @@
                                  data-parent="#accordion">
                                 <form action="{{url('update')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="cat_id" value="{{$category->id}}">
+                                    <input type="hidden" name="cat_id" value="{{$modal_category->id}}">
                                 <div class="card-body p-0">
                                     <div>
                                         <div class="tooltip">Name
@@ -43,7 +42,7 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="name" value="{{$category->name}}">
+                                        <input type="text" name="name" value="{{$modal_category->name}}">
                                     </div>
                                     <div>
                                         <div class="tooltip">Page title
@@ -55,7 +54,7 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="page_title" value="{{$category->page_title}}">
+                                        <input type="text" name="page_title" value="{{$modal_category->page_title}}">
                                     </div>
                                     <div>
                                         <div class="tooltip">Description
@@ -68,13 +67,13 @@
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
                                         <input type="text" name="description"
-                                               value="{{$category->description}}">
+                                               value="{{$modal_category->description}}">
                                     </div>
                                 </div>
                                 <div class="container p-0">
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
-                                                <input type='file' id="imageUpload" name="photo[]" onchange="readURL(this);" accept=".png, .jpg, .jpeg"/>
+                                                <input type="file" id="imageUpload" name="photo[]" onchange="readURL(this)">
                                             <label for="imageUpload">
                                                 <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1"
                                                      xmlns="http://www.w3.org/2000/svg" class="_55Vto">
@@ -84,7 +83,7 @@
                                                 </svg>Change Image</label>
                                         </div>
                                         <div class="avatar-preview">
-                                            <div id="imagePreview" style="background-image: url({{asset('images/'.$category->img_url)}}" alt="">
+                                            <div id="imagePreview" style="background-image: url({{asset('images/'.$modal_category->img_url)}}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +104,7 @@
                                     <div class="modal-footer justify-content-center">
                                         <button  type="submit" class="btn green-btn"> Update<i
                                                 class="fa fa-paper-plane ml-1"></i></button>
-                                        <a role="button" class="btn white-btn"
+                                        <a role="button" class="btn white-btn closeModal"
                                            data-dismiss="modal">Cancel</a>
                                     </div>
                                 </form>
@@ -218,4 +217,3 @@
             <!--/.Content-->
         </div>
     </div>
-</section>
