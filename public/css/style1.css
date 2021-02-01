@@ -1032,7 +1032,7 @@ button.sign-up {
 }
 
 .resources-forum-left {
-    width: 72%;
+    width: 100%;
     position: relative;
 }
 
@@ -1042,13 +1042,16 @@ button.sign-up {
     height: 40px;
     width: 100%;
     color: #fff;
+    cursor: pointer;
     /* width: 200px; */
     font-size: 14px;
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-}
+    z-index: 1;
+    position: relative;
 
+}
 .follow-btn {
     display: flex;
     background: transparent;
@@ -1284,4 +1287,7 @@ input {
     width: 80%;
     margin: 0 auto 20px;
     color: #fff;
+}
+.resources-forum-left .line-control-menu-bar {
+    display:none;
 }

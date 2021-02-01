@@ -32,6 +32,7 @@ Route::get('/edit', [App\Http\Controllers\CategoryController::class, 'editCatego
 Route::get('/unfollow', [App\Http\Controllers\CategoryController::class, 'unfollow'])->name('unfollow');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::post('/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('update');
-Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->name('create');
+Route::get('/createPost', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
+Route::get('/comments', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 
 
