@@ -340,34 +340,36 @@
                             </a>
                     </div>
                     </div>
-                    @foreach($category->posts as $post)
-                        <div class="network-banner">
-                            <table style="width: 100%;">
-                                <thead class="w-100" style="display: flex;
+                    <div class="network-banner">
+                    <table style="width: 100%;">
+                        <thead class="w-100" style="display: flex;
                                             justify-content: space-between;">
-                                <tr style="width: 100%;
+                        <tr style="width: 100%;
                                     display: flex;
                                     justify-content: space-around;">
-                                <th></th>
+                            <th>yugiuyiuyiku</th>
 
-                                <th class="comment-banner">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         stroke="none"
-                                         class="forum-icon-fill"><title>Posts</title>
-                                        <path fill-rule="evenodd"
-                                              d="M6 5h12c1.104 0 2 .896 2 2v8c0 1.104-.896 2-2 2h-4.36l-4.884 2.93c-.079.047-.168.07-.256.07-.086 0-.17-.021-.247-.065C8.097 19.846 8 19.68 8 19.5V17H6c-1.104 0-2-.896-2-2V7c0-1.104.896-2 2-2zm13 10V7c0-.553-.447-1-1-1H6c-.553 0-1 .447-1 1v8c0 .553.447 1 1 1h3v2.621L13.36 16H18c.553 0 1-.447 1-1z"></path>
-                                    </svg>
-                                </th>
-                                    <th class="comment-banner">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 17 15" stroke="none" class="forum-icon-fill">
-                                            <title>Likes</title>
-                                            <path fill-rule="evenodd" d="M350,217.365a4.312,4.312,0,0,0-8-2.28,4.309,4.309,0,0,0-8,2.28,4.375,4.375,0,0,0,1.487,3.286l6.12,6.184A0.567,0.567,0,0,0,342,227a0.553,0.553,0,0,0,.4-0.165l6.12-6.184A4.375,4.375,0,0,0,350,217.365Z" transform="translate(-333.5 -212.5)"></path>
-                                        </svg>
-                                    </th>
-                                    <th style="color: rgb(255, 255, 255);">Recent activity</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <th class="comment-banner">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     stroke="none"
+                                     class="forum-icon-fill"><title>Posts</title>
+                                    <path fill-rule="evenodd"
+                                          d="M6 5h12c1.104 0 2 .896 2 2v8c0 1.104-.896 2-2 2h-4.36l-4.884 2.93c-.079.047-.168.07-.256.07-.086 0-.17-.021-.247-.065C8.097 19.846 8 19.68 8 19.5V17H6c-1.104 0-2-.896-2-2V7c0-1.104.896-2 2-2zm13 10V7c0-.553-.447-1-1-1H6c-.553 0-1 .447-1 1v8c0 .553.447 1 1 1h3v2.621L13.36 16H18c.553 0 1-.447 1-1z"></path>
+                                </svg>
+                            </th>
+                            <th class="comment-banner">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 17 15" stroke="none" class="forum-icon-fill">
+                                    <title>Likes</title>
+                                    <path fill-rule="evenodd" d="M350,217.365a4.312,4.312,0,0,0-8-2.28,4.309,4.309,0,0,0-8,2.28,4.375,4.375,0,0,0,1.487,3.286l6.12,6.184A0.567,0.567,0,0,0,342,227a0.553,0.553,0,0,0,.4-0.165l6.12-6.184A4.375,4.375,0,0,0,350,217.365Z" transform="translate(-333.5 -212.5)"></path>
+                                </svg>
+                            </th>
+                            <th style="color: rgb(255, 255, 255);">Recent activity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    @foreach($category->posts as $post)
+                        <tr style="color:rgb(255, 255, 255);display: flex;
+                                             justify-content: space-between;">
                                 <td>
                             <div class="d-flex">
                                 <div class="network-banner-details">
@@ -379,14 +381,15 @@
                                 </div>
                             </div>
                                 </td>
-                                <td></td>
-                                <td></td>
-                                </tbody>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                        </tr>
 
-
-                            </table>
-                        </div>
                     @endforeach
+                    </tbody>
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>
