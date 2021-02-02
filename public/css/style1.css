@@ -1291,11 +1291,12 @@ input {
 .resources-forum-left .line-control-menu-bar {
     display:none;
 }
+
 input[type="text"].textEdit{
     background: transparent;
     width: 100%;
     border: 1px solid #455636;
-    height: 50px;
+    height: 150px;
 }
 .TPASection_jrz95nhh [dir] .button-border-color {
     border-color: rgba(155, 203, 108, 0.73);
@@ -1335,6 +1336,132 @@ label {
     margin-bottom: 15px;
     z-index: 1;
     position: relative;
-
+    background: rgba(155, 203, 108, 0.73);
+    padding: 5px 30px;
+}
+.publish_cancel{
+    background: #fff;
+    height: 40px;
+    width: 60%;
+    color: #000;
+    cursor: pointer;
+    /* width: 200px; */
+    font-size: 14px;
+    margin-left:20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    z-index: 1;
+    position: relative;
+    padding: 5px 30px;
 }
 
+.account-form {
+    background: rgba(65,65,65,0.63);
+    width: 730px;
+    padding: 30px;
+}
+.account-form label{
+    color: #fff;
+}
+.account-form  input {
+    width: 100%;
+    border: none;
+    height: 50px !Important;
+    background: rgba(65,65,65,1);
+}
+.account-form  .form-row  .form-group{
+    width: 49%;
+}
+
+.custom-select {
+    position: relative;
+    font-family: Arial;
+}
+
+.custom-select select {
+    display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+    background-color: #414141;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div, .select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+    width: 329px;
+    margin: -10px -14px;
+    border-radius: 5px;
+    height: 48px;
+}
+
+/*style items (options):*/
+.select-items {
+    position: absolute;
+    background-color: #414141;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+    display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.account-form .custom-select {
+    width: 328px !important;
+    height: 44px;
+}
+.update-btn {
+    background: rgba(127,204,247,1);
+    padding: 10px;
+    width: 49%;
+    color: #fff;
+}
+.account-form  label {
+    font-weight: normal;
+}
+
+.select-items div{
+    margin: 0;
+}
+.payment-btn {
+    padding: 10px;
+    width: 100%;
+
+}
+.image-upload{
+    display: flex;
+}
+.image-upload svg {
+    fill: #fff;
+}

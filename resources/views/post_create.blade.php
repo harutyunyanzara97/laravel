@@ -184,18 +184,19 @@
                              <div class="image-upload">
                                  <input id="upload" type="file" name="photo[]" onchange="readURL(this);" style="display: none"  class="form-control">
                                  <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
-                                     <img src="{{asset('images/photo-icon.png')}}" alt="" class="mr-2"></label>
+                                </label>
+                                 <div class="_1qOTu css-mm44dn css-1402lio"><svg width="30" height="19" viewBox="0 0 19 19"><g fill-rule="evenodd"><path d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></g></svg></div>
                                  <input id="upload" type="file" name="video[]" onchange="readURL(this);" style="display: none"  class="form-control">
                                  <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
-                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="19" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>
+                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="30" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>
                                  </label>
                              </div>
                              <div class="d-flex justify-content-between">
                                  <div>
                                  </div>
                                  <div class="d-flex justify-content-between w-70">
-                                     <button type="reset" class="btn btn-default pull-right publish_btn">Cancel</button>
-                                 <button class="btn-success publish_btn" type="submit">Publish</button>
+                                     <button type="reset" class="publish_cancel">Cancel</button>
+                                 <button class="publish_btn" type="submit">Publish</button>
                                  </div>
                              </div>
                          </form>

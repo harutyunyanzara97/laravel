@@ -31,6 +31,7 @@ Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editPr
 Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('logoutUser');
 Route::get('/login', [App\Http\Controllers\UserController::class, 'login'])->name('login');
+Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
 Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');

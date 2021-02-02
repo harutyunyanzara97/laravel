@@ -84,7 +84,9 @@ class UserController extends Controller
         , '</script>';
 
     }
-
+    public function account() {
+        return view('account');
+    }
     public function logout (Request $r) {
         Session::forget('user_id');
         return Redirect::to('/login');

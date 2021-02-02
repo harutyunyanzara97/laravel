@@ -94,7 +94,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                            <a class="dropdown-item" href="https://google.com/">My Account</a>
+                            <a class="dropdown-item" href="{{route('account')}}">My Account</a>
                             <a class="dropdown-item" href="{{route('logoutUser')}}">Log out</a>
                             <div class="dropdown-divider"></div>
                         </div>
@@ -358,7 +358,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('account')}}">
                             My Account
                         </a>
                     </li>
@@ -373,6 +373,7 @@
                         </a>
                     </li>
                 </ul>
+                <button type="button" class="payment-btn btn-blue"> Add Payment</button>
             </div>
             <div class="profile-right-banner">
                 <form method="post" action="{{url('editProfile')}}">
