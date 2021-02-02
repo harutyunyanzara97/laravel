@@ -50,12 +50,12 @@
                     <div class="navbar-collapse collapse" id="collapsingNavbar">
                         <ul>
                             <li>
-                                <a href="{{route('home')}}">
+                                <a href="{{route('home')}}" class="active-item">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="network.html" class="active-item">
+                                <a href="{{route('network')}}">
                                     The Network
                                 </a>
                             </li>

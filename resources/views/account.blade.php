@@ -45,16 +45,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="menu-box">
-
                     <div class="navbar-collapse collapse" id="collapsingNavbar">
                         <ul>
                             <li>
-                                <a href="home.html">
+                                <a href="{{route('home')}}" class="active-item">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="network.html">
+                                <a href="{{route('network')}}">
                                     The Network
                                 </a>
                             </li>

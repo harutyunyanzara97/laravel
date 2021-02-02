@@ -1298,6 +1298,12 @@ input[type="text"].textEdit{
     border: 1px solid #455636;
     height: 150px;
 }
+input[type="text"].textEditt{
+    background: transparent;
+    width: 100%;
+    border: 1px solid #455636;
+    height: 150px;
+}
 .TPASection_jrz95nhh [dir] .button-border-color {
     border-color: rgba(155, 203, 108, 0.73);
 }
@@ -1464,4 +1470,37 @@ label {
 }
 .image-upload svg {
     fill: #fff;
+}
+
+.textEditt::placeholder {
+    color: black;
+    opacity: 0.9;
+    font-size: 32px;
+    padding: 0;
+    border: 0;
+    background-color: rgba(0,0,0,0);
+    box-shadow: none !important;
+}
+.postTable{
+    width: 100%;
+}
+.postTable td,th{
+    display: flex;
+    width: 250px;
+}
+.postTable tr{
+    height: 50px;
+}
+.ava{
+    width:24px;
+    height: 24px;
+    margin-right:8px;
+}
+.avaImg {
+    width: 100%;
+    border-radius: 50%;
+    margin-right:8px;
+}
+.dropdown-toggle::after{
+display: none;
 }

@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Like;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
@@ -16,11 +17,13 @@ class PostController extends Controller
 {
     public function createPost($id){
         $category=Category::where('id',$id)->first();
-        return view('post_create',compact('category'));
+        $user=User::where('id',Auth::user()->getId())->first();
+        return view('post_create',compact('category','user'));
     }
     public function comments($id){
         $post=Post::where('id',$id)->first();
-        return view('post_comments',compact('post'));
+        $user=User::where('id',Auth::user()->getId())->first();
+        return view('post_comments',compact('post','user'));
     }
     public function store(Request $request){
         $newPost = new Post();
@@ -41,7 +44,8 @@ class PostController extends Controller
 
             }
         }
-        return redirect()->back();
+        $user=User::where('id',Auth::user()->getId())->first();
+        return view('post_created',compact('newPost','user'));
 
     }
     public function insertComments(Request $request)

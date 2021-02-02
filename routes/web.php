@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [App\Http\Controllers\PlanController::class,'index'])->name('home');
