@@ -169,18 +169,36 @@
 
 
                         </div>
-
+                         <form method="post" enctype="multipart/form-data" action="{{url('/store')}}">
+                             @csrf
+                             <input type="hidden" value="{{$category->id}}" name="id">
                         <h2>Give this post a title
                         </h2>
+                        <input type="text" name="title" class="textEdit">
+
                         <p>Write your post here.Add photos,videos and more to get your message across.
-
-                        </p>
-                        <p>
-
                         </p>
                         <div class="">
-                            <textarea id="txtEditor"></textarea>
+                            <input type="text" name="description" class="textEdit">
                         </div>
+                             <div class="image-upload">
+                                 <input id="upload" type="file" name="photo[]" onchange="readURL(this);" style="display: none"  class="form-control">
+                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
+                                     <img src="{{asset('images/photo-icon.png')}}" alt="" class="mr-2"></label>
+                                 <input id="upload" type="file" name="video[]" onchange="readURL(this);" style="display: none"  class="form-control">
+                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
+                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="19" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>
+                                 </label>
+                             </div>
+                             <div class="d-flex justify-content-between">
+                                 <div>
+                                 </div>
+                                 <div class="d-flex justify-content-between w-70">
+                                     <button type="reset" class="btn btn-default pull-right publish_btn">Cancel</button>
+                                 <button class="btn-success publish_btn" type="submit">Publish</button>
+                                 </div>
+                             </div>
+                         </form>
                     </div>
                 </div>
             </div>

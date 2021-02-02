@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', [App\Http\Controllers\PlanController::class,'index'])->name('home');
+    Route::get('/plans', [App\Http\Controllers\PlanController::class,'index'])->name('plans.index');
+    Route::get('/plan/{plan}', [App\Http\Controllers\PlanController::class,'show'])->name('plans.show');
+    Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class,'create'])->name('subscription.create');
+});
 
 Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index'])->name('network');
 Route::get('/home', [App\Http\Controllers\UserController::class, 'home'])->name('home');
@@ -26,13 +32,14 @@ Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn']
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('logoutUser');
 Route::get('/login', [App\Http\Controllers\UserController::class, 'login'])->name('login');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
+Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');
 Route::get('/show/{id}', [App\Http\Controllers\CategoryController::class, 'showPosts'])->name('showPosts');
 Route::get('/edit', [App\Http\Controllers\CategoryController::class, 'editCategory'])->name('edit');
 Route::get('/unfollow', [App\Http\Controllers\CategoryController::class, 'unfollow'])->name('unfollow');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::post('/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('update');
-Route::get('/createPost', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
-Route::get('/comments', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
+Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
+Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 
 

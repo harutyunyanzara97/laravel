@@ -335,7 +335,7 @@
                         </div>
                     </div>
                     <div class="resources-forum-right">
-                            <a href="{{route('createPost')}}" class="comment-btn">
+                            <a href="{{route('createPost', $category->id)}}" class="comment-btn">
                                 Create new post
                             </a>
                     </div>
@@ -347,7 +347,7 @@
                         <tr style="width: 100%;
                                     display: flex;
                                     justify-content: space-around;">
-                            <th>yugiuyiuyiku</th>
+                            <th></th>
 
                             <th class="comment-banner">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -374,7 +374,7 @@
                             <div class="d-flex">
                                 <div class="network-banner-details">
 
-                                 <a href="{{route('comments')}}" class="whiteText" style="color: rgb(235 238 233);">
+                                 <a href="{{route('comments',$post->id)}}" class="whiteText" style="color: rgb(235 238 233);">
                                        {{$post->title}}
                                 </a>
 

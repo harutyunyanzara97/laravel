@@ -10,18 +10,24 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
+use Illuminate\Support\Facades\Redirect;
+
 class PostController extends Controller
 {
-    public function createPost(){
-        return view('post_create');
+    public function createPost($id){
+        $category=Category::where('id',$id)->first();
+        return view('post_create',compact('category'));
     }
-    public function comments(Request $request){
-        return view('post_comments');
+    public function comments($id){
+        $post=Post::where('id',$id)->first();
+        return view('post_comments',compact('post'));
     }
     public function store(Request $request){
         $newPost = new Post();
         $newPost->fill($request->all());
         $newPost->user_id=Auth::user()->getId();
+        $newPost->category_id=$request->id;
+        $newPost->follow_id=1;
         $newPost->save();
         if($request->hasfile('photo'))
         {
@@ -43,10 +49,33 @@ class PostController extends Controller
         $comments = Comment::where(['user_id' => Auth::user()->getId(), 'post_id' => $request->id])->first();
         if (!$comments) {
             $comments = new Comment();
+            $comments->fill($request->all());
             $comments->user_id = Auth::user()->getId();
             $comments->post_id = $request->id;
             $comments->save();
+            if($request->hasfile('photo'))
+            {
+
+                foreach($request->file('photo') as $image)
+                {
+                    $name=time().$image->getClientOriginalName();
+                    $image->move(public_path().'/images', $name);
+                    $comments->images = $name;
+
+                }
+            }
+            if($request::hasFile('video')) {
+                foreach ($request->file('photo') as $video) {
+                    $file = Request::file('video');
+                    $filename = $file->getClientOriginalName();
+                    $path = public_path() . '/uploads/';
+                    $file->move($path, $filename);
+                    $comments->files=$filename;
+                    $comments->save();
+                }
+            }
         }
+        return Redirect::back();
     }
     public function insertLikes(Request $request)
     {

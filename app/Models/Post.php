@@ -20,6 +20,7 @@ class Post extends Model
         'start_date',
         'end_date',
         'user_id',
+        'files',
         'category_id',
         'images'
     ];
