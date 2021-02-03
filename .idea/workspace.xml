@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0ba76aa-4fc6-4ef7-9472-f1be294c1ec1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="e0ba76aa-4fc6-4ef7-9472-f1be294c1ec1" name="Default Changelist" comment="Forum">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +32,13 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,6 +151,15 @@
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/vendor/psy/psysh" />
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/moneyphp/money" />
+      <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/laravel/cashier" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
     </include_path>
   </component>
   <component name="ProjectId" id="1nHiI0vPSZsUkG4HHVxFKY7sbyx" />
@@ -137,17 +173,32 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../influencer" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sanctuaryforhumanity\public\images" />
+      <recent name="C:\xampp\htdocs\sanctuaryforhumanity\public" />
+      <recent name="C:\xampp\htdocs\sanctuaryforhumanity\public\js" />
+      <recent name="C:\xampp\htdocs\sanctuaryforhumanity\public\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sanctuaryforhumanity\public\css" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHP Script.2021_01_29_133820_add_about_to_users_table.php">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="2021_01_29_133820_add_about_to_users_table.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/database/migrations/2021_01_29_133820_add_about_to_users_table.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.2021_01_29_133820_add_about_to_users_table.php" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -168,51 +219,137 @@
       <workItem from="1611561988947" duration="7997000" />
       <workItem from="1611577197023" duration="2339000" />
       <workItem from="1611638044651" duration="1767000" />
-      <workItem from="1611654936561" duration="10649000" />
+      <workItem from="1611654936561" duration="13163000" />
+      <workItem from="1611724868424" duration="19218000" />
+      <workItem from="1611900469539" duration="700000" />
+      <workItem from="1611917237037" duration="11294000" />
+      <workItem from="1612156714170" duration="28136000" />
+      <workItem from="1612251130569" duration="2310000" />
+      <workItem from="1612328179601" duration="1589000" />
     </task>
+    <task id="LOCAL-00001" summary="Functionalities of sign up,sign in,network show categories with their posts,user's profile">
+      <created>1611928942758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1611928942759</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Functionalities of sign up,sign in,network show categories with their posts,user's profile">
+      <created>1611928987663</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1611928987663</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Functionalities of sign up,sign in,network show categories with their posts,user's profile">
+      <created>1611929042269</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611929042269</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changes">
+      <created>1612172598571</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1612172598571</updated>
+    </task>
+    <task id="LOCAL-00005" summary="changes">
+      <created>1612173859703</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1612173859703</updated>
+    </task>
+    <task id="LOCAL-00006" summary="new changes">
+      <created>1612251166119</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612251166119</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Forum">
+      <created>1612274184036</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1612274184036</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Functionalities of sign up,sign in,network show categories with their posts,user's profile" />
+    <MESSAGE value="changes" />
+    <MESSAGE value="new changes" />
+    <MESSAGE value="Forum" />
+    <option name="LAST_COMMIT_MESSAGE" value="Forum" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1611661542478">
+    <state x="669" y="202" key="#2021_01_29_133820_add_about_to_users_table.php" timestamp="1611927546260">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611661542478" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1611660394263">
+    <state x="669" y="202" key="#2021_01_29_133820_add_about_to_users_table.php/0.0.1920.1040@0.0.1920.1040" timestamp="1611927546260" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612188144369">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611660394263" />
-    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1611562128294">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612188144369" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1612329173192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611562128294" />
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1611656289133">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1612329173192" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1612270907031">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611656289133" />
-    <state x="667" y="255" width="585" height="530" key="find.popup" timestamp="1611314950620">
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612270907031" />
+    <state x="763" y="222" key="RollbackChangesDialog" timestamp="1611925731907">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="255" width="585" height="530" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611314950620" />
+    <state x="763" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611925731907" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1612274195273">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1612274195273" />
+    <state x="92" y="92" width="1736" height="847" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1611726981282">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="847" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611726981282" />
+    <state x="667" y="255" width="585" height="530" key="find.popup" timestamp="1612265038244">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="667" y="255" width="585" height="530" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612265038244" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1611735968353">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611735968353" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/network.blade.php</url>
-          <line>676</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/category.blade.php</url>
-          <line>128</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/resources/views/post_create.blade.php</url>
+          <line>30</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
