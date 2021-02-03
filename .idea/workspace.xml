@@ -21,8 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e0ba76aa-4fc6-4ef7-9472-f1be294c1ec1" name="Default Changelist" comment="Forum">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +223,7 @@
       <workItem from="1611917237037" duration="11294000" />
       <workItem from="1612156714170" duration="28136000" />
       <workItem from="1612251130569" duration="2310000" />
-      <workItem from="1612328179601" duration="1589000" />
+      <workItem from="1612328179601" duration="4837000" />
     </task>
     <task id="LOCAL-00001" summary="Functionalities of sign up,sign in,network show categories with their posts,user's profile">
       <created>1611928942758</created>
