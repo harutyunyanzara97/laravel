@@ -15,6 +15,9 @@ class UserController extends Controller
     public function home(){
         return view ('home');
     }
+    public function members(){
+        return view ('members');
+    }
     public function network(){
         return view('network');
     }

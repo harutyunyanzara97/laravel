@@ -27,6 +27,8 @@ Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index']
 Route::get('/home', [App\Http\Controllers\UserController::class, 'home'])->name('home');
 Route::get('/signup', [App\Http\Controllers\UserController::class, 'sign_up'])->name('signup');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+Route::get('/members', [App\Http\Controllers\UserController::class, 'members'])->name('members');
+Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'contribute'])->name('contribute');
 Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editProfile');
 Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('logoutUser');
