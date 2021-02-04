@@ -161,28 +161,6 @@ path {
     fill: rgb(155, 203, 108);
 }
 
-.main-banner p {
-    color: #fff;
-    font-size: 17px;
-    font-weight: bold;
-    line-height: 18px;
-    letter-spacing: -1px;
-    opacity: 0.8;
-    background: #4e6636b8;
-    margin: 63px auto 40px;
-    max-width: 774px;
-    text-align: center;
-    padding: 30px 0;
-}
-
-.main-section {
-    width: 358px;
-    height: 700px;
-    background: #4e6636b8;
-    margin: 0 auto;
-    padding: 35px 20px;
-    margin-bottom: 200px;
-}
 
 .middle-content ul {
     list-style: disc;
@@ -230,7 +208,7 @@ p, .middle-content ul li {
     color: #fff;
 }
 
-.network-section {
+.network-section , .members-section {
     max-width: 940px;
     position: relative;
     margin: auto;
