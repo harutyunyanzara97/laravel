@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#about").Editor();
+            $("#txtEditor").Editor();
         });
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -452,7 +452,7 @@
             <div class="profile-right-banner">
                 <form method="post" id="editProfile" enctype="multipart/form-data">
                     @csrf
-
+                    <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="id" value="{{$user->id}}">
                     <div class="container-fluid rich-editor">
                         <h3>About
@@ -466,7 +466,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <textarea id="about" name="about"></textarea>
+                                        <textarea id="txtEditor" name="about"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -671,38 +671,41 @@
         })
     });
 </script>
-{{--<script>--}}
-{{--    $("#editProfile").on("submit", function(e) {--}}
-{{--        e.preventDefault();--}}
-{{--        var about = $('textarea#about').val();--}}
+<script>
+    $("#editProfile").on("submit", function(e) {
+        e.preventDefault();
+        var edit=$('.Editor-editor').text();
+        let id=$('input[name=id]').val();
+        var about = $('textarea#txtEditor').text(edit);
+        let aboutVal=about.val();
 
-{{--        // let about = $("textarea#txtEditor").val();--}}
-{{--        // console.log(about);--}}
-{{--        // let formData={};--}}
-{{--        // formData.append(about);--}}
-{{--        // let formdata = new FormData($(this)[0]);--}}
-{{--        // formdata.append('about',about);--}}
-{{--        // console.log(formdata)--}}
-{{--        $.ajaxSetup({--}}
-{{--            headers: {--}}
-{{--                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-{{--            }--}}
-{{--        });--}}
+        // let about = $("textarea#txtEditor").val();
+        // console.log(about);
+        // let formData={};
+        // formData.append(about);
+        // let formdata = new FormData($(this)[0]);
+        // formdata.append('about',about);
+        // console.log(formdata)
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
 
-{{--        $.ajax({--}}
-{{--            url:'editProfile',--}}
-{{--            type: 'PUT',--}}
-{{--            data: {_token: $('meta[name="csrf-token"]').attr('content')},--}}
-{{--            dataType: 'json',--}}
-{{--            processData: false,--}}
-{{--            contentType: false,--}}
-{{--            success: function(response) {--}}
-{{--                console.log(response);--}}
-{{--            },error:function (error){--}}
-{{--                console.log(error)--}}
-{{--            }--}}
-{{--        });--}}
+        $.ajax({
+            url:'{{route('editAbout')}}',
+            type: 'PUT',
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+            },error:function (error){
+                console.log(error)
+            }
+        });
 
-{{--    })--}}
+    })
 
-{{--    </script>--}}
+    </script>

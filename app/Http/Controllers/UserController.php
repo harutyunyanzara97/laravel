@@ -107,6 +107,7 @@ class UserController extends Controller
         , '</script>';
     }
     public function editProfile(Request $request){
+        dd($request);
         $user = User::where('id', $request->id)->first();
         $user->fill($request->about);
         $user->save();
