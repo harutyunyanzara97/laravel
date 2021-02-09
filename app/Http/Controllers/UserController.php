@@ -106,10 +106,25 @@ class UserController extends Controller
         , 'history.go(-1);'
         , '</script>';
     }
+    public function editProfile(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $user->fill($request->about);
+        $user->save();
+        return response()->json($user);
+    }
     public function account() {
         $user = User::where('id', Auth::user()->getId())->first();
         return view('account',compact('user'));
     }
+    public function myPosts() {
+        return view('myPosts');
+    }
+
+    public function myComments() {
+        return view('myComments');
+    }
+
+
     public function logout (Request $r) {
         Session::forget('user_id');
         return Redirect::to('/login');

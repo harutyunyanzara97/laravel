@@ -28,10 +28,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 </head>
 <body translate="no">
-
-<div class="page-bg">
-
-</div>
 <div class="main-container position-relative">
     <div class="profile-banner align-items-center">
         <div class="account-form">

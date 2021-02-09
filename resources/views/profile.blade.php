@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>sanctuaryforhumanity</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{asset('css/reset.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
@@ -16,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#txtEditor").Editor();
+            $("#about").Editor();
         });
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -358,12 +359,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a class="myPosts">
                             Forum Post
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a class="myComments">
                             Forum Comments
                         </a>
                     </li>
@@ -372,16 +373,16 @@
                             My Account
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            Notifications
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Settings
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="#">--}}
+{{--                            Notifications--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li>--}}
+{{--                        <a href="#">--}}
+{{--                            Settings--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 </ul>
 
                 <button data-path="{{ route('show')}}" class="btn payment-btn" data-toggle="modal"
@@ -449,8 +450,10 @@
                 </div>
             </div>
             <div class="profile-right-banner">
-                <form method="post" action="{{url('editProfile')}}">
+                <form method="post" id="editProfile" enctype="multipart/form-data">
                     @csrf
+
+                    <input type="hidden" name="id" value="{{$user->id}}">
                     <div class="container-fluid rich-editor">
                         <h3>About
                         </h3>
@@ -463,7 +466,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <textarea id="txtEditor" name="about"></textarea>
+                                        <textarea id="about" name="about"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -601,28 +604,52 @@
     });
     //# sourceURL=pen.js
 </script>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#imagePreview').hide();
-                $('#imagePreview').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+{{--<script>--}}
+{{--    function readURL(input) {--}}
+{{--        if (input.files && input.files[0]) {--}}
+{{--            var reader = new FileReader();--}}
+{{--            reader.onload = function (e) {--}}
+{{--                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');--}}
+{{--                $('#imagePreview').hide();--}}
+{{--                $('#imagePreview').fadeIn(650);--}}
+{{--            }--}}
+{{--            reader.readAsDataURL(input.files[0]);--}}
+{{--        }--}}
+{{--    }--}}
 
-    $("#imageUpload").change(function () {
-        readURL(this);
-    });
-</script>
+{{--    $("#imageUpload").change(function () {--}}
+{{--        readURL(this);--}}
+{{--    });--}}
+{{--</script>--}}
 <script>
     $('.payment').on('click', function (event) {
         event.preventDefault();
         $.ajax({
             url: '/plans',
+            method: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: (response) => {
+                console.log(response);
+                $(".profile-right-banner").html(response);
+            }
+        })
+    });
+    $('.myPosts').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/myPosts',
+            method: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: (response) => {
+                console.log(response);
+                $(".profile-right-banner").html(response);
+            }
+        })
+    });
+    $('.myComments').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/myComments',
             method: "get",
             data: {_token: $('meta[name="csrf-token"]').attr('content')},
             success: (response) => {
@@ -644,3 +671,38 @@
         })
     });
 </script>
+{{--<script>--}}
+{{--    $("#editProfile").on("submit", function(e) {--}}
+{{--        e.preventDefault();--}}
+{{--        var about = $('textarea#about').val();--}}
+
+{{--        // let about = $("textarea#txtEditor").val();--}}
+{{--        // console.log(about);--}}
+{{--        // let formData={};--}}
+{{--        // formData.append(about);--}}
+{{--        // let formdata = new FormData($(this)[0]);--}}
+{{--        // formdata.append('about',about);--}}
+{{--        // console.log(formdata)--}}
+{{--        $.ajaxSetup({--}}
+{{--            headers: {--}}
+{{--                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--            }--}}
+{{--        });--}}
+
+{{--        $.ajax({--}}
+{{--            url:'editProfile',--}}
+{{--            type: 'PUT',--}}
+{{--            data: {_token: $('meta[name="csrf-token"]').attr('content')},--}}
+{{--            dataType: 'json',--}}
+{{--            processData: false,--}}
+{{--            contentType: false,--}}
+{{--            success: function(response) {--}}
+{{--                console.log(response);--}}
+{{--            },error:function (error){--}}
+{{--                console.log(error)--}}
+{{--            }--}}
+{{--        });--}}
+
+{{--    })--}}
+
+{{--    </script>--}}

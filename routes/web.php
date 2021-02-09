@@ -31,11 +31,14 @@ Route::get('/signup', [App\Http\Controllers\UserController::class, 'sign_up'])->
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('/members', [App\Http\Controllers\UserController::class, 'members'])->name('members');
 Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'contribute'])->name('contribute');
+Route::put('/editProfile', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editAbout');
 Route::post('/storeProfile', [App\Http\Controllers\UserController::class, 'storeProfile'])->name('storeProfile');
 Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
 Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('logoutUser');
 Route::get('/login', [App\Http\Controllers\UserController::class, 'login'])->name('login');
 Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
+Route::get('/myPosts', [App\Http\Controllers\UserController::class, 'myPosts'])->name('myPosts');
+Route::get('/myComments', [App\Http\Controllers\UserController::class, 'myComments'])->name('myComments');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
 Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');

@@ -1730,6 +1730,18 @@ ul li {
 .profile-list a.myAccount:not([href]):not([tabindex]):hover {
     color: white;
 }
+.profile-list a.myPosts:not([href]):not([tabindex]) {
+    color: rgb(65, 65, 65);
+}
+.profile-list a.myPosts:not([href]):not([tabindex]):hover {
+    color: white;
+}
+.profile-list a.myComments:not([href]):not([tabindex]) {
+    color: rgb(65, 65, 65);
+}
+.profile-list a.myComments:not([href]):not([tabindex]):hover {
+    color: white;
+}
 .catModal {
     margin-top: 150px;
 }
@@ -1807,4 +1819,7 @@ ul li {
 }
 .post .avatar-upload .avatar-preview > div {
     border-radius: 0;
+}
+.nopadding{
+    color: white;
 }
