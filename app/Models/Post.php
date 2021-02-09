@@ -37,4 +37,11 @@ class Post extends Model
     {
         return $this->hasMany(Like::class, 'post_id');
     }
+    public function countComments(){
+        return count($this->comments);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

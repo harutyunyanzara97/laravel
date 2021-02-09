@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddVideosToPostsTable extends Migration
+class AddImagesToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddVideosToPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->string('files')->nullable();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->string('images')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddVideosToPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table) {
             //
         });
     }

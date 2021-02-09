@@ -34,11 +34,12 @@
                         <form action="{{url('/dashboard')}}" method="post" class="pt-2">
                             @csrf
                             <div class="form-group">
+                                {!! $errors->first('email', '<small class="text-danger">:message</small>') !!}
                                 <input type="email" class="form-control pr-input" id="email" name="email"
                                        placeholder="Email">
                             </div>
                             <div class="form-group">
-
+                                {!! $errors->first('password', '<small class="text-danger">:message</small>') !!}
                                 <input type="password" class="form-control pr-input" name="password" id="Password"
                                        placeholder="Password">
                             </div>

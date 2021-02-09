@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +12,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="js/editor.js"></script>
+    {{--    <script src="{{asset('js/editor.js')}}"></script>--}}
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+    <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="{{asset('js/main.js')}}"></script>
     <script>
         $(document).ready(function () {
             $("#txtEditor").Editor();
@@ -28,6 +32,17 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+    <style>
+        #selectedFiles{
+            display: flex;
+        }
+        #selectedFiles img {
+            max-width: 125px;
+            max-height: 125px;
+            float: left;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body translate="no">
 <div class="page-bg"></div>
@@ -57,12 +72,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="contributors.html">
+                                <a href="{{route('contribute')}}">
                                     Contributors
                                 </a>
                             </li>
                             <li>
-                                <a href="members.html">
+                                <a href="{{route('members')}}">
                                     Members
                                 </a>
                             </li>
@@ -72,18 +87,28 @@
                 <div class="registration-banner">
 
                     <div class="d-flex">
-                        <svg data-bbox="7 3 36 45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50" width="50" data-type="shape">
+                        <svg data-bbox="7 3 36 45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50"
+                             width="50" data-type="shape">
                             <g>
-                                <path d="M38.473 34.564L43 39.273v2.298H7v-2.298l4.527-4.71V22.959c0-3.662.88-6.82 2.64-9.474 1.797-2.729 4.294-4.504 7.492-5.326V6.532c0-.972.323-1.803.97-2.495C23.275 3.346 24.066 3 25 3c.934 0 1.734.346 2.398 1.037.665.692.997 1.523.997 2.495v1.626c3.162.822 5.64 2.616 7.437 5.382 1.76 2.654 2.641 5.793 2.641 9.418v11.606zM25 48c-1.364 0-2.523-.47-3.477-1.411-.955-.94-1.432-2.078-1.432-3.41h9.818c0 1.332-.487 2.47-1.46 3.41C27.473 47.529 26.324 48 25 48z" fill-rule="evenodd"></path>
+                                <path
+                                    d="M38.473 34.564L43 39.273v2.298H7v-2.298l4.527-4.71V22.959c0-3.662.88-6.82 2.64-9.474 1.797-2.729 4.294-4.504 7.492-5.326V6.532c0-.972.323-1.803.97-2.495C23.275 3.346 24.066 3 25 3c.934 0 1.734.346 2.398 1.037.665.692.997 1.523.997 2.495v1.626c3.162.822 5.64 2.616 7.437 5.382 1.76 2.654 2.641 5.793 2.641 9.418v11.606zM25 48c-1.364 0-2.523-.47-3.477-1.411-.955-.94-1.432-2.078-1.432-3.41h9.818c0 1.332-.487 2.47-1.46 3.41C27.473 47.529 26.324 48 25 48z"
+                                    fill-rule="evenodd"></path>
                             </g>
                         </svg>
-                        <svg data-bbox="0 0 50 50" data-type="shape" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" class="dropIcon">
-                            <g>
-                                <path d="M25 48.077c-5.924 0-11.31-2.252-15.396-5.921 2.254-5.362 7.492-8.267 15.373-8.267 7.889 0 13.139 3.044 15.408 8.418-4.084 3.659-9.471 5.77-15.385 5.77m.278-35.3c4.927 0 8.611 3.812 8.611 8.878 0 5.21-3.875 9.456-8.611 9.456s-8.611-4.246-8.611-9.456c0-5.066 3.684-8.878 8.611-8.878M25 0C11.193 0 0 11.193 0 25c0 .915.056 1.816.152 2.705.032.295.091.581.133.873.085.589.173 1.176.298 1.751.073.338.169.665.256.997.135.515.273 1.027.439 1.529.114.342.243.675.37 1.01.18.476.369.945.577 1.406.149.331.308.657.472.98.225.446.463.883.714 1.313.182.312.365.619.56.922.272.423.56.832.856 1.237.207.284.41.568.629.841.325.408.671.796 1.02 1.182.22.244.432.494.662.728.405.415.833.801 1.265 1.186.173.154.329.325.507.475l.004-.011A24.886 24.886 0 0 0 25 50a24.881 24.881 0 0 0 16.069-5.861.126.126 0 0 1 .003.01c.172-.144.324-.309.49-.458.442-.392.88-.787 1.293-1.209.228-.232.437-.479.655-.72.352-.389.701-.78 1.028-1.191.218-.272.421-.556.627-.838.297-.405.587-.816.859-1.24a26.104 26.104 0 0 0 1.748-3.216c.208-.461.398-.93.579-1.406.127-.336.256-.669.369-1.012.167-.502.305-1.014.44-1.53.087-.332.183-.659.256-.996.126-.576.214-1.164.299-1.754.042-.292.101-.577.133-.872.095-.89.152-1.791.152-2.707C50 11.193 38.807 0 25 0"></path>
-                            </g>
-                        </svg>
-                        <button type="button" class="btn-generic btn profile-arrow  dropdown-toggle" @if(auth()->guest())data-toggle="modal"@else data-toggle="dropdown"@endif aria-haspopup="true" aria-expanded="false" @if(auth()->guest())data-target=".login-modal"@endif>
-                            <svg width="14" height="8" viewBox="0 0 14 8"><path d="M1.707.293L.293 1.707l6 6a1 1 0 001.397.016l6-5.726L12.31.55 7.016 5.602 1.707.292z"></path></svg>
+                        <img src="{{asset('images/'.$user->avatar_url)}}" width="40px" height="40px">
+                        {{--                        <svg data-bbox="0 0 50 50" data-type="shape" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" class="dropIcon">--}}
+                        {{--                            <g>--}}
+                        {{--                                <path d="M25 48.077c-5.924 0-11.31-2.252-15.396-5.921 2.254-5.362 7.492-8.267 15.373-8.267 7.889 0 13.139 3.044 15.408 8.418-4.084 3.659-9.471 5.77-15.385 5.77m.278-35.3c4.927 0 8.611 3.812 8.611 8.878 0 5.21-3.875 9.456-8.611 9.456s-8.611-4.246-8.611-9.456c0-5.066 3.684-8.878 8.611-8.878M25 0C11.193 0 0 11.193 0 25c0 .915.056 1.816.152 2.705.032.295.091.581.133.873.085.589.173 1.176.298 1.751.073.338.169.665.256.997.135.515.273 1.027.439 1.529.114.342.243.675.37 1.01.18.476.369.945.577 1.406.149.331.308.657.472.98.225.446.463.883.714 1.313.182.312.365.619.56.922.272.423.56.832.856 1.237.207.284.41.568.629.841.325.408.671.796 1.02 1.182.22.244.432.494.662.728.405.415.833.801 1.265 1.186.173.154.329.325.507.475l.004-.011A24.886 24.886 0 0 0 25 50a24.881 24.881 0 0 0 16.069-5.861.126.126 0 0 1 .003.01c.172-.144.324-.309.49-.458.442-.392.88-.787 1.293-1.209.228-.232.437-.479.655-.72.352-.389.701-.78 1.028-1.191.218-.272.421-.556.627-.838.297-.405.587-.816.859-1.24a26.104 26.104 0 0 0 1.748-3.216c.208-.461.398-.93.579-1.406.127-.336.256-.669.369-1.012.167-.502.305-1.014.44-1.53.087-.332.183-.659.256-.996.126-.576.214-1.164.299-1.754.042-.292.101-.577.133-.872.095-.89.152-1.791.152-2.707C50 11.193 38.807 0 25 0"></path>--}}
+                        {{--                            </g>--}}
+                        {{--                        </svg>--}}
+                        <button type="button" class="btn-generic profile-arrow  dropdown-toggle"
+                                @if(auth()->guest())data-toggle="modal" @else data-toggle="dropdown"
+                                @endif aria-haspopup="true" aria-expanded="false"
+                                @if(auth()->guest())data-target=".login-modal"@endif>
+                            <svg width="14" height="8" viewBox="0 0 14 8">
+                                <path
+                                    d="M1.707.293L.293 1.707l6 6a1 1 0 001.397.016l6-5.726L12.31.55 7.016 5.602 1.707.292z"></path>
+                            </svg>
                             @if (auth()->guest())
                                 Log In
                             @endif
@@ -92,8 +117,9 @@
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                            <a class="dropdown-item" href="https://google.com/">My Account</a>
-                            <a class="dropdown-item" href="{{route('logoutUser')}}"> @if(auth()->user()) Log out @endif</a>
+                            <a class="dropdown-item" href="{{route('account')}}">My Account</a>
+                            <a class="dropdown-item" href="{{route('logoutUser')}}"> @if(auth()->user()) Log
+                                out @endif</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </div>
@@ -154,41 +180,65 @@
                     <div class="resources-forum-left">
                         <div class="banner d-flex">
                             <div class="d-flex">
-                                @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid logo " width=24px height="24px"/>@endif
+                                @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}"
+                                                           class="img-fluid logo " width=24px height="24px"/>@endif
                                 <a href="{{route('profile')}}" style="color:#fff;margin-left:8px;">{{$user->name}} </a>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19"
                                      aria-label="Admin"
-                                     class="_3LDKX forum-icon-fill forum-icon-fill _1zT4G" style="fill-rule: evenodd;margin-left:8px;"">
-                                    <path d="M15.3812,6.495914 L12.6789333,8.77258837 C12.6191333,8.84477644 12.5099333,8.85722265 12.4354,8.79997005 C12.4215333,8.79001308 12.4094,8.77756686 12.3998667,8.76429089 L9.78686667,6.14327115 C9.67766667,5.99225704 9.46186667,5.95491839 9.305,6.05863687 C9.26946667,6.08186981 9.23913333,6.11091099 9.21573333,6.14493065 L6.60013333,8.81075677 C6.5464,8.88626383 6.43893333,8.90534803 6.3592,8.85390366 C6.34446667,8.84394669 6.33146667,8.83233022 6.32106667,8.81905425 L3.61966667,6.50587098 C3.5018,6.36149485 3.28426667,6.33577266 3.13346667,6.44861837 C3.0494,6.51167921 3,6.60792997 3,6.70998895 L4,14 L15,14 L16,6.70169148 C16,6.51831719 15.8448667,6.36979232 15.6533333,6.36979232 C15.5476,6.36979232 15.4470667,6.41625821 15.3812,6.495914 Z"></path>
+                                     class="_3LDKX forum-icon-fill forum-icon-fill _1zT4G"
+                                     style="fill-rule: evenodd;margin-left:8px;"
+                                ">
+                                <path
+                                    d="M15.3812,6.495914 L12.6789333,8.77258837 C12.6191333,8.84477644 12.5099333,8.85722265 12.4354,8.79997005 C12.4215333,8.79001308 12.4094,8.77756686 12.3998667,8.76429089 L9.78686667,6.14327115 C9.67766667,5.99225704 9.46186667,5.95491839 9.305,6.05863687 C9.26946667,6.08186981 9.23913333,6.11091099 9.21573333,6.14493065 L6.60013333,8.81075677 C6.5464,8.88626383 6.43893333,8.90534803 6.3592,8.85390366 C6.34446667,8.84394669 6.33146667,8.83233022 6.32106667,8.81905425 L3.61966667,6.50587098 C3.5018,6.36149485 3.28426667,6.33577266 3.13346667,6.44861837 C3.0494,6.51167921 3,6.60792997 3,6.70998895 L4,14 L15,14 L16,6.70169148 C16,6.51831719 15.8448667,6.36979232 15.6533333,6.36979232 C15.5476,6.36979232 15.4470667,6.41625821 15.3812,6.495914 Z"></path>
                                 </svg>
                             </div>
                         </div>
-                         <form method="post" enctype="multipart/form-data" action="{{url('/store')}}">
-                             @csrf
-                             <input type="hidden" value="{{$category->id}}" name="id">
-                        <input type="text" name="title" class="textEditt" placeholder="Give this post a title">
-                        <div class="">
-                            <input type="text" name="description" class="textEdit" placeholder="Write your post here.Add photos,videos and more to get your message across.">
-                        </div>
-                             <div class="image-upload">
-                                 <input id="upload" type="file" name="photo[]" onchange="readURL(this);" style="display: none"  class="form-control">
-                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
-                                     <div class="_1qOTu css-mm44dn css-1402lio"><svg width="30" height="19" viewBox="0 0 19 19"><g fill-rule="evenodd"><path d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></g></svg></div>
-                                 </label>
-                                 <input id="upload" type="file" name="video[]" onchange="readURL(this);" style="display: none"  class="form-control">
-                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">
-                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="30" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>
-                                 </label>
-                             </div>
-                             <div class="d-flex justify-content-between">
-                                 <div>
-                                 </div>
-                                 <div class="d-flex justify-content-between w-70">
-                                     <button type="reset" class="publish_cancel">Cancel</button>
-                                 <button class="publish_btn" type="submit">Publish</button>
-                                 </div>
-                             </div>
-                         </form>
+                        <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/store')}}">
+                            @csrf
+                            <input type="hidden" value="{{$category->id}}" name="id">
+                            <input type="text" name="title" class="textEditt" placeholder="Give this post a title">
+                            <div class="">
+                                <textarea name="description" class="textEdit"
+                                          placeholder="Write your post here.Add photos,videos and more to get your message across."></textarea>
+                            </div>
+                            <div class="image-upload post">
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+
+                                        <label for="imageUpload">
+                                            <div class="_1qOTu css-mm44dn css-1402lio">
+                                                <svg width="30" height="19" viewBox="0 0 19 19">
+                                                    <g fill-rule="evenodd">
+                                                        <path
+                                                            d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                            <input type="file" id="imageUpload" name="photo[]" multiple/>
+                                        </label>
+                                    </div>
+                                    <div id="selectedFiles"></div>
+                                </div>
+                                {{--                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">--}}
+                                {{--                                     <div class="_1qOTu css-mm44dn css-1402lio"><svg width="30" height="19" viewBox="0 0 19 19"><g fill-rule="evenodd"><path d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></g></svg></div>--}}
+                                {{--                                 </label>--}}
+                                <input id="upload" type="file" name="video[]" onchange="readURL(this);"
+                                       style="display: none" class="form-control">
+                                {{--                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">--}}
+                                {{--                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="30" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>--}}
+                                {{--                                 </label>--}}
+
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                </div>
+                                <div class="d-flex justify-content-between w-70">
+                                    <button type="reset" class="publish_cancel">Cancel</button>
+                                    <button class="publish_btn" type="submit">Publish</button>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -212,6 +262,109 @@
         });
     });
     //# sourceURL=pen.js
+</script>
+<script>
+
+    //     function readmultifiles(files) {
+    //         var reader = new FileReader();
+    //         function readFile(index) {
+    //             if( index >= files.length ) return;
+    //             var file = files[index];
+    //             reader.onload = function(e) {
+    //                 var bin = e.target.result;
+    //                 $("#imagePreview").append(`<img src='${file.name}'>`)
+    //
+    // // get file content
+    //
+    // // do sth with bin
+    //                 readFile(index+1)
+    //             }
+    //             reader.readAsBinaryString(file);
+    //         }
+    //         readFile(0);
+    //     }
+
+    //
+    // function readURL(input) {
+    //    // input.files.map((item)=>{
+    //    //
+    //    // });
+    //     // if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+    //         // console.log(reader)
+    //         reader.onload = function(e) {
+    //             $('#imagePreview').append(`<img src="${ e.target.result}">`);
+    //             // $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+    //             // $('#imagePreview').hide();
+    //             // $('#imagePreview').fadeIn(650);
+    //         }
+    //         for(i=0; i<input.files.length; i++){
+    //
+    //             console.log( e.target.result,'rdsfgdsfgdfg ')
+    //             $('#imagePreview').append(`<img src="${''}">`);
+    //             console.log(input.files[i],'iiiiiiiiiii')
+    //
+    //         }
+    //     }
+    //
+    //     // reader.readAsDataURL(input.files[0]);
+    //     // reader.readAsDataURL(input.files[1]);
+    //
+    //
+    //
+    // $("#imageUpload").change(function() {
+    //     readURL(this);
+    // });
+
+
+
+    var selDiv = "";
+
+    document.addEventListener("DOMContentLoaded", init, false);
+
+    function init() {
+        document.querySelector('#imageUpload').addEventListener('change', handleFileSelect, false);
+        selDiv = document.querySelector("#selectedFiles");
+    }
+
+    function handleFileSelect(e) {
+
+        if (!e.target.files || !window.FileReader) return;
+
+        selDiv.innerHTML = "";
+
+        let files = e.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+        filesArr.forEach(function (f) {
+            if (!f.type.match("image.*")) {
+                return;
+            }
+
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let html = "<img src=\"" + e.target.result + "\">";
+                selDiv.innerHTML += html;
+            }
+            reader.readAsDataURL(f);
+        });
+
+    }
+</script>
+<script>
+    updateList = function () {
+
+
+        var input = document.getElementById('imageUpload');
+        var output = document.getElementById('imagePreview');
+        console.log(input)
+        var children = "";
+        for (var i = 0; i < input.files.length; ++i) {
+            let url = $('#imageUpload')[i]
+            console.log(input.files[i].url, '55555555555555555');
+            // children += '<img src="'+ url + input.files.item(i).name + '" width="200px" height="200px">';
+        }
+        output.innerHTML = children;
+    }
 </script>
 <!--<script src="js/jquery.min.js"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->

@@ -9,12 +9,15 @@ use App\Models\Follow;
 class Category extends Model
 {
     protected $fillable = [
-        'name','page_title','description','img_url'
+        'name','page_title','description','img_url','comment_id'
     ];
     use HasFactory;
 
     public function posts(){
         return $this->hasMany(Post::class,'category_id','id');
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class,'category_id');
     }
     public function followers()
     {

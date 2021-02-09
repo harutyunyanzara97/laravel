@@ -13,10 +13,15 @@ use Session;
 class UserController extends Controller
 {
     public function home(){
-        return view ('home');
+        $user = User::where('id', Auth::user()->getId())
+            ->first();
+        return view ('home',compact('user'));
     }
     public function members(){
-        return view ('members');
+        $user = User::where('id', Auth::user()->getId())
+            ->first();
+        $users=User::all();
+        return view ('members',compact('users','user'));
     }
     public function network(){
         return view('network');
@@ -29,10 +34,12 @@ class UserController extends Controller
     }
     public function store(Request $request) {
         $user=new User();
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $valid=$request->validate(['email' => 'required|email|unique:users', 'password' => 'required|min:6']);
+        if ($valid->fails()) {
+            return redirect()->back()
+                ->withErrors($valid)
+                ->withInput();
+        }
         $user->fill($request->all());
         $user->password = Hash::make($request->password);
         $user->save();
@@ -77,18 +84,31 @@ class UserController extends Controller
             ->first();
         return view('profile',compact('user',$user));
     }
-    public function editProfile(Request $request){
-        $user = User::where('id', Auth::user()->getId())
-            ->first();
-      dd($request->about);
-      $user->save();
+    public function storeProfile(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $request->validate(['name' => 'required', 'contact_email' => 'required|email']);
+        $user->fill($request->all());
+        $user->save();
+        if($request->hasfile('photo'))
+        {
+
+            foreach($request->file('photo') as $image)
+            {
+                $name=time().$image->getClientOriginalName();
+                $image->move(public_path().'/images', $name);
+                $user->avatar_url = $name;
+                $user->save();
+
+            }
+        }
         echo '<script type="text/javascript">'
         , 'history.go(-1);'
         , '</script>';
-
     }
     public function account() {
-        return view('account');
+        $user = User::where('id', Auth::user()->getId())->first();
+        return view('account',compact('user'));
     }
     public function logout (Request $r) {
         Session::forget('user_id');

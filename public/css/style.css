@@ -137,7 +137,6 @@ button.profile-arrow svg{
 .registration-banner button {
     color: rgb(78, 102, 54);
     font-size: 15px;
-    padding-left: 10px;
 }
 
 .registration-banner .d-flex {
@@ -707,6 +706,10 @@ button {
 #rightSideModal .modal-footer {
     background: #fff;
     margin-top: -10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 .modal.login-modal  .modal-dialog .modal-content {
     border-radius: 2px;

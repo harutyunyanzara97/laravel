@@ -22,14 +22,14 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable(false);
             $table->unsignedBigInteger('follow_id')->nullable(false);
             $table->enum('type',['discussions','questions'])->default('questions');
+            $table->string('files')->nullable();
             $table->longText('description')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->string('images')->nullable();
             $table->timestamps();
         });
         Schema::table('posts', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
         });
         Schema::enableForeignKeyConstraints();
     }

@@ -33,11 +33,16 @@
                         <form action="{{url('/storeUser')}}" method="post" class="pt-2">
                             @csrf
                             <div class="form-group">
+                                @if($errors->has('email'))
+                                    <div class="error">{{ $errors->first('email') }}</div>
+                                @endif
                                 <input type="email" class="form-control pr-input" id="email" name="email"
                                        placeholder="Email">
                             </div>
                             <div class="form-group">
-
+                                @if($errors->has('password'))
+                                    <div class="error">{{ $errors->first('password') }}</div>
+                                @endif
                                 <input type="password" class="form-control pr-input" name="password" id="Password"
                                        placeholder="Password">
                             </div>

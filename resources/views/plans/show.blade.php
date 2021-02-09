@@ -1,4 +1,18 @@
-<form action="{{ route('subscription') }}" method="post" id="payment-form">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sanctuaryforhumanity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/reset.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">
+</head>
+<body>
+<form action="{{ url('subscription') }}" method="post" id="payment-form">
     @csrf
     <div class="text-center p-22-32">
         <h3 class="title-24">{{$plan->name}} - ${{ number_format($plan->cost, 2) }}/month</h3>
@@ -17,6 +31,7 @@
         <button class="btn-red w-100 br-5 h--45 mt-3">Subscribe</button>
     </div>
 </form>
+</body>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
