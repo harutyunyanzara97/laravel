@@ -1727,21 +1727,27 @@ ul li {
 .profile-list a.myAccount:not([href]):not([tabindex]) {
     color: rgb(65, 65, 65);
 }
+
 .profile-list a.myAccount:not([href]):not([tabindex]):hover {
     color: white;
 }
+
 .profile-list a.myPosts:not([href]):not([tabindex]) {
     color: rgb(65, 65, 65);
 }
+
 .profile-list a.myPosts:not([href]):not([tabindex]):hover {
     color: white;
 }
+
 .profile-list a.myComments:not([href]):not([tabindex]) {
     color: rgb(65, 65, 65);
 }
+
 .profile-list a.myComments:not([href]):not([tabindex]):hover {
     color: white;
 }
+
 .catModal {
     margin-top: 150px;
 }
@@ -1758,14 +1764,16 @@ ul li {
     display: block;
 }
 
-#stripeModal  .modal-content {
+#stripeModal .modal-content {
     padding: 20px;
     border-radius: 5px;
 }
+
 #stripeModal .card input {
     margin: 0 !important;
 
 }
+
 #stripeModal .modal-dialog {
     margin: auto;
     position: absolute;
@@ -1777,28 +1785,35 @@ ul li {
     top: 0;
     border-radius: 10px;
 }
-#stripeModal .modal-dialog  h2{
+
+#stripeModal .modal-dialog h2 {
     font-size: 24px;
 }
-#stripeModal  .modal-body {
+
+#stripeModal .modal-body {
     padding: 15px 0;
 }
-#stripeModal  .modal-header {
+
+#stripeModal .modal-header {
     padding: 0;
 }
-#stripeModal  .card-body {
+
+#stripeModal .card-body {
     padding: 15px 0;
 }
+
 #payment-submit {
     background: rgb(78, 102, 54);
     border: none;
     cursor: pointer;
 }
+
 #stripeModal .modal-header .close {
     position: absolute;
     right: 10px;
     top: -5px;
 }
+
 .profile-banner .payment-btn {
     color: rgb(65, 65, 65);
     display: block;
@@ -1807,19 +1822,46 @@ ul li {
     text-align: left;
     border-radius: 0;
 }
-.profile-banner .payment-btn:hover{
+
+.profile-banner .payment-btn:hover {
     color: #fff;
     background: rgb(65, 65, 65);
     text-decoration: none;
 }
+
 .rich-editor #menuBarDiv_txtEditor {
     position: absolute;
     bottom: 0;
     width: 96%;
 }
+
 .post .avatar-upload .avatar-preview > div {
     border-radius: 0;
 }
-.nopadding{
+
+.nopadding {
     color: white;
+}
+
+.comments-container h2 {
+    color: #fff;
+}
+
+.green-box {
+    background: rgba(78, 102, 54, 0.8);
+    border: 2px solid rgba(155, 203, 108, 0.8);
+    padding: 30px 30px 20px;
+}
+
+.comment-inner-container {
+    border: 1px solid rgba(155, 203, 108, 0.8);
+    padding: 20px 30px 20px;
+}
+
+.green-border {
+    display: block;
+    border-bottom: 1px solid rgba(155, 203, 108, 0.8);
+}
+.account-form p{
+    color: #fff;
 }
