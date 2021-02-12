@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sanctuaryforhumanity</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <div class="modal show right" id="rightSideModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="display: block">
     <div class="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
@@ -28,9 +36,9 @@
 
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                              data-parent="#accordion">
-                            <form action="{{url('update')}}" method="post" enctype="multipart/form-data">
+                            <form method="post" id="editcat" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="cat_id" value="{{$modal_category->id}}">
+                                <input type="hidden" name="cat_id" class="cat_id" value="{{$modal_category->id}}">
                                 <div class="card-body p-0">
                                     <div>
                                         <div class="tooltip">Name
@@ -42,7 +50,7 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="name" value="{{$modal_category->name}}">
+                                        <input type="text" name="name" class="catname" value="{{$modal_category->name}}">
                                     </div>
                                     <div>
                                         <div class="tooltip">Description
@@ -54,7 +62,7 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="description"
+                                        <input type="text" name="description" class="description"
                                                value="{{$modal_category->description}}">
                                     </div>
                                 </div>
@@ -73,7 +81,7 @@
                                         </div>
                                         <div class="avatar-preview">
                                             <div id="imagePreview"
-                                                 style="background-image: url({{asset('images/'.$modal_category->img_url)}}"
+                                                 style="background-image: url({{asset('images/'.$modal_category->img_url)}})"
                                                  alt="">
                                             </div>
                                         </div>
@@ -209,3 +217,44 @@
         <!--/.Content-->
     </div>
 </div>
+<script>
+    $("#editcat").on("submit", function(e) {
+        e.preventDefault();
+        let id=$('.cat_id').val();
+        let name=$('.catname').val();
+        let description=$('.description').val();
+        // let about = $("textarea#txtEditor").val();
+        // console.log(about);
+        // let formData={};
+        let formdata = new FormData($(this)[0]);
+        formdata.append('id',id);
+        formdata.append('name',name);
+        formdata.append('description',description);
+        // console.log(formdata)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url:'{{route('updateCat')}}',
+            type: 'POST',
+            data:formdata,
+            // dataType: 'json',
+            processData: false,
+            contentType:false,
+            success: function(response) {
+                console.log(response);
+                $('#name-' + response.id).text(response.name);
+                $('#desc-' + response.id).text(response.description);
+                {{--$('#img-' + response.id).prop('src','{{asset('images/' + ${response.img_url})}}');--}}
+            },error:function (error){
+                console.log(error)
+            }
+        });
+
+    });
+</script>
+
+</html>

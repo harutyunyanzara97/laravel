@@ -19,14 +19,12 @@ class PostController extends Controller
     private  $VIDEO = '';
     public function createPost($id){
         $category=Category::where('id',$id)->first();
-        $user=User::where('id',Auth::user()->getId())->first();
-        return view('post_create',compact('category','user'));
+        return view('post-create',compact('category'));
     }
     public function comments($id){
         $post=Post::where('id',$id)->with('categories')->first();
         $postUser=Post::where('id',$id)->with('user')->first();
-        $user=User::where('id',Auth::user()->getId())->first();
-        return view('post_comments',compact('post','user','postUser'));
+        return view('post-comments',compact('post','postUser'));
     }
     public function store(Request $request){
         $newPost = new Post();
@@ -45,8 +43,7 @@ class PostController extends Controller
             }
             $newPost->save();
         }
-        $user=User::where('id',Auth::user()->getId())->first();
-        return view('post_created',compact('newPost','user'));
+        return view('post-created',compact('newPost'));
     }
     public function insertComments(Request $request)
     {

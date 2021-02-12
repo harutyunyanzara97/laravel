@@ -1,8 +1,39 @@
 
+@font-face {
+    font-family: 'PacificaCondensed';
+    src: url('../fonts/PacificaCondensed/PacificaCondensed.eot');
+    src: url('../fonts/PacificaCondensed/PacificaCondensed.eot') format('embedded-opentype'),
+    url('../fonts/PacificaCondensed/PacificaCondensed.woff') format('woff'),
+    url('../fonts/PacificaCondensed/PacificaCondensed.ttf') format('truetype'),
+    url('../fonts/PacificaCondensed/PacificaCondensed.svg#PFDinTextProMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/*@font-face {*/
+/*    font-family: 'Muli-Light';*/
+/*    src: url('../fonts/Muli-Light/Muli-Light.eot');*/
+/*    src: url('../fonts/Muli-Light/Muli-Light.eot') format('embedded-opentype'),*/
+/*    url('../fonts/Muli-Light/Muli-Light.woff') format('woff'),*/
+/*    url('../fonts/Muli-Light/Muli-Light.ttf') format('truetype'),*/
+/*    url('../fonts/Muli-Light/Muli-Light.svg#PFDinTextProMedium') format('svg');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/Muli/Muli.eot');
+    src: url('../fonts/Muli/Muli.eot') format('embedded-opentype'),
+    url('../fonts/Muli/Muli.woff') format('woff'),
+    url('../fonts/Muli/Muli.ttf') format('truetype'),
+    url('../fonts/Muli/Muli.svg#PFDinTextProMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
     font-size: 10px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'PacificaCondensed';
 }
 
 header h1 {
@@ -17,13 +48,24 @@ header #collapsingNavbar a {
     margin: 15px;
     border-bottom: 4px solid;
     border-top: 4px solid;
-    font-family: 'PacificaCondensed';
+    /*font-family: 'PacificaCondensed';*/
     border-color: rgba(39, 51, 27, 0.48);
     font-size: 18px;
     font-weight: bold;
     padding: 9px 30px;
 }
-
+.logout-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
 header #collapsingNavbar a:hover, header #collapsingNavbar a.active-item {
     background: #4e6636b8;
     color: rgb(155, 203, 108);
@@ -1052,4 +1094,76 @@ button.sign-up {
     white-space: nowrap;
     display: flex;
     align-items: center;
+}
+.network-img-block {
+    width:150px;
+    height:100px;
+}
+.network-img-block img{
+    width:100%;
+    height: 100%;
+}
+::placeholder{
+    color: #fff !important;
+}
+.textEdit {
+    background: transparent;
+    width: 100%;
+    border: 1px solid #455636;
+    height: 300px;
+    color: #fff;
+    font-size: 15px;
+    padding: 20px;
+}
+.textEdit:focus{
+    outline: none;
+}
+.new-post-txt{
+    word-break: break-all;
+}
+.post-created-inner .resources-forum-right {
+    width: 100%;
+}
+.post-comments .post-inner {
+    width: 75%;
+    word-break: break-all;
+}
+.post-comments  .post-inner  , .post-comments .resources-forum-right {
+    font-size: 14px;
+    width: 100%;
+}
+.post-comments  .share_btn{
+    font-size: 14px;
+}
+.post-comments   .banner a{
+    font-size: 14px;
+}
+.post-comments  .resources-forum-left input{
+    border:none
+}
+.avatar-container {
+    border: 1px solid #839475;
+    padding: 10px;
+}
+.post-comments .image-upload {
+    display: flex;
+    margin: 12px;
+}
+#selectedFiless {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.post-comments  .avatar-upload{
+    max-width: 100%;
+}
+
+.post-comments  #selectedFiless img {
+    width: 48%;
+}
+.post-comments{
+    width:100%;
+}
+::placeholder {
+    transform: translateY(-60px);
 }

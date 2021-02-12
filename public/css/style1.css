@@ -48,7 +48,7 @@ header #collapsingNavbar a {
     margin: 15px;
     border-bottom: 4px solid;
     border-top: 4px solid;
-    font-family: 'PacificaCondensed';
+    /*font-family: 'PacificaCondensed';*/
     border-color: rgba(39, 51, 27, 0.48);
     font-size: 18px;
     font-weight: bold;
@@ -207,6 +207,7 @@ p, .middle-content ul li {
 .profile-left-banner {
     width: 30%;
     padding: 60px 25px;
+    height: 600px;
     background: #fff;
 }
 
@@ -253,7 +254,9 @@ p, .middle-content ul li {
     margin-bottom: 20px;
     background: rgba(65, 65, 65, 0.49);
 }
-
+.toCoursor {
+    cursor: pointer;
+}
 .profile-list li a {
     color: rgb(65, 65, 65);
     display: block;
@@ -374,7 +377,11 @@ p, .middle-content ul li {
     color: #fff;
     fill: #fff;
 }
-
+.follow{
+    color:white;
+    font-size: 13px;
+    cursor: pointer;
+}
 .follow-details {
     display: flex;
     position: relative;
@@ -1191,6 +1198,7 @@ button.sign-up {
 }
 
 .input-row {
+    display:flex;
     position: relative;
 }
 
@@ -1356,7 +1364,9 @@ input[type="text"].textEditt {
 
 .txt::placeholder {
     opacity: 0.6;
+    transform: translateY(-60px);
 }
+
 
 .TPASection_jrz95nhh [dir] .button-border-color {
     border-color: rgba(155, 203, 108, 0.73);
@@ -1430,7 +1440,6 @@ label {
 .account-form label {
     color: #fff;
 }
-
 .account-form input {
     width: 100%;
     border: none;
@@ -1563,10 +1572,14 @@ label {
 .postTable {
     width: 100%;
 }
-
+.postAv img{
+    margin-left:10px;
+    width:200px;
+    height: 200px;
+}
 .postTable td, th {
     display: flex;
-    width: 240px;
+    width: 170px;
 }
 
 .postTable tr {
@@ -1593,14 +1606,13 @@ label {
     padding: 40px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .members-box {
     border: 2px solid rgba(155, 203, 108, 0.82);
     height: 330px;
-    width: 32%;
     background: rgba(78, 102, 54, 0.8);
+    position: relative;
     margin-bottom: 20px;
 }
 
@@ -1619,6 +1631,7 @@ label {
 }
 
 .member-following {
+
     background: rgba(202, 229, 175, 0.6);
     height: 40px;
     width: 85%;
@@ -1627,6 +1640,10 @@ label {
     text-align: center;
     display: block;
     font-size: 14px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
 }
 
 .member-following:hover {
@@ -1660,7 +1677,9 @@ label {
     width: 90%;
     margin: 0 auto;
 }
-
+.contributors-middle-content p{
+    font-size: 16px;
+}
 .contributors-middle-content
 ul {
     list-style: disc;
@@ -1669,6 +1688,7 @@ ul {
 .contributors-middle-content
 ul li {
     margin-bottom: 20px;
+    font-size: 16px;
 }
 
 .donate-btn {
@@ -1679,6 +1699,7 @@ ul li {
     margin: 20px auto;
     text-align: center;
     display: block;
+    font-size: 14px;
 }
 
 .postbar {
@@ -1864,4 +1885,178 @@ ul li {
 }
 .account-form p{
     color: #fff;
+}
+.post-slider{
+    width: 100%;
+}
+.post-slider .mySlides{
+    display: block;
+    width: 65%;
+    margin: 0 auto;
+}
+.post-slider .mySlides img{
+    width: 100%;
+}
+.mySlides-thumbnail>div {
+    height: 90px;
+    width: 100px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mySlides-thumbnail>div img{
+    width: 100% !important;
+    height: 100%;
+}
+.mySlides {
+    width:100%;
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+.share_btn {
+    font-size:36px;
+    cursor:pointer;
+}
+.share_links { list-style: none;
+}
+.post-inner{
+    width: 75%;
+}
+.share_links li {
+    display: inline-block;
+    border-radius: 50%;
+    background: #000;
+}
+.share_icon {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    font-size: 32px;
+    height: 80px;
+    width: 80px;
+
+}
+.share_links .bg_fb:hover {
+    color: #fff;
+    background:#3b5998;
+}
+.share_links .bg_insta:hover {
+    color: #fff;
+    background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+.share_links .bg_whatsapp:hover {
+    color: #fff;
+    background:#25D366;
+}
+
+
+.share_links li:hover  .share_icon {
+    color: #fff;
+}
+.network-img-block {
+    width:150px;
+    height:100px;
+}
+.modal-title {
+    font-size: 48px !important;
+    text-align: center !important;
+    margin: 0px auto 10px !important;
+    font-weight: normal;
+}
+.network-img-block img{
+    width:100%;
+    height: 100%;
+}
+.replyForm {
+    margin-left:50px;
+}
+.user-name{
+    margin-left:37px;
+}
+#myModal {
+    /* width: 50%; */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 500px;
+    width: 500px;
+    overflow: hidden;
 }

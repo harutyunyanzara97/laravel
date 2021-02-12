@@ -15,10 +15,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $user = User::where('id', Auth::user()->getId())
-            ->first();
-        $categories = Category::with('followers','posts','comments')->where('user_id', Auth::user()->getId())->get();
-            return view('network', compact('categories', 'user'));
+        $categories = Category::with('followers','posts','comments')->get();
+            return view('network', compact('categories'));
 
 
     }
@@ -50,30 +48,25 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
-        $category = Category::where('id', $request->cat_id)->first();
+        $category = Category::where('id', $request->id)->first();
         $category->user_id = Auth::user()->getId();
-        $category->fill($request->all());
-        $category->save();
+        $category->update($request->all());
         if ($request->hasfile('photo')) {
 
             foreach ($request->file('photo') as $image) {
                 $name = time() . $image->getClientOriginalName();
-                $image->move(public_path() . '/images/', $name);
+                $image->move(public_path() . '/images', $name);
                 $category->img_url = $name;
                 $category->save();
             }
         }
-        echo '<script type="text/javascript">'
-        , 'history.go(-1);'
-        , '</script>';
+        return response()->json($category);
     }
 
     public function showPosts(Request $request, $id)
     {
-        $user = User::where('id', Auth::user()->getId())
-            ->first();
-        $category = Category::with('posts.comments')->where('id', $id)->first();
-        return view('posts', compact('category', $category,'user'));
+        $category = Category::with('posts.comments','posts.likes')->where('id', $id)->first();
+        return view('posts', compact('category', $category));
     }
 
     public function delete(Request $request)

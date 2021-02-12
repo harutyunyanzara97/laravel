@@ -23,7 +23,9 @@ class Category extends Model
     {
         return $this->hasMany(Follow::class, 'category_id');
     }
-
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
     public function getFollowersCount()
     {
         return count($this->followers);

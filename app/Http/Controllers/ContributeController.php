@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class ContributeController extends Controller
 {
     public function contribute(){
-         $user = User::where('id', Auth::user()->getId())
-            ->first();
-        return view('contributors',compact('user'));
+        return view('contributors');
     }
 }
