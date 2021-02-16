@@ -50,11 +50,18 @@ Route::get('/unfollow', [App\Http\Controllers\CategoryController::class, 'unfoll
 Route::get('/dislike', [App\Http\Controllers\CommentController::class, 'dislike'])->name('dislike');
 Route::get('/followUser', [App\Http\Controllers\UserController::class, 'followUser'])->name('follow-user');
 Route::get('/unfollowUser', [App\Http\Controllers\UserController::class, 'unfollowUser'])->name('unfollow-user');
+Route::get('/followPost', [App\Http\Controllers\PostController::class, 'followPost'])->name('follow-post');
+Route::get('/unfollowPost', [App\Http\Controllers\PostController::class, 'unfollowPost'])->name('unfollow-post');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::post('/updateUser', [App\Http\Controllers\UserController::class, 'updateUser'])->name('update');
 Route::post('/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('updateCat');
 Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
+Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');
+Route::post('stripe-post', [App\Http\Controllers\StripePaymentController::class,'stripePost'])->name('stripe.post');
+Route::post('card', [App\Http\Controllers\UserController::class,'card'])->name('card-details');
+Route::get('/searchCat',[App\Http\Controllers\SearchController::class,'searchCat']);
+Route::get('/searchPost',[App\Http\Controllers\SearchController::class,'searchPost']);
 
 
 

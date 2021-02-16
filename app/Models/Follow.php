@@ -12,7 +12,8 @@ class Follow extends Model
     use HasFactory;
     protected $fillable = [
         'category_id',
-        'user_id'
+        'user_id',
+        'post_id'
 ];
     public function category()
     {

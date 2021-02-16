@@ -99,15 +99,14 @@ $(document).on('click', '.edit', function (event) {
 $(document).on('click', '.closeModal', function (event) {
     $('#rightSideModal').hide();
 })
-$('.cardButton').on('click', function (event) {
+$('.payment-btn').on('click', function (event) {
     event.preventDefault();
     $.ajax({
         url: $(this).data('path'),
         method: "get",
         data: {_token: $('meta[name="csrf-token"]').attr('content')},
         success: (response) => {
-            console.log(response);
-            $('#ModalInfo div.modal-body').html(response);
+            $('#ModalInfo').modal('show');
         }
     })
 });
@@ -133,20 +132,72 @@ $(document).ready(function () {
 
     });
 });
+$(function() {
+    var $form = $(".require-validation");
+    $('form.require-validation').bind('submit', function(e) {
+        var $form = $(".require-validation"),
+            inputSelector = ['input[type=email]', 'input[type=password]',
+                'input[type=text]', 'input[type=file]',
+                'textarea'].join(', '),
+            $inputs       = $form.find('.required').find(inputSelector),
+            $errorMessage = $form.find('div.error'),
+            valid         = true;
+        $errorMessage.addClass('hide');
+
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+            var $input = $(el);
+            if ($input.val() === '') {
+                $input.parent().addClass('has-error');
+                $errorMessage.removeClass('hide');
+                e.preventDefault();
+            }
+        });
+
+        if (!$form.data('cc-on-file')) {
+            e.preventDefault();
+            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, stripeResponseHandler);
+        }
+
+    });
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('hide')
+                .find('.alert')
+                .text(response.error.message);
+        } else {
+            // token contains id, last4, and card type
+            var token = response['id'];
+            // insert the token into the form so it gets submitted to the server
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            $form.get(0).submit();
+        }
+    }
+
+});
 //# sourceURL=pen.js
 
-$('.payment').on('click', function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: '/plans',
-        method: "get",
-        data: {_token: $('meta[name="csrf-token"]').attr('content')},
-        success: (response) => {
-            console.log(response);
-            $(".profile-right-banner").html(response);
-        }
-    })
-});
+// $('.payment').on('click', function (event) {
+//     event.preventDefault();
+//     $.ajax({
+//         url: '/plans',
+//         method: "get",
+//         data: {_token: $('meta[name="csrf-token"]').attr('content')},
+//         success: (response) => {
+//             console.log(response);
+//             $(".profile-right-banner").html(response);
+//         }
+//     })
+// });
 $('.my-account').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -269,7 +320,41 @@ function showSlides(n) {
     captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
+$(document).on('click', '.post-following', function (event) {
+    event.preventDefault();
+    let follow = $(this);
+    let toFollowId = $(this).attr('data-id');
+    let post_id = $(this).attr('data-path');
+    $.ajax({
+        type: "get",
+        url: '/followPost',
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
+        success: function (r) {
+            follow.html('Followed');
+            if (follow.text = 'Following') {
+                follow.removeClass('.member-following').addClass('followedPost');
+            }
+        }
 
+    })
+})
+$(document).on('click', '.followedPost', function (event) {
+    event.preventDefault();
+    let unfollow = $(this);
+    let followeId = $(this).attr('data-id');
+    $.ajax({
+        type: "get",
+        url: '/unfollowPost',
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+        success: function (r) {
+            unfollow.html('follow');
+            if (unfollow.text = 'post-following') {
+                unfollow.removeClass('followedPost').addClass('post-following');
+            }
+        }
+
+    })
+})
 // // Create a Stripe client.
 // var stripe = Stripe('pk_test_51IDT1rLV6S2YaGRAadUEI9mxO2j2wbfh5Jc69TSDKj7Cdo1sxfpn1XNyPJdmIPS0axoc3VyAWiC3y5QkSDlIuLnF00sP8sZ7Ge');
 // console.log(stripe);
@@ -402,3 +487,4 @@ function showSlides(n) {
 //     });
 //
 // });
+

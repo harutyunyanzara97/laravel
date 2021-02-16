@@ -409,37 +409,45 @@
                                     <div id="card-errors" role="alert"></div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <form id="payment-form">
+                                            <form id="payment-form" action="{{route('card-details')}}" method="post">
+                                                @csrf
                                                 <div class="form-group">
                                                     <label for="name">Name on Card</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="name">
+                                                        <input type="text" class="form-control" id="name" name="name">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="card-number">Credit Card Number</label>
                                                     <div class="input-group">
-                                                        <span id="card-number" class="form-control">
+                                                        <input type="number" class="form-control" id="number" name="card_number">
               <!-- Stripe Card Element -->
-            </span>
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="card-cvc">CVC Number</label>
                                                     <div class="input-group">
-                                                        <span id="card-cvc" class="form-control">
+                                                        <input type="number" class="form-control" id="name" name="cvc">
               <!-- Stripe CVC Element -->
-            </span>
+
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="card-exp">Expiration</label>
+                                                <div class="form-group d-flex">
+                                                    <label for="card-exp">Month/year</label>
+                                                    <br>
                                                     <div class="input-group">
-            <span id="card-exp" class="form-control">
+                                                        <input type="text" class="form-control" id="name" name="month" placeholder="month">
               <!-- Stripe Card Expiry Element -->
-            </span>
+
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="name" name="year" placeholder="year">
+                                                        <!-- Stripe Card Expiry Element -->
+
                                                     </div>
                                                 </div>
+
                                                 <button id="payment-submit" class="btn btn-primary">Submit Payment
                                                 </button>
                                             </form>
@@ -492,6 +500,7 @@
                 </form>
             </div>
         </div>
+
     </main>
 </div>
 <div class="modal fade" id="ModalInfo" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">

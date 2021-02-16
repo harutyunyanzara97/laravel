@@ -140,7 +140,45 @@ button.profile-arrow svg{
     height: 50px;
     font-size: 16px;
 }
+.input-row svg {
+    position: absolute;
+    left: 0;
+    fill: #fff;
+}
+.input-row {
+    position: relative;
+}
+.pagination{
+    z-index: 9999;
+    position: relative;
+}
 
+p.text-sm.text-gray-700 {
+    display: none;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    font-size: 14px;
+}
+.pagination a , .pagination span{
+    color: #fff;
+    font-size: 16px;
+    background: transparent;
+}
+
+.pagination span {
+    color: #7ca45b;
+}
+.flex.justify-between.flex-1{
+    display: none !important;
+}
+.network-info input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    padding-left: 30px;
+}
 .page-bg {
     background-image: url(../images/home-bg.png) !important;
     background-size: cover;

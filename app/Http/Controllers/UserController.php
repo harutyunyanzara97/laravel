@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use App\Models\Category;
 use App\Models\Follow;
 use App\Models\User;
@@ -30,11 +31,10 @@ class UserController extends Controller
     }
     public function followUser(Request $request)
     {
-        $follow = Follow::where(['user_id' =>$request->id,'category_id'=> 1])->first();
+        $follow = Follow::where(['user_id' =>$request->id])->first();
         if (!$follow) {
             $follow = new Follow();
             $follow->user_id = Auth::user()->getId();
-            $follow->category_id = Auth::user()->getId();
             $follow->save();
         }
     }
@@ -45,59 +45,7 @@ class UserController extends Controller
             $follow->delete();
         }
     }
-//    public function sign_up(){
-//        return view('signup');
-//    }
-//    public function login() {
-//        return view('login');
-//    }
-//    public function store(Request $request) {
-//        $user=new User();
-//        $valid=Validator::make($request->all(),['email' => 'required|email|unique:users', 'password' => 'required|min:6',]);
-//        if ($valid->fails()) {
-//            return redirect()->back()
-//                ->withErrors($valid)
-//                ->withInput();
-//        }
-//        $user->fill($request->all());
-//        $user->password = Hash::make($request->password);
-//        $user->save();
-//         return redirect('/login');
-//    }
-//    public function signIn(Request $r){
-//        $validateLogin=Validator::make($r->all(),[
-//            'email'=>'required | email',
-//            'password'=>'required | min:6'
-//        ]);
-//
-//        $user=User::where("email",$r->email)->first();
-//        $validateLogin->after(function ($validateLogin)
-//        use ($user,$r)
-//        {
-//
-//            if(!$user){
-//                $validateLogin->errors()->add('email', 'Wrong email information!');
-//
-//            }
-//            elseif(!Hash::check($r->password,$user->password)) {
-//
-//                $validateLogin->errors()->add('password', 'Wrong password!');
-//            }
-//
-//        });
-//
-//        if ($validateLogin->fails()) {
-//            return redirect()->back()
-//                ->withErrors($validateLogin)
-//                ->withInput();
-//        }
-//        else {
-//            Session::put('user_id',$user->id);
-//            auth()->login($user);
-//        }
-//        return view('home',compact('user',$user));
-//
-//     }
+
     public function  profile(){
         $posts=Post::where('user_id',Auth::user()->getId())->get();
         $comments=Comment::where('user_id',Auth::user()->getId())->get();
@@ -135,7 +83,6 @@ class UserController extends Controller
         $user = User::where('id', $request->id)->first();
         if($request->hasfile('photo'))
         {
-
             foreach($request->file('photo') as $image)
             {
                 $name=time().$image->getClientOriginalName();
@@ -151,7 +98,7 @@ class UserController extends Controller
         return view('account',compact('user'));
     }
     public function myPosts() {
-        $myPosts=Post::with('comments')->where('user_id',Auth::user()->getId())->get();
+        $myPosts=Post::with('comments')->where('user_id',Auth::user()->getId())->paginate(5);
         $user=User::where('id', Auth::user()->getId())->first();
         return view('my-posts',compact('myPosts',$myPosts,'user',$user));
     }
@@ -161,10 +108,15 @@ class UserController extends Controller
         $user=User::where('id', Auth::user()->getId())->first();
         return view('my-comments',compact('myPosts',$myPosts,'user',$user));
     }
+    public function card(Request $request){
+        $card=new Card();
+        $card->user_id=Auth::id();
+        $card->fill($request->all());
+        $card->save();
 
+        Session::flash('success', 'Payment created successfully!');
 
-//    public function logout (Request $r) {
-//        Session::forget('user_id');
-//        return Redirect::to('/login');
-//    }
+        return back();
+    }
+
 }

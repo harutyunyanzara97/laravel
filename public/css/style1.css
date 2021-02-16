@@ -1834,6 +1834,9 @@ ul li {
     right: 10px;
     top: -5px;
 }
+#stripeModal .input-group {
+    border:1px solid #d6d6d6;
+}
 
 .profile-banner .payment-btn {
     color: rgb(65, 65, 65);
@@ -1895,7 +1898,8 @@ ul li {
     margin: 0 auto;
 }
 .post-slider .mySlides img{
-    width: 100%;
+    margin: auto;
+    width: 80%;
 }
 .mySlides-thumbnail>div {
     height: 90px;
@@ -2059,4 +2063,47 @@ ul li {
     height: 500px;
     width: 500px;
     overflow: hidden;
+}
+.rounded-md .bg-white{
+    background: transparent !important;
+    border: none !important;
+}
+
+.items-center svg {
+    overflow: hidden;
+    vertical-align: middle;
+    width: 42px;
+}
+
+.items-center svg {
+    overflow: hidden;
+    vertical-align: middle;
+    width: 42px;
+}
+/*.pagination  .hidden{*/
+/*    display: none;*/
+/*}*/
+.pagination{
+    z-index: 9999;
+    position: relative;
+}
+
+p.text-sm.text-gray-700 {
+    display: none;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    font-size: 14px;
+}
+.pagination a , .pagination span{
+    color: #fff;
+    font-size: 16px;
+    background: transparent;
+}
+
+.pagination span {
+    color: #7ca45b;
+}
+.flex.justify-between.flex-1{
+    display: none !important;
 }

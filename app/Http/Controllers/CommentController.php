@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\Follow;
+use App\Models\Reply;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,17 +25,20 @@ class CommentController extends Controller
     public function reply(Request $request)
     {
         $comment = Comment::where('id',$request->id)->first();
-
-            $comment->reply=$request->reply;
-            $comment->save();
+        $reply=new Reply();
+            $reply->title=$request->reply;
+            $reply->comment_id=$comment->id;
+            $reply->user_id=Auth::id();
+            $reply->post_id=$request->post_id;
+            $reply->save();
         if($request->hasfile('photo'))
         {
             foreach($request->file('photo') as $image)
             {
                 $name=time().$image->getClientOriginalName();
                 $image->move(public_path().'/images', $name);
-                $comment->images = $name;
-                $comment->save();
+                $reply->images = $name;
+                $reply->save();
             }
         }
         return Redirect::back();

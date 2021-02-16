@@ -5,6 +5,8 @@
     <title>sanctuaryforhumanity</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <div class="modal show right" id="rightSideModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="display: block">
@@ -217,6 +219,11 @@
         <!--/.Content-->
     </div>
 </div>
+<script src="{{('js/jquery.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+<script src="{{('js/bootstrap.js')}}"></script>
+<script src="{{('js/main.js')}}"></script>
 <script>
     $("#editcat").on("submit", function(e) {
         e.preventDefault();

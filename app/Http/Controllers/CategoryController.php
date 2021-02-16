@@ -15,8 +15,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('followers','posts','comments')->get();
-            return view('network', compact('categories'));
+        $categories = Category::with('followers', 'posts', 'comments')->paginate(5);
+        return view('network', compact('categories'));
 
 
     }
@@ -65,8 +65,9 @@ class CategoryController extends Controller
 
     public function showPosts(Request $request, $id)
     {
-        $category = Category::with('posts.comments','posts.likes')->where('id', $id)->first();
-        return view('posts', compact('category', $category));
+        $category = Category::where('id', $id)->first();
+        $posts=Post::with('comments','likes')->where('category_id',$id)->paginate(5);
+        return view('posts', compact('category', $category,'posts'));
     }
 
     public function delete(Request $request)
@@ -75,7 +76,12 @@ class CategoryController extends Controller
 
         return Redirect::to('/network/');
     }
+
+
 }
+
+
+
 //$cat = Category::where('id', $request->id)->update(['name' => $request->name]);
 //$cat->save();
 //return Redirect::to('/network');
