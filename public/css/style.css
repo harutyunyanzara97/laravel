@@ -1180,7 +1180,6 @@ button.sign-up {
     border:none
 }
 .avatar-container {
-    border: 1px solid #839475;
     padding: 10px;
 }
 .post-comments .image-upload {
@@ -1196,12 +1195,15 @@ button.sign-up {
     max-width: 100%;
 }
 
-.post-comments  #selectedFiless img {
-    width: 48%;
-}
+/*.post-comments  #selectedFiless img {*/
+/*    width: 48%;*/
+/*}*/
 .post-comments{
     width:100%;
 }
-::placeholder {
-    transform: translateY(-60px);
+.registration-banner img{
+    border-radius: 50%;
 }
+/*::placeholder {*/
+/*    transform: translateY(-60px);*/
+/*}*/

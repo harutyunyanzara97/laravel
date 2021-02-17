@@ -54,7 +54,7 @@ class UserController extends Controller
     public function storeProfile(Request $request)
     {
         $user = User::where('id', $request->id)->first();
-        $request->validate(['name' => 'required', 'contact_email' => 'required|email']);
+        $request->validate(['name' => 'required']);
         $user->fill($request->all());
         $user->save();
         if($request->hasfile('photo'))

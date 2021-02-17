@@ -70,7 +70,7 @@
                         <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/store')}}">
                             @csrf
                             <input type="hidden" value="{{$category->id}}" name="id">
-                            <input type="text" name="title" class="textEditt" placeholder="Give this post a title">
+                            <input type="text" name="title" class="textEditt post-create" placeholder="Give this post a title" autocomplete="Off">
                             <div class="">
                                 <textarea name="description" class="textEdit"
                                           placeholder="Write your post here.Add photos,videos and more to get your message across."></textarea>

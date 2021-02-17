@@ -55,7 +55,7 @@
 
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex">
-                        <img  class="mt-1" src="{{asset('images/'.$user->avatar_url)}}" width="40px" height="40px">
+                        <img  class="mt-1 ava" src="{{asset('images/'.$user->avatar_url)}}" width="40px" height="40px">
                         <div class="d-flex ml-3 flex-column">
                             <p class="mb-0"> {{$user->name}}</p>
                             <p>

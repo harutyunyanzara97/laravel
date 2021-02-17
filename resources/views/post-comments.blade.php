@@ -75,7 +75,7 @@
 
                         <!-- facebook	 -->
                         <div>
-                            <a class="btn-fb" href="">
+                            <a class="btn-fb">
                                 <div class="fb-content">
                                     <div class="logo">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -163,19 +163,19 @@
                     <a href="{{route('showPosts',$post->categories->id)}}">
                         {{$post->categories->name}}
                     </a>
-                    <a href="{{route('showPosts', $post->id)}}">
+                    <a href="#">
                         {{$post->title}}
                     </a>
                 </div>
-                <div class="input-row">
-                    <input type="text" placeholder="Search"/>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                         class="_2_hbq desktop-header-search-icon-fill button-hover-fill"
-                         data-hook="search-icon">
-                        <path fill-rule="evenodd"
-                              d="M19.854 19.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0l-3.708-3.709C14.118 17.3 12.391 18 10.5 18 6.358 18 3 14.642 3 10.5 3 6.358 6.358 3 10.5 3c4.142 0 7.5 3.358 7.5 7.5 0 1.891-.7 3.619-1.855 4.938l3.709 3.708zM17 10.5C17 6.91 14.09 4 10.5 4S4 6.91 4 10.5 6.91 17 10.5 17s6.5-2.91 6.5-6.5z"></path>
-                    </svg>
-                </div>
+{{--                <div class="input-row">--}}
+{{--                    <input type="text" placeholder="Search"/>--}}
+{{--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+{{--                         class="_2_hbq desktop-header-search-icon-fill button-hover-fill"--}}
+{{--                         data-hook="search-icon">--}}
+{{--                        <path fill-rule="evenodd"--}}
+{{--                              d="M19.854 19.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0l-3.708-3.709C14.118 17.3 12.391 18 10.5 18 6.358 18 3 14.642 3 10.5 3 6.358 6.358 3 10.5 3c4.142 0 7.5 3.358 7.5 7.5 0 1.891-.7 3.619-1.855 4.938l3.709 3.708zM17 10.5C17 6.91 14.09 4 10.5 4S4 6.91 4 10.5 6.91 17 10.5 17s6.5-2.91 6.5-6.5z"></path>--}}
+{{--                    </svg>--}}
+{{--                </div>--}}
             </div>
 
             <!--                    <div class="search-banner">-->
@@ -273,7 +273,7 @@
                                         </div>
                                     @endif
                                     <div class="d-flex justify-content-between borderedPost">
-                                        <a href="" class="comment-section d-flex align-items-center">
+                                        <a class="comment-section countComments d-flex align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24"
                                                  stroke="none"
@@ -282,12 +282,13 @@
                                                       d="M6 5h12c1.104 0 2 .896 2 2v8c0 1.104-.896 2-2 2h-4.36l-4.884 2.93c-.079.047-.168.07-.256.07-.086 0-.17-.021-.247-.065C8.097 19.846 8 19.68 8 19.5V17H6c-1.104 0-2-.896-2-2V7c0-1.104.896-2 2-2zm13 10V7c0-.553-.447-1-1-1H6c-.553 0-1 .447-1 1v8c0 .553.447 1 1 1h3v2.621L13.36 16H18c.553 0 1-.447 1-1z"></path>
                                             </svg>
 
-                                            <span>Comment</span>
+                                            <span>   {{count($post->comments)}} Comments </span>
                                             <i class="fa fa-heart"></i>
+                                            <button class="ml-3 payment-info"  data-toggle="modal"
+                                                    @if($card) data-target="#stripeModal" @else
+                                                    data-target="#messageModal" @endif><img src="{{asset('images/icon1.png')}}" width="30px" height="30px"></button>
                                         </a>
-                                        <img src="{{asset('images/icon1.png')}}" width="30px" height="30px"
-                                             class="ml-3" data-toggle="modal"
-                                             data-target="#stripeModal">
+
 
 
                                         <a class="share_btn" data-toggle="modal" data-target="#myModal">
@@ -336,13 +337,16 @@
                                                 @endauth
                                             </div>
                                         </div>
-                                        <div class="mt-3 mb-3">
-                                            <p> {{$comment->description}}</p>
+
+                                        <div class="d-flex align-items-center">
+                                            <div></div>
+                                        <div class="mt-3 mb-3 ml-5">
+                                            <p class="description-comment"> {{$comment->description}}</p>
                                             @if($comment->images)<img
                                                 src="{{asset('images/'.$comment->images)}}"
-                                                class="img-fluid logo" width="100px" height="100px"/>@endif
+                                                class="img-fluid" width="100px" height="100px"/>@endif
                                         </div>
-
+                                        </div>
                                         <a href="" class="comment-section comments d-flex align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24"
@@ -358,17 +362,20 @@
                                                   data-target=".login-modal" @endauth>Reply</span>
                                             <i class="fa fa-heart like" data-id="{{$comment->id}}"
                                                data-path="{{$post->id}}"></i></a>
+
+
                                         <div class="commentReply"></div>
                                         @if($comment->reply)
                                             @foreach($comment->reply as $reply)
                                                 <div class="banner d-flex mt-4 ml-4">
                                                     <div class="d-flex align-items-center">
-                                                        @if($comment->user->avatar_url)<img
-                                                            src="{{asset('images/'.$comment->user->avatar_url)}}"
+                                                        @if($reply->user->avatar_url)<img
+                                                            src="{{asset('images/'.$reply->user->avatar_url)}}"
                                                             class="img-fluid logo" width="24px" height="24px"/>@endif
                                                         @auth
                                                             <a href="{{route('profile')}}"
-                                                               style="color:#fff;margin-left:8px;">{{$comment->user->name}} </a>
+                                                               style="color:#fff;margin-left:8px;">{{$reply->user->name}} </a>
+
 
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="19"
                                                                  viewBox="0 0 19 19"
@@ -384,8 +391,8 @@
 
 
 
-                                                <div>
-                                                    <p class="ml-4 mt-4">{{$reply->title}}</p>
+                                                <div class="reply-section">
+                                                    <p class="mt-4 comment-reply">{{$reply->title}}</p>
                                                 </div>
                                             @endforeach
                                         @endif
@@ -421,8 +428,8 @@
                                                 @endauth
                                             </div>
                                         </div>
-                                        <input type="text" name="description" class="txt"
-                                               placeholder="Write a comment">
+                                        <textarea name="description" class="txt"
+                                                  placeholder="Write a comment" autocomplete="off"></textarea>
                                         <div class="image-upload post">
                                             <div class="avatar-upload postAv">
                                                 <div class="avatar-edit">
@@ -530,7 +537,7 @@
                     <h5>Do you like this? Share with your friends!</h5>
                     <div class="mt-5">
                         <ul class="share_links">
-                            <li class="bg_fb"><a href="#" class="share_icon" rel="tooltip"
+                            <li class="bg_fb"><a href="javascript:fbShare('http://localhost/comments/{{$post->id}}','Fb Share', 'Facebook share popup', 'http://localhost')" class="share_icon" rel="tooltip"
                                                  title="Facebook"><i
                                         class="fa fa-facebook"></i></a></li>
 
@@ -548,22 +555,23 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
+    @auth
+    <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content pb-5 pt-4">
                 <div class="modal-header border-0">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{asset('img/cross-icon.png')}}" alt=""></span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
                     <div>
-
                         <div id="card-errors" role="alert"></div>
                         <div class="card">
                             <div class="card-body">
+
                                 <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
                                       data-cc-on-file="false"
                                       data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" class="require-validation">
@@ -579,7 +587,7 @@
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Name on Card</label> <input
                                                 class='form-control' size='4' type='text' name="name"
-                                                value="{{$card->name}}">
+                                                @if($card)value="{{$card->name}}"@endif>
                                         </div>
                                     </div>
 
@@ -588,7 +596,7 @@
                                             <label class='control-label'>Card Number</label> <input
                                                 autocomplete='off' class='form-control card-number' name="number"
                                                 size='20'
-                                                type='text' value="{{$card->card_number}}">
+                                                type='text' @if($card)value="{{$card->card_number}}"@endif>
                                         </div>
                                     </div>
 
@@ -599,17 +607,17 @@
                                                                                             placeholder='ex. 311'
                                                                                             size='4'
                                                                                             type='text' name="cvc"
-                                                                                            value="{{$card->cvc}}">
+                                                                                            @if($card)value="{{$card->cvc}}"@endif>
                                         </div>
                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                             <label class='control-label'>Expiration Month</label> <input
                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                type='text' name="month" value="{{$card->month}}">
+                                                type='text' name="month" @if($card)value="{{$card->month}}"@endif>
                                         </div>
                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                             <label class='control-label'>Expiration Year</label> <input
                                                 class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                type='text' name="year" value="{{$card->year}}">
+                                                type='text' name="year" @if($card)value="{{$card->year}}"@endif>
                                         </div>
                                     </div>
 
@@ -630,8 +638,32 @@
                                     </div>
 
                                 </form>
+                                @endauth
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p>Please add a payment method in your profile, to share your support to the post creator.</p>
+                    <div class="d-flex go-profile-section justify-content-center"><a class="go-profile" href="{{route('profile')}}">Go to profile</a>
+                    </div>
+
+                <div class="modal-body">
+
+                </div>
+                <div class="d-flex justify-content-center mt-4 go-profile-section">
+                    <div class="modal-footer">
+                            <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel</button>
+                            <button class="publish_btn" data-dismiss="modal">Publish</button>
                     </div>
                 </div>
             </div>
@@ -761,7 +793,7 @@
                                      <input type="hidden" value=${id} name="id">
                                          <input type="hidden" value=${postId} name="post_id">
                         <div class="">
-                            <input type="text" name="reply" class="txt" placeholder="Write a comment">
+                            <input type="text" name="reply" class="txt" placeholder="Write a comment" autocomplete="off">
                         </div>
                              <div class="image-upload post">
                                  <div class="avatar-upload">
@@ -778,12 +810,15 @@
                                  </div>
             <input id="upload" type="file" name="video[]" onchange="readURL(this);" style="display: none"  class="form-control">
             </div>
-        <div class="d-flex justify-content-between">
-           <div class="d-flex justify-content-between w-70 mt-0">
-               <button type="reset" class="btn btn-default pull-right publish_btn">Cancel</button>
-               <button class="btn-success publish_btn" style="width:140px" type="submit">Publish</button>
-           </div>
-        </div>
+           <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between w-70 mt-4">
+                                            <button type="reset" class="pull-right publish_btn mt-0">Cancel
+                                            </button>
+                                            <button class="publish_btn" @guest data-toggle="modal"
+                                                    data-target=".login-modal" @else type="submit" @endguest>Publish
+                                            </button>
+                                        </div>
+                                    </div>
         </form>`);
 
         });
@@ -821,6 +856,16 @@
             });
 
         }
+    </script>
+    <script>
+        function fbShare(url, title, descr, image) {
+            window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer'+'target=_blank');
+        }
+    </script>
+    <script>
+       $('.countComments').on('click', ()=> {
+           $('.txt').css('display', 'inline-block').focus();
+       })
     </script>
     {{--<script src="{{asset('js/main.js')}}"></script>--}}
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
