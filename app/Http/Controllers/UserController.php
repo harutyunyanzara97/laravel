@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Models\Category;
 use App\Models\Follow;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
@@ -86,15 +87,17 @@ class UserController extends Controller
         return Redirect::back();
     }
     public function account() {
-        $user = User::where('id', Auth::user()->getId())->first();
+        $user = Auth::user();
         return view('account',compact('user'));
     }
 
     public function balance() {
-        $user = User::where('id', Auth::user()->getId())->first();
+        $user =  Auth::user();
         $card = Card::where('user_id', $user->id)->first();
         $balance=$user->balance;
-        return view('balance',compact('user','balance','card'));
+        $transactions = Transaction::with('user','seller')->where('user_id',$user->id)->get();
+        $seller_transactions = Transaction::with('user','seller')->where('to_id',$user->id)->get();
+        return view('balance',compact('user','balance','card','transactions','seller_transactions'));
     }
 
     public function card(Request $request){

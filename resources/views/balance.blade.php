@@ -66,7 +66,7 @@
         <div class="account-form comments-container">
             <h2 class="mb-3">My balance</h2>
         </div>
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between  balance">
         <div class="green-box mb-3">
 
             <p style="color:#fff">Your balance is {{$balance}} $</p>
@@ -79,6 +79,94 @@
                     data-target="#messageModal" @endif class="donate-btn ml-3 payment-info">Withdraw</button>
                 </div>
         </div>
+        <div class="network-banner">
+            <div class="d-flex justify-content-center">
+                <div class="menu-box">
+
+                <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"
+                       style="color:#fff; background: rgba(155, 203, 108, 0.73);">My payments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"
+                       style="color: #fff">Payed to me</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <table class="postTable" style="color:#fff">
+                        <thead class="w-100" style="display: flex;
+                                            justify-content: space-between;">
+                        <tr style="width: 100%;
+                                    display: flex;
+                                    justify-content: space-around;">
+                            <th>Seller</th>
+                            <th>Amount</th>
+                            <th>Buyer</th>
+                            <th>Date</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach($transactions as $transaction)
+                            <tr style="color:rgb(255, 255, 255);display: flex;
+                                             justify-content: space-between;">
+
+                                <td>{{$transaction->seller->name}}</td>
+                                <td>{{$transaction->amount}}</td>
+                                <td>Me</td>
+                                <td>{{$transaction->date}}</td>
+
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <table class="postTable" style="color:#fff">
+                        <thead class="w-100" style="display: flex;
+                                            justify-content: space-between;">
+                        <tr style="width: 100%;
+                                    display: flex;
+                                    justify-content: space-around;">
+                            <th>Seller</th>
+                            <th>Amount</th>
+                            <th>Buyer</th>
+                            <th>Date</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        @foreach($seller_transactions as $seller_transaction)
+                            <tr style="color:rgb(255, 255, 255);display: flex;
+                                             justify-content: space-between;">
+
+                                <td>Me</td>
+                                <td>{{$seller_transaction->amount}}</td>
+                                <td>{{$seller_transaction->user->name}}</td>
+                                <td>{{$transaction->date}}</td>
+
+                            </tr>
+                        @endforeach
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
     <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -88,7 +176,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div id="card-errors" role="alert"></div>
                     <div class="card">

@@ -19,7 +19,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function charged_user()
+    public function seller()
     {
         return $this->belongsTo(User::class, 'to_id');
     }

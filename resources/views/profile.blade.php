@@ -393,14 +393,10 @@
                     </li>
                     <li>
                         <a class="myBalance toCoursor">
-                            My Balance
+                            Payment
                         </a>
                     </li>
-                    <li>
-                        <a class="payment-history toCoursor">
-                            Payment history
-                        </a>
-                    </li>
+
                     {{--                    <li>--}}
                     {{--                        <a href="#">--}}
                     {{--                            Notifications--}}
@@ -414,7 +410,7 @@
                 </ul>
 
                 <button data-path="{{ route('show')}}" class="btn payment-btn" data-toggle="modal"
-                        data-target="#stripeModal">Add payment
+                        data-target="#stripeModal">Add card
                 </button>
 
 
@@ -716,18 +712,6 @@
         event.preventDefault();
         $.ajax({
             url: '/balance',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
-    $('.payment-history').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/history',
             method: "get",
             data: {_token: $('meta[name="csrf-token"]').attr('content')},
             success: (response) => {
