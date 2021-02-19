@@ -52,7 +52,8 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="name" class="catname" value="{{$modal_category->name}}">
+                                        <input type="text" name="name" class="catname"
+                                               value="{{$modal_category->name}}">
                                     </div>
                                     <div>
                                         <div class="tooltip">Description
@@ -109,32 +110,32 @@
                                        data-dismiss="modal">Cancel</a>
                                 </div>
                             </form>
-{{--                            <form action="#" class="radio-form mt-5">--}}
-{{--                                <p class="mb-0">--}}
-{{--                                    <input type="radio" id="radio1" name="radio-group" checked>--}}
-{{--                                    <label for="radio1">Discussions & Questions</label>--}}
-{{--                                </p>--}}
-{{--                                <p class="mb-0">--}}
-{{--                                    <input type="radio" id="radio2" name="radio-group">--}}
-{{--                                    <label for="radio2">Discussions</label>--}}
-{{--                                </p>--}}
-{{--                                <p class="mb-0">--}}
-{{--                                    <input type="radio" id="radio3" name="radio-group">--}}
-{{--                                    <label for="radio3">Questions</label>--}}
-{{--                                </p>--}}
-{{--                            </form>--}}
+                            {{--                            <form action="#" class="radio-form mt-5">--}}
+                            {{--                                <p class="mb-0">--}}
+                            {{--                                    <input type="radio" id="radio1" name="radio-group" checked>--}}
+                            {{--                                    <label for="radio1">Discussions & Questions</label>--}}
+                            {{--                                </p>--}}
+                            {{--                                <p class="mb-0">--}}
+                            {{--                                    <input type="radio" id="radio2" name="radio-group">--}}
+                            {{--                                    <label for="radio2">Discussions</label>--}}
+                            {{--                                </p>--}}
+                            {{--                                <p class="mb-0">--}}
+                            {{--                                    <input type="radio" id="radio3" name="radio-group">--}}
+                            {{--                                    <label for="radio3">Questions</label>--}}
+                            {{--                                </p>--}}
+                            {{--                            </form>--}}
                         </div>
 
                     </div>
                     <div class="card">
-{{--                        <div class="card-header" id="headingTwo">--}}
-{{--                            <h5 class="mb-0">--}}
-{{--                                <button class="btn-link" data-toggle="collapse" data-target="#collapseTwo"--}}
-{{--                                        aria-expanded="true" aria-controls="collapseTwo">Category Permissions--}}
-{{--                                </button>--}}
+                        {{--                        <div class="card-header" id="headingTwo">--}}
+                        {{--                            <h5 class="mb-0">--}}
+                        {{--                                <button class="btn-link" data-toggle="collapse" data-target="#collapseTwo"--}}
+                        {{--                                        aria-expanded="true" aria-controls="collapseTwo">Category Permissions--}}
+                        {{--                                </button>--}}
 
-{{--                            </h5>--}}
-{{--                        </div>--}}
+                        {{--                            </h5>--}}
+                        {{--                        </div>--}}
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                              data-parent="#accordion">
                             <div class="card-body">
@@ -150,20 +151,20 @@
                                         <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                     </div>
                                 </div>
-{{--                                <form action="#" class="radio-form mt-5">--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio4" name="radio-group" checked>--}}
-{{--                                        <label for="radio4">Discussions & Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio5" name="radio-group">--}}
-{{--                                        <label for="radio5">Discussions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio6" name="radio-group">--}}
-{{--                                        <label for="radio6">Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                </form>--}}
+                                {{--                                <form action="#" class="radio-form mt-5">--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio4" name="radio-group" checked>--}}
+                                {{--                                        <label for="radio4">Discussions & Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio5" name="radio-group">--}}
+                                {{--                                        <label for="radio5">Discussions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio6" name="radio-group">--}}
+                                {{--                                        <label for="radio6">Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                </form>--}}
                                 <div>
                                     <div class="tooltip">Who can access this category?
 
@@ -176,35 +177,35 @@
                                         <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                     </div>
                                 </div>
-{{--                                <form action="#" class="radio-form mt-5">--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio7" name="radio-group" checked>--}}
-{{--                                        <label for="radio7">Discussions & Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio8" name="radio-group">--}}
-{{--                                        <label for="radio8">Discussions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio9" name="radio-group">--}}
-{{--                                        <label for="radio9">Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                </form>--}}
+                                {{--                                <form action="#" class="radio-form mt-5">--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio7" name="radio-group" checked>--}}
+                                {{--                                        <label for="radio7">Discussions & Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio8" name="radio-group">--}}
+                                {{--                                        <label for="radio8">Discussions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio9" name="radio-group">--}}
+                                {{--                                        <label for="radio9">Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                </form>--}}
 
-{{--                                <form action="#" class="radio-form mt-5">--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio10" name="radio-group" checked>--}}
-{{--                                        <label for="radio10">Discussions & Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio11" name="radio-group">--}}
-{{--                                        <label for="radio11">Discussions</label>--}}
-{{--                                    </p>--}}
-{{--                                    <p class="mb-0">--}}
-{{--                                        <input type="radio" id="radio12" name="radio-group">--}}
-{{--                                        <label for="radio12">Questions</label>--}}
-{{--                                    </p>--}}
-{{--                                </form>--}}
+                                {{--                                <form action="#" class="radio-form mt-5">--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio10" name="radio-group" checked>--}}
+                                {{--                                        <label for="radio10">Discussions & Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio11" name="radio-group">--}}
+                                {{--                                        <label for="radio11">Discussions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                    <p class="mb-0">--}}
+                                {{--                                        <input type="radio" id="radio12" name="radio-group">--}}
+                                {{--                                        <label for="radio12">Questions</label>--}}
+                                {{--                                    </p>--}}
+                                {{--                                </form>--}}
                             </div>
                         </div>
                     </div>
@@ -225,18 +226,18 @@
 <script src="{{('js/bootstrap.js')}}"></script>
 <script src="{{('js/main.js')}}"></script>
 <script>
-    $("#editcat").on("submit", function(e) {
+    $("#editcat").on("submit", function (e) {
         e.preventDefault();
-        let id=$('.cat_id').val();
-        let name=$('.catname').val();
-        let description=$('.description').val();
+        let id = $('.cat_id').val();
+        let name = $('.catname').val();
+        let description = $('.description').val();
         // let about = $("textarea#txtEditor").val();
         // console.log(about);
         // let formData={};
         let formdata = new FormData($(this)[0]);
-        formdata.append('id',id);
-        formdata.append('name',name);
-        formdata.append('description',description);
+        formdata.append('id', id);
+        formdata.append('name', name);
+        formdata.append('description', description);
         // console.log(formdata)
         $.ajaxSetup({
             headers: {
@@ -245,18 +246,18 @@
         });
 
         $.ajax({
-            url:'{{route('updateCat')}}',
+            url: '{{route('updateCat')}}',
             type: 'POST',
-            data:formdata,
+            data: formdata,
             // dataType: 'json',
             processData: false,
-            contentType:false,
-            success: function(response) {
+            contentType: false,
+            success: function (response) {
                 console.log(response);
                 $('#name-' + response.id).text(response.name);
                 $('#desc-' + response.id).text(response.description);
                 {{--$('#img-' + response.id).prop('src','{{asset('images/' + ${response.img_url})}}');--}}
-            },error:function (error){
+            }, error: function (error) {
                 console.log(error)
             }
         });

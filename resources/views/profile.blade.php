@@ -75,13 +75,17 @@
                 <div class="registration-banner">
 
                     <div class="d-flex">
-                        <svg data-bbox="7 3 36 45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50" width="50" data-type="shape">
+                        <svg data-bbox="7 3 36 45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50"
+                             width="50" data-type="shape">
                             <g>
-                                <path d="M38.473 34.564L43 39.273v2.298H7v-2.298l4.527-4.71V22.959c0-3.662.88-6.82 2.64-9.474 1.797-2.729 4.294-4.504 7.492-5.326V6.532c0-.972.323-1.803.97-2.495C23.275 3.346 24.066 3 25 3c.934 0 1.734.346 2.398 1.037.665.692.997 1.523.997 2.495v1.626c3.162.822 5.64 2.616 7.437 5.382 1.76 2.654 2.641 5.793 2.641 9.418v11.606zM25 48c-1.364 0-2.523-.47-3.477-1.411-.955-.94-1.432-2.078-1.432-3.41h9.818c0 1.332-.487 2.47-1.46 3.41C27.473 47.529 26.324 48 25 48z" fill-rule="evenodd"></path>
+                                <path
+                                    d="M38.473 34.564L43 39.273v2.298H7v-2.298l4.527-4.71V22.959c0-3.662.88-6.82 2.64-9.474 1.797-2.729 4.294-4.504 7.492-5.326V6.532c0-.972.323-1.803.97-2.495C23.275 3.346 24.066 3 25 3c.934 0 1.734.346 2.398 1.037.665.692.997 1.523.997 2.495v1.626c3.162.822 5.64 2.616 7.437 5.382 1.76 2.654 2.641 5.793 2.641 9.418v11.606zM25 48c-1.364 0-2.523-.47-3.477-1.411-.955-.94-1.432-2.078-1.432-3.41h9.818c0 1.332-.487 2.47-1.46 3.41C27.473 47.529 26.324 48 25 48z"
+                                    fill-rule="evenodd"></path>
                             </g>
                         </svg>
                         @auth
-                            @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}" width="30px" height="30px">@endif
+                            @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}"
+                                                              width="30px" height="30px">@endif
 
                             {{--                        <svg data-bbox="0 0 50 50" data-type="shape" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" class="dropIcon">--}}
                             {{--                            <g>--}}
@@ -89,11 +93,18 @@
                             {{--                            </g>--}}
                             {{--                        </svg>--}}
 
-                            <button type="button" class="btn-generic profile-arrow  dropdown-toggle" @guest data-toggle="modal" @else data-toggle="dropdown" @endguest aria-haspopup="true" aria-expanded="false" @guest data-target=".login-modal"@endguest>
-                                <svg width="14" height="8" viewBox="0 0 14 8"><path d="M1.707.293L.293 1.707l6 6a1 1 0 001.397.016l6-5.726L12.31.55 7.016 5.602 1.707.292z"></path></svg>
+                            <button type="button" class="btn-generic profile-arrow  dropdown-toggle"
+                                    @guest data-toggle="modal" @else data-toggle="dropdown"
+                                    @endguest aria-haspopup="true" aria-expanded="false"
+                                    @guest data-target=".login-modal"@endguest>
+                                <svg width="14" height="8" viewBox="0 0 14 8">
+                                    <path
+                                        d="M1.707.293L.293 1.707l6 6a1 1 0 001.397.016l6-5.726L12.31.55 7.016 5.602 1.707.292z"></path>
+                                </svg>
                                 @endauth
                                 @guest
-                                    <a class="nav-link" style="color:white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" style="color:white"
+                                       href="{{ route('login') }}">{{ __('Login') }}</a>
                                 @endguest
 
                             </button>
@@ -342,21 +353,22 @@
                     <form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{Auth::user()->id}}" name="id">
-                    <div class="avatar-upload">
-                        <div class="avatar-edit">
-                            <input type='file' id="imageUpload" name="photo[]">
-                            <label for="imageUpload"></label>
-                        </div>
-                        <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' id="imageUpload" name="photo[]">
+                                <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview">
+                                <div id="imagePreview"
+                                     style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
-                    <button type="submit" class="edit-btn">
-                        Edit photo
-                    </button>
-                </form>
+                        <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
+                        <button type="submit" class="edit-btn">
+                            Edit photo
+                        </button>
+                    </form>
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -379,21 +391,33 @@
                             My Account
                         </a>
                     </li>
-{{--                    <li>--}}
-{{--                        <a href="#">--}}
-{{--                            Notifications--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                        <a href="#">--}}
-{{--                            Settings--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a class="myBalance toCoursor">
+                            My Balance
+                        </a>
+                    </li>
+                    <li>
+                        <a class="payment-history toCoursor">
+                            Payment history
+                        </a>
+                    </li>
+                    {{--                    <li>--}}
+                    {{--                        <a href="#">--}}
+                    {{--                            Notifications--}}
+                    {{--                        </a>--}}
+                    {{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="#">--}}
+                    {{--                            Settings--}}
+                    {{--                        </a>--}}
+                    {{--                    </li>--}}
                 </ul>
 
                 <button data-path="{{ route('show')}}" class="btn payment-btn" data-toggle="modal"
                         data-target="#stripeModal">Add payment
                 </button>
+
+
                 <div id="stripeModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
@@ -420,8 +444,9 @@
                                                 <div class="form-group">
                                                     <label for="card-number">Credit Card Number</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="number" name="card_number">
-              <!-- Stripe Card Element -->
+                                                        <input type="number" class="form-control" id="number"
+                                                               name="card_number">
+                                                        <!-- Stripe Card Element -->
 
                                                     </div>
                                                 </div>
@@ -429,7 +454,7 @@
                                                     <label for="card-cvc">CVC Number</label>
                                                     <div class="input-group">
                                                         <input type="number" class="form-control" id="name" name="cvc">
-              <!-- Stripe CVC Element -->
+                                                        <!-- Stripe CVC Element -->
 
                                                     </div>
                                                 </div>
@@ -437,27 +462,29 @@
                                                     <label for="card-exp">Month/year</label>
                                                     <br>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="name" name="month" placeholder="month">
-              <!-- Stripe Card Expiry Element -->
+                                                        <input type="text" class="form-control" id="name" name="month"
+                                                               placeholder="month">
+                                                        <!-- Stripe Card Expiry Element -->
 
                                                     </div>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="name" name="year" placeholder="year">
+                                                        <input type="text" class="form-control" id="name" name="year"
+                                                               placeholder="year">
                                                         <!-- Stripe Card Expiry Element -->
 
                                                     </div>
                                                 </div>
 
-                                                <button id="payment-submit" class="btn btn-primary">Submit Payment
+                                                <button  class="btn payment-submit">Submit Payment
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-{{--                            <div class="modal-footer">--}}
-{{--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="modal-footer">--}}
+                            {{--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                            {{--                            </div>--}}
                         </div>
 
                     </div>
@@ -685,19 +712,43 @@
             }
         })
     });
+    $('.myBalance').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/balance',
+            method: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: (response) => {
+                console.log(response);
+                $(".profile-right-banner").html(response);
+            }
+        })
+    });
+    $('.payment-history').on('click', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/history',
+            method: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: (response) => {
+                console.log(response);
+                $(".profile-right-banner").html(response);
+            }
+        })
+    });
 </script>
 <script>
-    $("#editProfile").on("submit", function(e) {
+    $("#editProfile").on("submit", function (e) {
         e.preventDefault();
-        var edit=$('.Editor-editor').text();
-        let id=$('input[name=id]').val();
+        var edit = $('.Editor-editor').text();
+        let id = $('input[name=id]').val();
         var about = $('textarea#txtEditor').text(edit);
-        let aboutVal=about.val();
-        let formdata=new FormData($(this)[0]);
+        let aboutVal = about.val();
+        let formdata = new FormData($(this)[0]);
         // let about = $("textarea#txtEditor").val();
         // console.log(about);
         // let formData={};
-        formdata.append('about',aboutVal);
+        formdata.append('about', aboutVal);
         // let formdata = new FormData($(this)[0]);
         // formdata.append('about',about);
         // console.log(formdata)
@@ -708,23 +759,23 @@
         });
 
         $.ajax({
-            url:'{{route('editAbout')}}',
+            url: '{{route('editAbout')}}',
             type: 'POST',
             data: formdata,
             // dataType: 'json',
             processData: false,
-            contentType:false,
-            success: function(response) {
+            contentType: false,
+            success: function (response) {
                 console.log(response);
-            },error:function (error){
+            }, error: function (error) {
                 console.log(error)
             }
         });
 
     });
-    $(()=>{
-        let textVal =$('#txtEditor').html();
+    $(() => {
+        let textVal = $('#txtEditor').html();
         $('.Editor-editor').text(textVal);
     })
 
-    </script>
+</script>

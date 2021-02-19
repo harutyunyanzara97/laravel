@@ -301,58 +301,59 @@
                     </thead>
                     <tbody>
                     @if($posts)
-                    @foreach($posts as $post)
-                        <tr style="color:rgb(255, 255, 255);display: flex;
+                        @foreach($posts as $post)
+                            <tr style="color:rgb(255, 255, 255);display: flex;
                                              justify-content: space-between;">
-                            <td>
-                                <div class="d-flex">
-                                    <div class="network-banner-details">
+                                <td>
+                                    <div class="d-flex">
+                                        <div class="network-banner-details">
 
-                                        <a href="{{route('comments',$post->id)}}" class="whiteText"
-                                           style="color: rgb(235 238 233);">
-                                            {{$post->title}}
-                                        </a>
+                                            <a href="{{route('comments',$post->id)}}" class="whiteText"
+                                               style="color: rgb(235 238 233);">
+                                                {{$post->title}}
+                                            </a>
 
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>{{count($post->comments)}}</td>
-                            <td>{{count($post->likes)}}</td>
-                            <td></td>
-                            <td><span><div class="avaImg">@auth @if(Auth::user()->avatar_url)<img
-                                            src="{{asset('images/'.Auth::user()->avatar_url)}}"
-                                            class="ava">@endif @endauth</div></span>{{date_format(date_create($post->created_at),'M d y')}}
-                                @auth
-                                    <div class="follow-details">
-                                        <button type="button" class="dropdown-toggle p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
-                                                 viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                      d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
-                                            </svg>
-                                        </button>
-                                        @auth
-                                            <div class="dropdown-menu">
+                                </td>
+                                <td>{{count($post->comments)}}</td>
+                                <td>{{count($post->likes)}}</td>
+                                <td></td>
+                                <td><span><div class="avaImg">@auth @if(Auth::user()->avatar_url)<img
+                                                src="{{asset('images/'.Auth::user()->avatar_url)}}"
+                                                class="ava">@endif @endauth</div></span>{{date_format(date_create($post->created_at),'M d y')}}
+                                    @auth
+                                        <div class="follow-details">
+                                            <button type="button" class="dropdown-toggle p-0"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24"
+                                                     height="24"
+                                                     viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                          d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
+                                                </svg>
+                                            </button>
+                                            @auth
+                                                <div class="dropdown-menu">
 
-                                                <a class="dropdown-item align-items-center"
-                                                   href="{{route('deletePost',$post->id)}}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24">
-                                                        <path fill-rule="evenodd"
-                                                              d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
-                                                    </svg>
-                                                    Delete Post</a>
-                                                <div class="dropdown-divider"></div>
-                                            </div>
-                                        @endauth
-                                    </div>@endauth
-                            </td>
-                        </tr>
-                    @endforeach
+                                                    <a class="dropdown-item align-items-center"
+                                                       href="{{route('deletePost',$post->id)}}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
+                                                        </svg>
+                                                        Delete Post</a>
+                                                    <div class="dropdown-divider"></div>
+                                                </div>
+                                            @endauth
+                                        </div>@endauth
+                                </td>
+                            </tr>
+                        @endforeach
                     @else
                         <p>No posts here</p>
-@endif
+                    @endif
                     </tbody>
                 </table>
             </div>
@@ -378,9 +379,9 @@
                                              justify-content: space-between;">
                              <td>
                              @isset($post)
-                            <div class="d-flex">
-                                <div class="network-banner-details">
-                                 <a href="{{route('comments',$post->id)}}" class="whiteText" style="color: rgb(235 238 233);">
+                    <div class="d-flex">
+                        <div class="network-banner-details">
+                         <a href="{{route('comments',$post->id)}}" class="whiteText" style="color: rgb(235 238 233);">
                                        ${i.title}
                     </a>
                     </div>
@@ -400,8 +401,8 @@
                                         </svg>
                                     </button>
                                     @auth
-                          <div class="dropdown-menu">
-                        <a class="dropdown-item align-items-center" href="{{route('deletePost',$post->id)}}">
+                    <div class="dropdown-menu">
+                  <a class="dropdown-item align-items-center" href="{{route('deletePost',$post->id)}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24">
                                                 <path fill-rule="evenodd"

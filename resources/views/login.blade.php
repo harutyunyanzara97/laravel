@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">
 </head>
 <body>
-<div class="container text-center" >
+<div class="container text-center">
     <div class="signup">
 
         <div class="content w-100">
@@ -22,7 +21,7 @@
                 </h4>
                 <div class="d-flex login-container">
                     <p>
-                       New to this site?
+                        New to this site?
                     </p>
                     <button type="button"><a href="{{route('signup')}}">Sign up</a></button>
 
@@ -69,8 +68,8 @@
                                         </svg>
                                     </div>
                                 </button>
-                                <button  class="social-login ggl visible" type="button"
-                                         onclick="wixSm.invokeLogin('google')">
+                                <button class="social-login ggl visible" type="button"
+                                        onclick="wixSm.invokeLogin('google')">
                                     <div>
                                         <svg class="login-svg" xmlns="http://www.w3.org/2000/svg" width="28px"
                                              height="28px" viewBox="0 0 512 512" aria-label="Sign up with Google">
@@ -94,12 +93,14 @@
                         <div class="position-relative read-container">
                             <div class="custom-control custom-checkbox sign-in-checkbox mt-3 p0">
                                 <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2">Join this site’s community.</label>
+                                <label class="custom-control-label" for="customCheck2">Join this site’s
+                                    community.</label>
                             </div>
                             <div id="read-more">
                                 <div class="read-more-article">
                                     <p class="moretext">
-                                        Connect with members of our site. Leave comments, follow people and more. Your nickname,
+                                        Connect with members of our site. Leave comments, follow people and more. Your
+                                        nickname,
                                         profile image, and public activity will be visible on our site. </p>
                                 </div>
                                 <a class="moreless-button" href="#">Read more</a>

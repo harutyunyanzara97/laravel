@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->id;
     }
     public function follow(){
+
         return $this->hasMany(Follow::class,'user_id','id');
+    }
+    public function transactions() {
+
+        return $this->hasMany(Transaction::class,'user_id','id');
     }
 }

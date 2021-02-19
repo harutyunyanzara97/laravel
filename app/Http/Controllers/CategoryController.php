@@ -15,7 +15,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('followers', 'posts', 'comments')->orderBy('id','DESC')->paginate(5);
+        $categories = Category::with('followers', 'posts', 'comments')->orderBy('id', 'DESC')->paginate(5);
         return view('network', compact('categories'));
 
 
@@ -66,8 +66,8 @@ class CategoryController extends Controller
     public function showPosts(Request $request, $id)
     {
         $category = Category::where('id', $id)->first();
-        $posts=Post::with('comments','likes')->where('category_id',$id)->orderBy('id','DESC')->paginate(5);
-        return view('posts', compact('category', $category,'posts'));
+        $posts = Post::with('comments', 'likes')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
+        return view('posts.posts', compact('category', $category, 'posts'));
     }
 
     public function delete(Request $request)

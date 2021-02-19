@@ -3,18 +3,6 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/editor.css')}}"/>
-
-    <style>
-        .share_btn {
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: unset;
-        }
-
-        .resources-forum-left {
-            font-size: 15px
-        }
-    </style>
     <div class="network-container">
 
         <div class="network-section">
@@ -23,10 +11,11 @@
                     <a href="{{route('network')}}">
                         The Network
                     </a>
-                    <a href="{{route('showPosts',$newPost->category_id)}}">
+                    <a href="{{route('showPosts', $category->id)}}">
+                        {{$category->name}}
                     </a>
                     <a href="#">
-                        {{$newPost->title}}
+                        Create post
                     </a>
                 </div>
                 <div class="input-row">
@@ -63,141 +52,77 @@
                     <div class="banner d-flex">
                         <div class="d-flex">
                             @auth
-                                @if(Auth::user()->avatar_url)<img
-                                    src="{{asset('images/'.Auth::user()->avatar_url)}}" class="img-fluid logo "
-                                    width=24px height="24px"/>@endif
+                                @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}"
+                                                                  class="img-fluid logo " width=24px
+                                                                  height="24px"/>@endif
+
+                                <a href="{{route('profile')}}"
+                                   style="color:#fff;margin-left:8px;">{{Auth::user()->name}} </a>
                             @endauth
-                            <a href="{{route('profile')}}"
-                               style="color:#fff;margin-left:8px;">{{Auth::user()->name}} </a>
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19"
                                  aria-label="Admin"
                                  class="_3LDKX forum-icon-fill forum-icon-fill _1zT4G"
-                                 style="fill-rule: evenodd;margin-left:8px;">
+                                 style="fill-rule: evenodd;margin-left:8px;
+                                ">
                                 <path
                                     d="M15.3812,6.495914 L12.6789333,8.77258837 C12.6191333,8.84477644 12.5099333,8.85722265 12.4354,8.79997005 C12.4215333,8.79001308 12.4094,8.77756686 12.3998667,8.76429089 L9.78686667,6.14327115 C9.67766667,5.99225704 9.46186667,5.95491839 9.305,6.05863687 C9.26946667,6.08186981 9.23913333,6.11091099 9.21573333,6.14493065 L6.60013333,8.81075677 C6.5464,8.88626383 6.43893333,8.90534803 6.3592,8.85390366 C6.34446667,8.84394669 6.33146667,8.83233022 6.32106667,8.81905425 L3.61966667,6.50587098 C3.5018,6.36149485 3.28426667,6.33577266 3.13346667,6.44861837 C3.0494,6.51167921 3,6.60792997 3,6.70998895 L4,14 L15,14 L16,6.70169148 C16,6.51831719 15.8448667,6.36979232 15.6533333,6.36979232 C15.5476,6.36979232 15.4470667,6.41625821 15.3812,6.495914 Z"></path>
                             </svg>
                         </div>
                     </div>
-                    <p class="mt-4">{{$newPost->title}}</p>
-                    <div class="row post-created-inner">
-                        <div class="col-9"><p class="new-post-txt">{{$newPost->description}}</p>
-                            @if($newPost->images)
-                                <div class="row post-slider position-relative">
-
-                                    @foreach(explode('/',$newPost->images) as $image)
-                                        <div class="mySlides">
-                                            <img src="{{asset('images/'.$image)}}" height=200px width=200px
-                                                 alt="slide">
-                                        </div>
-                                    @endforeach
-                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                    <a class="next" onclick="plusSlides(1)">❯</a>
-                                </div>
-
-                                <div class="row mySlides-thumbnail">
-                                    @foreach(explode('/',$newPost->images) as $image)
-                                        <div>
-                                            <img class="demo cursor" src="{{asset('images/'.$image)}}"
-                                                 style="width:100px"
-                                                 onclick="currentSlide({{ $loop->index }})" alt="Image not Available">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                    <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/store')}}">
+                        @csrf
+                        <input type="hidden" value="{{$category->id}}" name="id">
+                        <input type="text" name="title" class="textEditt post-create"
+                               placeholder="Give this post a title" autocomplete="Off">
+                        <div class="">
+                                <textarea name="description" class="textEdit"
+                                          placeholder="Write your post here.Add photos,videos and more to get your message across."></textarea>
                         </div>
-                        <div class="col-3 resources-forum-right">
-                            {{--                        <a href="#" class="comment-btn">--}}
-                            {{--                            Comment--}}
-                            {{--                        </a>--}}
-                            <a href="" class="follow-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     class="button-fill">
-                                    <path
-                                        d="M36.5 15c.828 0 1.5.672 1.5 1.5v.708l.193.058C40.403 17.98 42 20.053 42 22.5v2.882c0 .682.514 1.085.724 1.17.907.46 1.276 1.327 1.276 2.066V29c0 .552-.448 1-1 1h-4.05c-.232 1.141-1.24 2-2.45 2-1.21 0-2.218-.859-2.45-2H30c-.552 0-1-.448-1-1v-.382c0-.816.43-1.567 1.124-1.982.584-.281.876-.7.876-1.254V22.5c0-2.518 1.692-4.64 4-5.293V16.5c0-.828.672-1.5 1.5-1.5zm1.414 15h-2.828c.206.583.761 1 1.414 1 .653 0 1.208-.417 1.414-1zM36.5 16c-.276 0-.5.224-.5.5v1.527c-2.25.249-4 2.157-4 4.473v2.882c0 .816-.43 1.567-1.124 1.982l-.115.06c-.284.156-.761.5-.761 1.194V29h13v-.382c0-.696-.482-1.039-.724-1.17-.68-.318-1.276-1.13-1.276-2.066V22.5c0-2.316-1.75-4.223-4-4.472V16.5c0-.276-.224-.5-.5-.5z"
-                                        transform="translate(-24 -12)"></path>
-                                </svg>
-                                Follow Post
-                            </a>
-                            {{--                                <a class="btn share_btn" data-toggle="modal" data-target="#myModal"><i--}}
-                            {{--                                        class="fa fa-share  mr-2"></i>--}}
-                            {{--                                    <span>Share</span>--}}
-                            {{--                                </a>--}}
-                            <div class="resources-forum-box">
-                                0 comments
-                            </div>
-                            <div id="myModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <h5>Do you like this? Share with your friends!</h5>
-                                            <div class="mt-5">
-                                                <ul class="share_links">
-                                                    <li class="bg_fb"><a href="#" class="share_icon" rel="tooltip"
-                                                                         title="Facebook"><i class="fa fa-facebook"></i></a>
-                                                    </li>
+                        <div class="image-upload post">
+                            <div class="avatar-upload postAv">
+                                <div class="avatar-edit">
 
-                                                    <li class="bg_insta"><a href="#" class="share_icon" rel="tooltip"
-                                                                            title="Instagram"><i
-                                                                class=" fa fa-instagram"></i></a></li>
-
-                                                    <li class="bg_whatsapp"><a href="#" class="share_icon" rel="tooltip"
-                                                                               title="Whatsapp"><i
-                                                                class="fa fa-whatsapp"
-                                                                aria-hidden="true"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                    <label for="imageUpload">
+                                        <div class="_1qOTu css-mm44dn css-1402lio">
+                                            <svg width="30" height="19" viewBox="0 0 19 19">
+                                                <g fill-rule="evenodd">
+                                                    <path
+                                                        d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                </g>
+                                            </svg>
                                         </div>
-                                    </div>
+                                        <input type="file" id="imageUpload" name="photo[]" multiple/>
+                                    </label>
                                 </div>
+                                <div id="selectedFiles"></div>
                             </div>
-                            <div class="resources-forum-box">
-                                <p>Similar Posts</p>
-                                <a href="#">Welcome to the Business Forums!</a>
-                                <a href="#">Welcome to the Social Forums!</a>
-                                <a href="#">Welcome to the Improvements and Inquiries Forum! (Start Here)</a>
+                            {{--                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">--}}
+                            {{--                                     <div class="_1qOTu css-mm44dn css-1402lio"><svg width="30" height="19" viewBox="0 0 19 19"><g fill-rule="evenodd"><path d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></g></svg></div>--}}
+                            {{--                                 </label>--}}
+                            <input id="upload" type="file" name="video[]" onchange="readURL(this);"
+                                   style="display: none" class="form-control">
+                            {{--                                 <label id="upload-label" for="upload" class="h--50 fs-14-black text-left text-muted">--}}
+                            {{--                                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 19 19" width="30" height="19"><defs><path id="video-icon-path" d="M14 7l2.842-1.421A.8.8 0 0 1 18 6.294v6.412a.8.8 0 0 1-1.158.715L14 12v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2zm0 3.9l2.708 1.354a.2.2 0 0 0 .29-.179V6.922a.2.2 0 0 0-.29-.178L14 8.098V10.9zM2 5v9h11V5H2z"></path></defs><g fill-rule="evenodd"><mask id="video-icon-mask"><use xlink:href="#video-icon-path"></use></mask><use fill-rule="nonzero" xlink:href="#video-icon-path"></use></g></svg>--}}
+                            {{--                                 </label>--}}
+
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
                             </div>
-                            <div class="resources-forum-box">
-                                <p>Categories</p>
-                                <a href="#">
-                                    Resources
-                                </a>
-                                <div><a href="" class=" d-flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19">
-                                            <path
-                                                d="M1.87401173,9.0171571 L11.9171573,9.0171571 L11.9171573,2.2 C11.9171573,2.08954305 12.0067003,2 12.1171573,2 L12.7171573,2 C12.8276142,2 12.9171573,2.08954305 12.9171573,2.2 L12.9171573,9.2171571 L12.9171573,9.8171571 C12.9171573,9.92761405 12.8276142,10.0171571 12.7171573,10.0171571 L1.78872997,10.0171571 L4.7254834,12.9539105 C4.80358826,13.0320154 4.80358826,13.1586484 4.7254834,13.2367532 L4.30121933,13.6610173 C4.22311447,13.7391222 4.09648148,13.7391222 4.01837662,13.6610173 L0.0585786438,9.70121933 C0.0195262146,9.6621669 -7.90478794e-14,9.61098244 -7.81597009e-14,9.55979797 C-1.00364161e-13,9.50861351 0.0195262146,9.45742905 0.0585786438,9.41837662 L4.01837662,5.45857864 C4.09648148,5.38047379 4.22311447,5.38047379 4.30121933,5.45857864 L4.7254834,5.88284271 C4.80358826,5.96094757 4.80358826,6.08758057 4.7254834,6.16568542 L1.87401173,9.0171571 Z"
-                                                transform="translate(6.458579, 7.859798) scale(-1, 1) translate(-6.458579, -7.859798) "></path>
-                                        </svg>
-                                        <div><span>FAQ (Start Here!), Improv</span></div>
-                                    </a></div>
-                                <div><a href="#">
-                                        <div> Businesses</div>
-                                    </a>
-                                </div>
-                                <div><a href="#">
-                                        <span> Social</span>
-                                    </a>
-                                    <div class="_14Bsb"></div>
-                                </div>
-                                <div><a href="#">
-                                        <div class="_3Rzd4"><span class="_1QEV9"> Community Watch</span></div>
-                                    </a>
-                                </div>
-                                <a href="#" class="button-color">See all categories</a>
+                            <div class="d-flex justify-content-between w-70">
+                                <button type="reset" class="publish_cancel">Cancel</button>
+                                <button class="publish_btn" type="submit">Publish</button>
                             </div>
                         </div>
-                    </div>
 
+                    </form>
                 </div>
-
-
+            </div>
         </div>
     </div>
-    <script src="{{asset('js/main.js')}}"></script>
+    </main>
+    </div>
+    <!--<script src="js/jquery.min.js"></script>-->
     <!--<script src="js/bootstrap.js"></script>-->
 
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
@@ -213,10 +138,109 @@
 
             });
         });
+        //# sourceURL=pen.js
     </script>
     <script>
 
-        //# sourceURL=pen.js
+        //     function readmultifiles(files) {
+        //         var reader = new FileReader();
+        //         function readFile(index) {
+        //             if( index >= files.length ) return;
+        //             var file = files[index];
+        //             reader.onload = function(e) {
+        //                 var bin = e.target.result;
+        //                 $("#imagePreview").append(`<img src='${file.name}'>`)
+        //
+        // // get file content
+        //
+        // // do sth with bin
+        //                 readFile(index+1)
+        //             }
+        //             reader.readAsBinaryString(file);
+        //         }
+        //         readFile(0);
+        //     }
+
+        //
+        // function readURL(input) {
+        //    // input.files.map((item)=>{
+        //    //
+        //    // });
+        //     // if (input.files && input.files[0]) {
+        //         var reader = new FileReader();
+        //         // console.log(reader)
+        //         reader.onload = function(e) {
+        //             $('#imagePreview').append(`<img src="${ e.target.result}">`);
+        //             // $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+        //             // $('#imagePreview').hide();
+        //             // $('#imagePreview').fadeIn(650);
+        //         }
+        //         for(i=0; i<input.files.length; i++){
+        //
+        //             console.log( e.target.result,'rdsfgdsfgdfg ')
+        //             $('#imagePreview').append(`<img src="${''}">`);
+        //             console.log(input.files[i],'iiiiiiiiiii')
+        //
+        //         }
+        //     }
+        //
+        //     // reader.readAsDataURL(input.files[0]);
+        //     // reader.readAsDataURL(input.files[1]);
+        //
+        //
+        //
+        // $("#imageUpload").change(function() {
+        //     readURL(this);
+        // });
+
+
+        var selDiv = "";
+
+        document.addEventListener("DOMContentLoaded", init, false);
+
+        function init() {
+            document.querySelector('#imageUpload').addEventListener('change', handleFileSelect, false);
+            selDiv = document.querySelector("#selectedFiles");
+        }
+
+        function handleFileSelect(e) {
+
+            if (!e.target.files || !window.FileReader) return;
+
+            selDiv.innerHTML = "";
+
+            let files = e.target.files;
+            let filesArr = Array.prototype.slice.call(files);
+            filesArr.forEach(function (f) {
+                if (!f.type.match("image.*")) {
+                    return;
+                }
+
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let html = "<img src=\"" + e.target.result + "\">";
+                    selDiv.innerHTML += html;
+                }
+                reader.readAsDataURL(f);
+            });
+
+        }
+    </script>
+    <script>
+        updateList = function () {
+
+
+            var input = document.getElementById('imageUpload');
+            var output = document.getElementById('imagePreview');
+            console.log(input)
+            var children = "";
+            for (var i = 0; i < input.files.length; ++i) {
+                let url = $('#imageUpload')[i]
+                console.log(input.files[i].url, '55555555555555555');
+                // children += '<img src="'+ url + input.files.item(i).name + '" width="200px" height="200px">';
+            }
+            output.innerHTML = children;
+        }
     </script>
     <!--<script src="js/jquery.min.js"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->

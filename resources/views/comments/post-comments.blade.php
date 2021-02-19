@@ -32,7 +32,8 @@
 
         #stripeModal {
             margin: auto;
-            height: 60%;
+            height: 64%;
+            overflow: hidden;
         }
 
         #payment-submit {
@@ -153,7 +154,6 @@
 
     </div>
     <div class="network-container">
-
         <div class="network-section">
             <div class="network-info">
                 <div class="breadcrumb">
@@ -167,15 +167,15 @@
                         {{$post->title}}
                     </a>
                 </div>
-{{--                <div class="input-row">--}}
-{{--                    <input type="text" placeholder="Search"/>--}}
-{{--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
-{{--                         class="_2_hbq desktop-header-search-icon-fill button-hover-fill"--}}
-{{--                         data-hook="search-icon">--}}
-{{--                        <path fill-rule="evenodd"--}}
-{{--                              d="M19.854 19.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0l-3.708-3.709C14.118 17.3 12.391 18 10.5 18 6.358 18 3 14.642 3 10.5 3 6.358 6.358 3 10.5 3c4.142 0 7.5 3.358 7.5 7.5 0 1.891-.7 3.619-1.855 4.938l3.709 3.708zM17 10.5C17 6.91 14.09 4 10.5 4S4 6.91 4 10.5 6.91 17 10.5 17s6.5-2.91 6.5-6.5z"></path>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
+                {{--                <div class="input-row">--}}
+                {{--                    <input type="text" placeholder="Search"/>--}}
+                {{--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+                {{--                         class="_2_hbq desktop-header-search-icon-fill button-hover-fill"--}}
+                {{--                         data-hook="search-icon">--}}
+                {{--                        <path fill-rule="evenodd"--}}
+                {{--                              d="M19.854 19.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0l-3.708-3.709C14.118 17.3 12.391 18 10.5 18 6.358 18 3 14.642 3 10.5 3 6.358 6.358 3 10.5 3c4.142 0 7.5 3.358 7.5 7.5 0 1.891-.7 3.619-1.855 4.938l3.709 3.708zM17 10.5C17 6.91 14.09 4 10.5 4S4 6.91 4 10.5 6.91 17 10.5 17s6.5-2.91 6.5-6.5z"></path>--}}
+                {{--                    </svg>--}}
+                {{--                </div>--}}
             </div>
 
             <!--                    <div class="search-banner">-->
@@ -198,6 +198,12 @@
             <div class="main-container resources-forum mt-0 d-flex">
                 <div class="row post-comments">
                     <div class="col-9">
+                        @if (Session::has('success'))
+                            <div class="alert alert-success text-center">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                <p>{{ Session::get('success') }}</p>
+                            </div>
+                        @endif
                         <div class="resources-forum-left">
                             <div class="banner d-flex">
                                 <div class="d-flex">
@@ -284,11 +290,12 @@
 
                                             <span>   {{count($post->comments)}} Comments </span>
                                             <i class="fa fa-heart"></i>
-                                            <button class="ml-3 payment-info"  data-toggle="modal"
+                                            <button class="ml-3 payment-info" data-toggle="modal"
                                                     @if($card) data-target="#stripeModal" @else
-                                                    data-target="#messageModal" @endif><img src="{{asset('images/icon1.png')}}" width="30px" height="30px"></button>
+                                                    data-target="#messageModal" @endif><img
+                                                    src="{{asset('images/icon1.png')}}" width="30px" height="30px">
+                                            </button>
                                         </a>
-
 
 
                                         <a class="share_btn" data-toggle="modal" data-target="#myModal">
@@ -340,12 +347,12 @@
 
                                         <div class="d-flex align-items-center">
                                             <div></div>
-                                        <div class="mt-3 mb-3 ml-5">
-                                            <p class="description-comment"> {{$comment->description}}</p>
-                                            @if($comment->images)<img
-                                                src="{{asset('images/'.$comment->images)}}"
-                                                class="img-fluid" width="100px" height="100px"/>@endif
-                                        </div>
+                                            <div class="mt-3 mb-3 ml-5">
+                                                <p class="description-comment"> {{$comment->description}}</p>
+                                                @if($comment->images)<img
+                                                    src="{{asset('images/'.$comment->images)}}"
+                                                    class="img-fluid" width="100px" height="100px"/>@endif
+                                            </div>
                                         </div>
                                         <a href="" class="comment-section comments d-flex align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -481,7 +488,8 @@
                             {{--                        <a href="resources-forum-comment.html" class="comment-btn">--}}
                             {{--                            Comment--}}
                             {{--                        </a>--}}
-                            <a href="" class="follow-btn post-following" data-id="{{Auth::id()}}" data-path="{{$post->id}}">
+                            <a href="" class="follow-btn post-following" data-id="{{Auth::id()}}"
+                               data-path="{{$post->id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      class="button-fill">
                                     <path
@@ -502,17 +510,18 @@
                             <div class="resources-forum-box">
                                 <p>Categories</p>
                                 @foreach($categories as $category)
-                                <a href="{{route('showPosts',$category->id)}}">
-                                    {{$category->name}}
-                                </a>
-                                <div><a href="#" class="d-flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19">
-                                            <path
-                                                d="M1.87401173,9.0171571 L11.9171573,9.0171571 L11.9171573,2.2 C11.9171573,2.08954305 12.0067003,2 12.1171573,2 L12.7171573,2 C12.8276142,2 12.9171573,2.08954305 12.9171573,2.2 L12.9171573,9.2171571 L12.9171573,9.8171571 C12.9171573,9.92761405 12.8276142,10.0171571 12.7171573,10.0171571 L1.78872997,10.0171571 L4.7254834,12.9539105 C4.80358826,13.0320154 4.80358826,13.1586484 4.7254834,13.2367532 L4.30121933,13.6610173 C4.22311447,13.7391222 4.09648148,13.7391222 4.01837662,13.6610173 L0.0585786438,9.70121933 C0.0195262146,9.6621669 -7.90478794e-14,9.61098244 -7.81597009e-14,9.55979797 C-1.00364161e-13,9.50861351 0.0195262146,9.45742905 0.0585786438,9.41837662 L4.01837662,5.45857864 C4.09648148,5.38047379 4.22311447,5.38047379 4.30121933,5.45857864 L4.7254834,5.88284271 C4.80358826,5.96094757 4.80358826,6.08758057 4.7254834,6.16568542 L1.87401173,9.0171571 Z"
-                                                transform="translate(6.458579, 7.859798) scale(-1, 1) translate(-6.458579, -7.859798) "></path>
-                                        </svg>
-                                        <div><span><a href="{{route('showPosts',$category->id)}}" class="d-flex">{{$category->description}}</span></div>
-                                    </a></div>
+                                    <a href="{{route('showPosts',$category->id)}}">
+                                        {{$category->name}}
+                                    </a>
+                                    <div><a href="#" class="d-flex">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19">
+                                                <path
+                                                    d="M1.87401173,9.0171571 L11.9171573,9.0171571 L11.9171573,2.2 C11.9171573,2.08954305 12.0067003,2 12.1171573,2 L12.7171573,2 C12.8276142,2 12.9171573,2.08954305 12.9171573,2.2 L12.9171573,9.2171571 L12.9171573,9.8171571 C12.9171573,9.92761405 12.8276142,10.0171571 12.7171573,10.0171571 L1.78872997,10.0171571 L4.7254834,12.9539105 C4.80358826,13.0320154 4.80358826,13.1586484 4.7254834,13.2367532 L4.30121933,13.6610173 C4.22311447,13.7391222 4.09648148,13.7391222 4.01837662,13.6610173 L0.0585786438,9.70121933 C0.0195262146,9.6621669 -7.90478794e-14,9.61098244 -7.81597009e-14,9.55979797 C-1.00364161e-13,9.50861351 0.0195262146,9.45742905 0.0585786438,9.41837662 L4.01837662,5.45857864 C4.09648148,5.38047379 4.22311447,5.38047379 4.30121933,5.45857864 L4.7254834,5.88284271 C4.80358826,5.96094757 4.80358826,6.08758057 4.7254834,6.16568542 L1.87401173,9.0171571 Z"
+                                                    transform="translate(6.458579, 7.859798) scale(-1, 1) translate(-6.458579, -7.859798) "></path>
+                                            </svg>
+                                            <div><span><a href="{{route('showPosts',$category->id)}}" class="d-flex">{{$category->description}}</span>
+                                            </div>
+                                        </a></div>
                                 @endforeach
                                 <a href="{{route('network')}}" class="button-color">See all categories</a>
                             </div>
@@ -537,8 +546,10 @@
                     <h5>Do you like this? Share with your friends!</h5>
                     <div class="mt-5">
                         <ul class="share_links">
-                            <li class="bg_fb"><a href="javascript:fbShare('http://localhost/comments/{{$post->id}}','Fb Share', 'Facebook share popup', 'http://localhost')" class="share_icon" rel="tooltip"
-                                                 title="Facebook"><i
+                            <li class="bg_fb"><a
+                                    href="javascript:fbShare('http://localhost/comments/{{$post->id}}','Fb Share', 'Facebook share popup', 'http://localhost')"
+                                    class="share_icon" rel="tooltip"
+                                    title="Facebook"><i
                                         class="fa fa-facebook"></i></a></li>
 
                             <li class="bg_insta"><a href="#" class="share_icon"
@@ -556,241 +567,245 @@
         </div>
     </div>
     @auth
-    <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content pb-5 pt-4">
-                <div class="modal-header border-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+        <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content pb-5 pt-4">
+                    <div class="modal-header border-0">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-body">
-                    <div>
-                        <div id="card-errors" role="alert"></div>
-                        <div class="card">
-                            <div class="card-body">
+                    <div class="modal-body">
+                        <div>
+                            <div id="card-errors" role="alert"></div>
+                            <div class="card">
+                                <div class="card-body">
 
-                                <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
-                                      data-cc-on-file="false"
-                                      data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" class="require-validation">
-                                    @csrf
-                                    <input type="hidden" value="{{$post->id}}" name="id">
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Price of post</label>
-                                            <input type="number" class="form-control" id="price" name="price">
-                                        </div>
-                                    </div>
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Name on Card</label> <input
-                                                class='form-control' size='4' type='text' name="name"
-                                                @if($card)value="{{$card->name}}"@endif>
-                                        </div>
-                                    </div>
-
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group card required'>
-                                            <label class='control-label'>Card Number</label> <input
-                                                autocomplete='off' class='form-control card-number' name="number"
-                                                size='20'
-                                                type='text' @if($card)value="{{$card->card_number}}"@endif>
-                                        </div>
-                                    </div>
-
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                            <label class='control-label'>CVC</label> <input autocomplete='off'
-                                                                                            class='form-control card-cvc'
-                                                                                            placeholder='ex. 311'
-                                                                                            size='4'
-                                                                                            type='text' name="cvc"
-                                                                                            @if($card)value="{{$card->cvc}}"@endif>
-                                        </div>
-                                        <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                            <label class='control-label'>Expiration Month</label> <input
-                                                class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                type='text' name="month" @if($card)value="{{$card->month}}"@endif>
-                                        </div>
-                                        <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                            <label class='control-label'>Expiration Year</label> <input
-                                                class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                type='text' name="year" @if($card)value="{{$card->year}}"@endif>
-                                        </div>
-                                    </div>
-
-                                    <div class='form-row row'>
-                                        <div class='col-md-12 error form-group hide'>
-                                            <div class='alert-danger alert'>Please correct the errors and try
-                                                again.
+                                    <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
+                                          data-cc-on-file="false"
+                                          data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                                          class="require-validation">
+                                        @csrf
+                                        <input type="hidden" value="{{$post->user->id}}" name="id">
+{{--                                        <input type="hidden" value="{{$post->user}}" name="postUser">--}}
+                                        <div class='form-row row'>
+                                            <div class='col-xs-12 form-group required'>
+                                                <label class='control-label'>Price of post</label>
+                                                <input type="number" class="form-control" id="price" name="price">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <button class="btn" id="payment-submit"
-                                                    type="submit">Add payment
-                                            </button>
+                                        <div class='form-row row'>
+                                            <div class='col-xs-12 form-group required'>
+                                                <label class='control-label'>Name on Card</label> <input
+                                                    class='form-control' size='4' type='text' name="name"
+                                                    @if($card)value="{{$card->name}}"@endif>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                </form>
-                                @endauth
+                                        <div class='form-row row'>
+                                            <div class='col-xs-12 form-group card required'>
+                                                <label class='control-label'>Card Number</label> <input
+                                                    autocomplete='off' class='form-control card-number' name="number"
+                                                    size='20'
+                                                    type='text' @if($card)value="{{$card->card_number}}"@endif>
+                                            </div>
+                                        </div>
+
+                                        <div class='form-row row'>
+                                            <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                <label class='control-label'>CVC</label> <input autocomplete='off'
+                                                                                                class='form-control card-cvc'
+                                                                                                placeholder='ex. 311'
+                                                                                                size='4'
+                                                                                                type='text' name="cvc"
+                                                                                                @if($card)value="{{$card->cvc}}"@endif>
+                                            </div>
+                                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                <label class='control-label'>Expiration Month</label> <input
+                                                    class='form-control card-expiry-month' placeholder='MM' size='2'
+                                                    type='text' name="month" @if($card)value="{{$card->month}}"@endif>
+                                            </div>
+                                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                <label class='control-label'>Expiration Year</label> <input
+                                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                                                    type='text' name="year" @if($card)value="{{$card->year}}"@endif>
+                                            </div>
+                                        </div>
+
+                                        <div class='form-row row'>
+                                            <div class='col-md-12 error form-group hide'>
+                                                <div class='alert-danger alert'>Please correct the errors and try
+                                                    again.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button class="btn" id="payment-submit"
+                                                        type="submit">Add payment
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    @endauth
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <p>Please add a payment method in your profile, to share your support to the post creator.</p>
-                    <div class="d-flex go-profile-section justify-content-center"><a class="go-profile" href="{{route('profile')}}">Go to profile</a>
-                    </div>
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <p>Please add a payment method in your profile, to share your support to the post creator.</p>
+                        <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"
+                                                                                         href="{{route('profile')}}">Go
+                                to profile</a>
+                        </div>
 
-                <div class="modal-body">
+                        <div class="modal-body">
 
-                </div>
-                <div class="d-flex justify-content-center mt-4 go-profile-section">
-                    <div class="modal-footer">
-                            <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel</button>
-                            <button class="publish_btn" data-dismiss="modal">Publish</button>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 go-profile-section">
+                            <div class="modal-footer">
+                                <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel
+                                </button>
+                                <button class="publish_btn" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+            <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 
+            <!--<script src="js/jquery.min.js"></script>-->
+            <!--<script src="js/bootstrap.js"></script>-->
+            <script src="{{asset('js/main.js')}}"></script>
+            <script id="rendered-js">
+                $(document).ready(function () {
+                    $('.dropdown-item').on('click', function () {
+                        if ($(this).attr('href')) {
+                            alert('redirect to ' + $(this).attr('href'));
+                            window.location.replace($(this).attr('href'));
 
+                        }
 
-    <!--<script src="js/jquery.min.js"></script>-->
-    <!--<script src="js/bootstrap.js"></script>-->
-    <script src="{{asset('js/main.js')}}"></script>
-    <script id="rendered-js">
-        $(document).ready(function () {
-            $('.dropdown-item').on('click', function () {
-                if ($(this).attr('href')) {
-                    alert('redirect to ' + $(this).attr('href'));
-                    window.location.replace($(this).attr('href'));
+                    });
+                });
+                // $(document).on('click', '.follow-btn', function (event) {
+                //     event.preventDefault();
+                //     let likeMe = $(this);
+                //     let toLikeId = $(this).attr('data-id');
+                //     let post_id = $(this).attr('data-path');
+                //     $.ajax({
+                //         type: "get",
+                //         url: '/insertLike',
+                //         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
+                //         success: function (r) {
+                //             likeMe.html('Liked');
+                //             if (likeMe.text = 'Liked') {
+                //                 likeMe.removeClass('like').addClass('Liked');
+                //             }
+                //         }
+                //
+                //     })
+                // })
 
-                }
+                $(document).on('click', '.like', function (event) {
+                    event.preventDefault();
+                    let likeMe = $(this);
+                    let toLikeId = $(this).attr('data-id');
+                    let post_id = $(this).attr('data-path');
+                    $.ajax({
+                        type: "get",
+                        url: '/insertLike',
+                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
+                        success: function (r) {
+                            likeMe.html('Liked');
+                            if (likeMe.text = 'Liked') {
+                                likeMe.removeClass('like').addClass('Liked');
+                            }
+                        }
 
-            });
-        });
-        // $(document).on('click', '.follow-btn', function (event) {
-        //     event.preventDefault();
-        //     let likeMe = $(this);
-        //     let toLikeId = $(this).attr('data-id');
-        //     let post_id = $(this).attr('data-path');
-        //     $.ajax({
-        //         type: "get",
-        //         url: '/insertLike',
-        //         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
-        //         success: function (r) {
-        //             likeMe.html('Liked');
-        //             if (likeMe.text = 'Liked') {
-        //                 likeMe.removeClass('like').addClass('Liked');
-        //             }
-        //         }
-        //
-        //     })
-        // })
+                    })
+                })
+                $(document).on('click', '.Liked', function (event) {
+                    event.preventDefault();
+                    let dislike = $(this);
+                    let likeId = $(this).attr('data-id');
+                    $.ajax({
+                        type: "get",
+                        url: '/dislike',
+                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: likeId},
+                        success: function (r) {
+                            dislike.html('like');
+                            if (dislike.text = 'like') {
+                                dislike.removeClass('Liked').addClass('like');
+                            }
+                        }
 
-        $(document).on('click', '.like', function (event) {
-            event.preventDefault();
-            let likeMe = $(this);
-            let toLikeId = $(this).attr('data-id');
-            let post_id = $(this).attr('data-path');
-            $.ajax({
-                type: "get",
-                url: '/insertLike',
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
-                success: function (r) {
-                    likeMe.html('Liked');
-                    if (likeMe.text = 'Liked') {
-                        likeMe.removeClass('like').addClass('Liked');
-                    }
-                }
+                    })
+                })
+                //# sourceURL=pen.js
+            </script>
+            <script>
+                $(document).on('click', '.post-following', function (event) {
+                    event.preventDefault();
+                    let follow = $(this);
+                    let toFollowId = $(this).attr('data-id');
+                    let post_id = $(this).attr('data-path');
+                    $.ajax({
+                        type: "get",
+                        url: '/followPost',
+                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
+                        success: function (r) {
+                            follow.html('Followed');
+                            if (follow.text = 'Following') {
+                                follow.removeClass('.member-following').addClass('followedPost');
+                            }
+                        }
 
-            })
-        })
-        $(document).on('click', '.Liked', function (event) {
-            event.preventDefault();
-            let dislike = $(this);
-            let likeId = $(this).attr('data-id');
-            $.ajax({
-                type: "get",
-                url: '/dislike',
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: likeId},
-                success: function (r) {
-                    dislike.html('like');
-                    if (dislike.text = 'like') {
-                        dislike.removeClass('Liked').addClass('like');
-                    }
-                }
+                    })
+                })
+                $(document).on('click', '.followedPost', function (event) {
+                    event.preventDefault();
+                    let unfollow = $(this);
+                    let followeId = $(this).attr('data-id');
+                    $.ajax({
+                        type: "get",
+                        url: '/unfollowPost',
+                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+                        success: function (r) {
+                            unfollow.html('follow');
+                            if (unfollow.text = 'post-following') {
+                                unfollow.removeClass('followedPost').addClass('post-following');
+                            }
+                        }
 
-            })
-        })
-        //# sourceURL=pen.js
-    </script>
-    <script>
-        $(document).on('click', '.post-following', function (event) {
-            event.preventDefault();
-            let follow = $(this);
-            let toFollowId = $(this).attr('data-id');
-            let post_id = $(this).attr('data-path');
-            $.ajax({
-                type: "get",
-                url: '/followPost',
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
-                success: function (r) {
-                    follow.html('Followed');
-                    if (follow.text = 'Following') {
-                        follow.removeClass('.member-following').addClass('followedPost');
-                    }
-                }
+                    })
+                })
 
-            })
-        })
-        $(document).on('click', '.followedPost', function (event) {
-            event.preventDefault();
-            let unfollow = $(this);
-            let followeId = $(this).attr('data-id');
-            $.ajax({
-                type: "get",
-                url: '/unfollowPost',
-                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
-                success: function (r) {
-                    unfollow.html('follow');
-                    if (unfollow.text = 'post-following') {
-                        unfollow.removeClass('followedPost').addClass('post-following');
-                    }
-                }
-
-            })
-        })
-
-    </script>
-    <script>
-        $(document).on('click', '.replyMe', function (event) {
-            event.preventDefault();
-            let id = $(this).attr('data-id');
-            let postId = $(this).attr('data-path');
-            $(this).closest('.comments').next().append(`<form action="{{url('reply')}}" class="replyForm" method="post" enctype="multipart/form-data">
+            </script>
+            <script>
+                $(document).on('click', '.replyMe', function (event) {
+                    event.preventDefault();
+                    let id = $(this).attr('data-id');
+                    let postId = $(this).attr('data-path');
+                    $(this).closest('.comments').next().append(`<form action="{{url('reply')}}" class="replyForm" method="post" enctype="multipart/form-data">
     @csrf
-            <input type="hidden" name="id">
-                                     <input type="hidden" value=${id} name="id">
+                    <input type="hidden" name="id">
+                                             <input type="hidden" value=${id} name="id">
                                          <input type="hidden" value=${postId} name="post_id">
                         <div class="">
                             <input type="text" name="reply" class="txt" placeholder="Write a comment" autocomplete="off">
@@ -821,67 +836,67 @@
                                     </div>
         </form>`);
 
-        });
+                });
 
-    </script>
-    <script>
-        var selDiv = "";
+            </script>
+            <script>
+                var selDiv = "";
 
-        document.addEventListener("DOMContentLoaded", init, false);
+                document.addEventListener("DOMContentLoaded", init, false);
 
-        function init() {
-            document.querySelector('#imageUploadd').addEventListener('change', handleFileSelect, false);
-            selDiv = document.querySelector("#selectedFiless");
-        }
-
-        function handleFileSelect(e) {
-
-            if (!e.target.files || !window.FileReader) return;
-
-            selDiv.innerHTML = "";
-
-            let files = e.target.files;
-            let filesArr = Array.prototype.slice.call(files);
-            filesArr.forEach(function (f) {
-                if (!f.type.match("image.*")) {
-                    return;
+                function init() {
+                    document.querySelector('#imageUploadd').addEventListener('change', handleFileSelect, false);
+                    selDiv = document.querySelector("#selectedFiless");
                 }
 
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    let html = "<img src=\"" + e.target.result + "\">";
-                    selDiv.innerHTML += html;
-                }
-                reader.readAsDataURL(f);
-            });
+                function handleFileSelect(e) {
 
-        }
-    </script>
-    <script>
-        function fbShare(url, title, descr, image) {
-            window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer'+'target=_blank');
-        }
-    </script>
-    <script>
-       $('.countComments').on('click', ()=> {
-           $('.txt').css('display', 'inline-block').focus();
-       })
-    </script>
-    {{--<script src="{{asset('js/main.js')}}"></script>--}}
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>-->
-    <!--<script src="js/bootstrap.js"></script>-->
-    <!--<script src="js/main.js"></script>-->
-    <!--<script>-->
-    <!--    $('.moreless-button').click(function () {-->
-    <!--        $('.moretext').slideToggle();-->
-    <!--        if ($('.moreless-button').text() == "Read more") {-->
-    <!--            $(this).text("Read less")-->
-    <!--        } else {-->
-    <!--            $(this).text("Read more")-->
-    <!--        }-->
-    <!--    });-->
-    <!--</script>-->
+                    if (!e.target.files || !window.FileReader) return;
+
+                    selDiv.innerHTML = "";
+
+                    let files = e.target.files;
+                    let filesArr = Array.prototype.slice.call(files);
+                    filesArr.forEach(function (f) {
+                        if (!f.type.match("image.*")) {
+                            return;
+                        }
+
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            let html = "<img src=\"" + e.target.result + "\">";
+                            selDiv.innerHTML += html;
+                        }
+                        reader.readAsDataURL(f);
+                    });
+
+                }
+            </script>
+            <script>
+                function fbShare(url, title, descr, image) {
+                    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer' + 'target=_blank');
+                }
+            </script>
+            <script>
+                $('.countComments').on('click', () => {
+                    $('.txt').css('display', 'inline-block').focus();
+                })
+            </script>
+        {{--<script src="{{asset('js/main.js')}}"></script>--}}
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>-->
+            <!--<script src="js/bootstrap.js"></script>-->
+            <!--<script src="js/main.js"></script>-->
+            <!--<script>-->
+            <!--    $('.moreless-button').click(function () {-->
+            <!--        $('.moretext').slideToggle();-->
+            <!--        if ($('.moreless-button').text() == "Read more") {-->
+            <!--            $(this).text("Read less")-->
+            <!--        } else {-->
+            <!--            $(this).text("Read more")-->
+            <!--        }-->
+            <!--    });-->
+            <!--</script>-->
 
 
 @endsection

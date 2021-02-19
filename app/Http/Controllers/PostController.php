@@ -24,16 +24,16 @@ class PostController extends Controller
     public function createPost($id)
     {
         $category = Category::where('id', $id)->first();
-        return view('post-create', compact('category'));
+        return view('posts.post-create', compact('category'));
     }
 
     public function comments($id)
     {
         $post = Post::where('id', $id)->with('categories')->first();
-        $categories=Category::all();
+        $categories = Category::all();
         $postUser = Post::where('id', $id)->with('user')->first();
         $card = Card::where('user_id', Auth::id())->first();
-        return view('post-comments', compact('post', 'postUser', 'card','categories'));
+        return view('comments.post-comments', compact('post', 'postUser', 'card', 'categories'));
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class PostController extends Controller
             }
             $newPost->save();
         }
-        return view('post-created', compact('newPost'));
+        return view('posts.post-created', compact('newPost'));
     }
 
     public function insertComments(Request $request)
@@ -111,5 +111,10 @@ class PostController extends Controller
         if ($follow) {
             $follow->delete();
         }
+    }
+    public function myPosts() {
+        $myPosts=Post::with('comments')->where('user_id',Auth::user()->getId())->paginate(5);
+        $user=User::where('id', Auth::user()->getId())->first();
+        return view('posts.my-posts',compact('myPosts',$myPosts,'user',$user));
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function searchCat(Request $request)
+    public function searchCategory(Request $request)
     {
         if ($request->ajax()) {
             $category = Category::where('name', 'LIKE', '%' . $request->search . "%")->get();
@@ -18,6 +18,7 @@ class SearchController extends Controller
             }
         }
     }
+
     public function searchPost(Request $request)
     {
         if ($request->ajax()) {
@@ -27,6 +28,7 @@ class SearchController extends Controller
             }
         }
     }
+
     public function searchComment(Request $request)
     {
         if ($request->ajax()) {

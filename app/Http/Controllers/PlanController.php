@@ -12,6 +12,7 @@ class PlanController extends Controller
         $plans = Plan::all();
         return view('plans.index', compact('plans'));
     }
+
     public function show(Plan $plan, Request $request)
     {
         return view('plans.show', compact('plan'));

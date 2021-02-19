@@ -37,7 +37,8 @@
                 <div class="form-row d-flex justify-content-between">
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" name="name" id="firstName" placeholder="{{$user->name}}">
+                        <input type="text" class="form-control" name="name" id="firstName"
+                               placeholder="{{$user->name}}">
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
@@ -47,7 +48,8 @@
                 <div class="form-row d-flex justify-content-between">
                     <div class="form-group">
                         <label for="contactEmail">Contact Email</label>
-                        <input type="email" class="form-control" id="contactEmail" name="contact_email" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="contactEmail" name="contact_email"
+                               aria-describedby="emailHelp">
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Phone</label>
@@ -58,7 +60,7 @@
                     <label for="address">Address</label>
                     <input type="text" class="form-control" id="address" name="address">
                 </div>
-                <button  type="submit" class="update-btn">
+                <button type="submit" class="update-btn">
                     Update Info
                 </button>
             </form>

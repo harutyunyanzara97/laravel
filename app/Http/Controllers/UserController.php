@@ -17,17 +17,9 @@ use Session;
 
 class UserController extends Controller
 {
-    public function home(){
-        $user = User::where('id', Auth::user()->getId())
-            ->first();
-        return view ('home',compact('user'));
-    }
     public function members(){
         $users=User::all();
         return view ('members',compact('users'));
-    }
-    public function network(){
-        return view('network');
     }
     public function followUser(Request $request)
     {
@@ -97,17 +89,14 @@ class UserController extends Controller
         $user = User::where('id', Auth::user()->getId())->first();
         return view('account',compact('user'));
     }
-    public function myPosts() {
-        $myPosts=Post::with('comments')->where('user_id',Auth::user()->getId())->paginate(5);
-        $user=User::where('id', Auth::user()->getId())->first();
-        return view('my-posts',compact('myPosts',$myPosts,'user',$user));
+
+    public function balance() {
+        $user = User::where('id', Auth::user()->getId())->first();
+        $card = Card::where('user_id', $user->id)->first();
+        $balance=$user->balance;
+        return view('balance',compact('user','balance','card'));
     }
 
-    public function myComments() {
-        $myPosts=Post::with('comments.likes','likes')->where('user_id',Auth::user()->getId())->get();
-        $user=User::where('id', Auth::user()->getId())->first();
-        return view('my-comments',compact('myPosts',$myPosts,'user',$user));
-    }
     public function card(Request $request){
         $card=new Card();
         $card->user_id=Auth::id();

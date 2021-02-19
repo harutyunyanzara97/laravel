@@ -28,8 +28,6 @@ Route::group(['middleware' => 'auth'], function() {
 Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index'])->name('network');
 Route::get('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('delete');
 Route::get('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
-//Route::get('/home', [App\Http\Controllers\UserController::class, 'home'])->name('home');
-//Route::get('/signup', [App\Http\Controllers\UserController::class, 'sign_up'])->name('signup');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('/members', [App\Http\Controllers\UserController::class, 'members'])->name('members');
 Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'contribute'])->name('contribute');
@@ -37,8 +35,10 @@ Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editPr
 Route::post('/storeProfile', [App\Http\Controllers\UserController::class, 'storeProfile'])->name('storeProfile');
 Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
 Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
-Route::get('/myPosts', [App\Http\Controllers\UserController::class, 'myPosts'])->name('myPosts');
-Route::get('/myComments', [App\Http\Controllers\UserController::class, 'myComments'])->name('myComments');
+Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
+Route::get('/history', [App\Http\Controllers\StripePaymentController::class, 'history'])->name('history');
+Route::get('/myPosts', [App\Http\Controllers\PostController::class, 'myPosts'])->name('myPosts');
+Route::get('/myComments', [App\Http\Controllers\CommentController::class, 'myComments'])->name('myComments');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
 Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');
@@ -60,7 +60,7 @@ Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comme
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');
 Route::post('stripe-post', [App\Http\Controllers\StripePaymentController::class,'stripePost'])->name('stripe.post');
 Route::post('card', [App\Http\Controllers\UserController::class,'card'])->name('card-details');
-Route::get('/searchCat',[App\Http\Controllers\SearchController::class,'searchCat']);
+Route::get('/searchCat',[App\Http\Controllers\SearchController::class,'searchCategory']);
 Route::get('/searchPost',[App\Http\Controllers\SearchController::class,'searchPost']);
 
 

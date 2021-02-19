@@ -19,6 +19,7 @@
                         <button type="button" class="member-following" data-id="{{$user->id}}">Follow</button>
                     </div>
                 </div>
+
             @endforeach
         </div>
     </main>
