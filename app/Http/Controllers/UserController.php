@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Cashier\Cashier;
 use Session;
 
 class UserController extends Controller
@@ -101,14 +102,11 @@ class UserController extends Controller
     }
 
     public function card(Request $request){
-        $card=new Card();
-        $card->user_id=Auth::id();
-        $card->fill($request->all());
-        $card->save();
+        $user=Auth::user();
 
         Session::flash('success', 'Payment created successfully!');
 
-        return back();
+        return view('comments.post-comments',compact($card));
     }
 
 }

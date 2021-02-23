@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Pagination;
+use Laravel\Cashier\Cashier;
 
 class PostController extends Controller
 {
@@ -32,8 +33,20 @@ class PostController extends Controller
         $post = Post::where('id', $id)->with('categories')->first();
         $categories = Category::all();
         $postUser = Post::where('id', $id)->with('user')->first();
-        $card = Card::where('user_id', Auth::id())->first();
-        return view('comments.post-comments', compact('post', 'postUser', 'card', 'categories'));
+        if (Auth::user()) {
+            $card_user = Cashier::findBillable(Auth::user()->stripe_id);
+
+            if ($card_user->paymentMethods()) {
+                $cards = $card_user->paymentMethods();
+
+                $payments = [];
+                foreach ($cards->values() as $value) {
+
+                    $payments[] = $value;
+                }
+            }
+        }
+        return view('comments.post-comments', compact('post', 'postUser', 'categories', 'payments'));
     }
 
     public function store(Request $request)
@@ -112,9 +125,11 @@ class PostController extends Controller
             $follow->delete();
         }
     }
-    public function myPosts() {
-        $myPosts=Post::with('comments')->where('user_id',Auth::user()->getId())->paginate(5);
-        $user=User::where('id', Auth::user()->getId())->first();
-        return view('posts.my-posts',compact('myPosts',$myPosts,'user',$user));
+
+    public function myPosts()
+    {
+        $myPosts = Post::with('comments')->where('user_id', Auth::user()->getId())->paginate(5);
+        $user = User::where('id', Auth::user()->getId())->first();
+        return view('posts.my-posts', compact('myPosts', $myPosts, 'user', $user));
     }
 }

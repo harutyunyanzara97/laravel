@@ -29,7 +29,69 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 </head>
+<style>
+    #stripeModal {
+        height: 70%;
+        margin: auto;
+        overflow: hidden;
+    }
+    #stripeModal  .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        height: 100%;
+    }
 
+    #stripeModal  .card input {
+        margin: 0 !important;
+        width: 85%;
+    }
+
+    #stripeModal  .modal-dialog {
+        /* height: auto; */
+        margin: auto;
+        /* position: absolute; */
+        left: 0;
+        right: 0;
+        max-width: 500px;
+        height: 50%;
+        bottom: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    #stripeModal  .modal-dialog h2 {
+        font-size: 24px;
+    }
+
+    #stripeModal  .modal-body {
+        padding: 15px 0;
+    }
+
+    #stripeModal  .modal-header {
+        padding: 0;
+    }
+
+    #stripeModal  .card-body {
+        padding: 15px 0;
+    }
+
+    .payment-submit {
+        background: rgb(78, 102, 54);
+        border: none;
+        cursor: pointer;
+    }
+
+    #stripeModal  .modal-header .close {
+        position: absolute;
+        right: 10px;
+        top: -5px;
+    }
+    #stripeModal  .input-group {
+        border:1px solid #d6d6d6;
+    }
+    #payment-form {
+        height: 100px;
+    }
+</style>
 
 <body translate="no">
 <div class="page-bg"></div>
@@ -350,14 +412,9 @@
         <div class="profile-banner">
             <div class="profile-left-banner">
                 <div class="profile-inner">
-                    <form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" value="{{Auth::user()->id}}" name="id">
+
                         <div class="avatar-upload">
-                            <div class="avatar-edit">
-                                <input type='file' id="imageUpload" name="photo[]">
-                                <label for="imageUpload"></label>
-                            </div>
+
                             <div class="avatar-preview">
                                 <div id="imagePreview"
                                      style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
@@ -365,10 +422,9 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
-                        <button type="submit" class="edit-btn">
+                        <button type="button" class="edit-btn">
                             Edit photo
                         </button>
-                    </form>
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -409,80 +465,98 @@
                     {{--                    </li>--}}
                 </ul>
 
-                <button data-path="{{ route('show')}}" class="btn payment-btn" data-toggle="modal"
+                <button  class="btn payment-btn" data-toggle="modal"
                         data-target="#stripeModal">Add card
                 </button>
 
 
-                <div id="stripeModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2>Card Info</h2>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content pb-5 pt-4">
+                            <div class="modal-header border-0">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
+
                             <div class="modal-body">
-                                <div>
+                                <div id="card-errors" role="alert"></div>
+                                <div class="card">
+                                    <div class="card-body">
 
-                                    <div id="card-errors" role="alert"></div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <form id="payment-form" action="{{route('card-details')}}" method="post">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="name">Name on Card</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="name" name="name">
+                                        <form id="payment-form" action="{{ route('stripe.create') }}" method="post"
+                                              data-cc-on-file="false"
+                                              data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                                              class="require-validation">
+
+                                            @csrf
+{{--                                            <div class='form-row row'>--}}
+{{--                                                <div class='col-xs-12 form-group required'>--}}
+{{--                                                    <label class='control-label'>Price of post</label>--}}
+{{--                                                    <input type="number" class="form-control" id="price" name="amount">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+                                            <div class='form-row row'>
+                                                <div class='col-xs-12 form-group required'>
+                                                    <label class='control-label'>Name on Card</label> <input
+                                                        class='form-control' size='4' type='text' name="name">
+                                                </div>
+                                            </div>
+
+                                            <div class='form-row row'>
+                                                <div class='col-xs-12 form-group card required'>
+                                                    <label class='control-label'>Card Number</label> <input
+                                                        autocomplete='off' class='form-control card-number'
+                                                        name="number"
+                                                        size='20'
+                                                        type='text'>
+                                                </div>
+                                            </div>
+
+                                            <div class='form-row row'>
+                                                <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                    <label class='control-label'>CVC</label> <input autocomplete='off'
+                                                                                                    class='form-control card-cvc'
+                                                                                                    placeholder='ex. 311'
+                                                                                                    size='4'
+                                                                                                    type='text'
+                                                                                                    name="cvc">
+                                                </div>
+                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                    <label class='control-label'>Expiration Month</label> <input
+                                                        class='form-control card-expiry-month' placeholder='MM' size='2'
+                                                        type='text' name="month">
+                                                </div>
+                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                    <label class='control-label'>Expiration Year</label> <input
+                                                        class='form-control card-expiry-year' placeholder='YYYY'
+                                                        size='4'
+                                                        type='text' name="year">
+                                                </div>
+                                            </div>
+
+                                            <div class='form-row row'>
+                                                <div class='col-md-12 error form-group hide'>
+                                                    <div class='alert-danger alert'>Please correct the errors and try
+                                                        again.
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="card-number">Credit Card Number</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" id="number"
-                                                               name="card_number">
-                                                        <!-- Stripe Card Element -->
+                                            </div>
 
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button class="btn payment-submit"
+                                                            type="submit">Add payment
+                                                    </button>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="card-cvc">CVC Number</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" id="name" name="cvc">
-                                                        <!-- Stripe CVC Element -->
+                                            </div>
 
-                                                    </div>
-                                                </div>
-                                                <div class="form-group d-flex">
-                                                    <label for="card-exp">Month/year</label>
-                                                    <br>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="name" name="month"
-                                                               placeholder="month">
-                                                        <!-- Stripe Card Expiry Element -->
-
-                                                    </div>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="name" name="year"
-                                                               placeholder="year">
-                                                        <!-- Stripe Card Expiry Element -->
-
-                                                    </div>
-                                                </div>
-
-                                                <button  class="btn payment-submit">Submit Payment
-                                                </button>
-                                            </form>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            {{--                            <div class="modal-footer">--}}
-                            {{--                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-                            {{--                            </div>--}}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -623,6 +697,7 @@
 {{--        form.submit();--}}
 {{--    }--}}
 {{--</script>--}}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
@@ -633,7 +708,7 @@
     $(document).ready(function () {
         $('.dropdown-item').on('click', function () {
             if ($(this).attr('href')) {
-                alert('redirect to ' + $(this).attr('href'));
+                // alert('redirect to ' + $(this).attr('href'));
                 window.location.replace($(this).attr('href'));
 
             }
@@ -642,6 +717,7 @@
     });
     //# sourceURL=pen.js
 </script>
+
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -672,54 +748,7 @@
             }
         })
     });
-    $('.myPosts').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/myPosts',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
-    $('.myComments').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/myComments',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
-    $('.my-account').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/account',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
-    $('.myBalance').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/balance',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
+
 </script>
 <script>
     $("#editProfile").on("submit", function (e) {

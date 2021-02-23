@@ -35,7 +35,10 @@ body {
     font-size: 10px;
     font-family: 'PacificaCondensed';
 }
-
+.pr-input::placeholder {
+    color: red;
+    opacity: 1; /* Firefox */
+}
 header h1 {
     width: 160px;
     display: flex;

@@ -6,8 +6,10 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 use Session;
 use Stripe;
+use Stripe\Customer;
 
 class StripePaymentController extends Controller
 {
@@ -26,18 +28,53 @@ class StripePaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function card_create(Request $request)
+    {
+        $user = $request->user();
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $stripe=new \Stripe\StripeClient('sk_test_51IDT1rLV6S2YaGRAJ4BLZcGt468ETmMzHuGWlHVv7MBTjjLda3pXurPbmwD74BalNTuV7kLhiqbiwKBfKTuRnjqq00pKL4vtzv');
+        try {
+            if (!$user->stripe_id) {
+                $customer = \Stripe\Customer::create([
+                    'source' => $request->stripeToken,
+                    'email' => 'paying.useruser@gmail.com',
+                ]);
+
+                $user->stripe_id = $customer->id;
+                $user->save();
+
+
+                $stripe->customers->createSource(
+                    $user->stripe_id,
+                    ['source' => $request->stripeToken]
+                );
+            } else {
+                $stripe->customers->createSource(
+                    $user->stripe_id,
+                    ['source' => $request->stripeToken]
+                );
+            }
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
     public function stripePost(Request $request)
     {
-
+//        dd($request->card);
         $user=$request->user();
         $charged_user=User::where('id',$request->id)->first();
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $customer = Customer::retrieve($user->stripe_id);
+        $customer->default_source = $request->card;
+        $customer->save();
         if($user->balance > $request->price) {
             $transaction = Stripe\Charge::create([
                 "amount" => 100 * $request->price,
                 "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Test payment."
+                "description" => "Test payment.",
+                'customer' => $user->stripe_id,
+                'source' => $request->card,
             ]);
 
             if ($transaction) {
@@ -58,6 +95,7 @@ class StripePaymentController extends Controller
 
             Session::flash('success', 'Payment created successfully. Your balance has been decreased by $' . $amount . '!');
         }
+        /*}*/
 //        } else {
 ////            Session::flash('Your balance is smaller than the price requested by you!','alert-danger');
 ////        }

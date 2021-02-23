@@ -22,6 +22,107 @@ $('.moreless-button').click(function () {
         $(this).text("Read more")
     }
 });
+
+    $(function () {
+        var $form = $(".require-validation");
+        $('form.require-validation').bind('submit', function (e) {
+            var $form = $(".require-validation"),
+                inputSelector = ['input[type=email]', 'input[type=password]',
+                    'input[type=text]', 'input[type=file]',
+                    'textarea'].join(', '),
+                $inputs = $form.find('.required').find(inputSelector),
+                $errorMessage = $form.find('div.error'),
+                valid = true;
+            $errorMessage.addClass('hide');
+
+            $('.has-error').removeClass('has-error');
+            $inputs.each(function (i, el) {
+                var $input = $(el);
+                if ($input.val() === '') {
+                    $input.parent().addClass('has-error');
+                    $errorMessage.removeClass('hide');
+                    e.preventDefault();
+                }
+            });
+
+            if (!$form.data('cc-on-file')) {
+                e.preventDefault();
+                Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+                Stripe.createToken({
+                    number: $('.card-number').val(),
+                    cvc: $('.card-cvc').val(),
+                    exp_month: $('.card-expiry-month').val(),
+                    exp_year: $('.card-expiry-year').val()
+                }, stripeResponseHandler);
+            }
+
+        });
+
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                $('.error')
+                    .removeClass('hide')
+                    .find('.alert')
+                    .text(response.error.message);
+            } else {
+                // token contains id, last4, and card type
+                var token = response['id'];
+                // insert the token into the form so it gets submitted to the server
+                $form.find('input[type=text]').empty();
+                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                $form.get(0).submit();
+            }
+        }
+
+    });
+$('.myPosts').on('click', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/myPosts',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
+$('.myComments').on('click', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/myComments',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
+$('.my-account').on('click', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/account',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
+$('.myBalance').on('click', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/balance',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
 $(document).on('click', '.follow', function (event) {
     let followMe = $(this);
     event.preventDefault();
@@ -64,6 +165,41 @@ $(document).on('click', '.follow', function (event) {
         })
     }
 })
+$('#payment-submit').click(function () {
+    let form = $('#payment-form');
+    let formdata = new FormData(form[0]);
+    let card = '';
+    // if($('input[type=radio]').is(":checked")){
+    //     cat_id = $('input[type=radio]').data('card_id');
+    // }
+    $('input[type=radio]').each(function(){
+        if($(this).is(':checked')){
+            card = $(this).prev().val();
+        }
+    })
+    formdata.append('card',card);
+    console.log(card);
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function (data)
+        {
+
+        },
+        error: function (err) {
+            if (err.status == 422) {
+                $.each(err.responseJSON.errors, function (i, error) {
+                    var el = $(document).find('[name="' + i + '"]');
+                    el.after($('<span class="error-valid" style="color: red;">' + error[0] + '</span>'));
+                });
+            }
+        },
+    });
+});
 $(document).on('click', '.following', function (event) {
     event.preventDefault();
     let unfollow = $(this);
@@ -96,20 +232,51 @@ $(document).on('click', '.edit', function (event) {
 
     })
 })
+$(document).on('click', '.edit-btn', function (event) {
+    // event.preventDefault();
+    $.ajax({
+        type: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: function (r) {
+            $('.profile-inner').empty();
+            $('.profile-inner').append(`<form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" value="{{Auth::user()->id}}" name="id">
+    <div class="avatar-upload">
+    <div class="avatar-edit">
+    <input type='file' id="imageUpload" name="photo[]">
+    <label for="imageUpload"></label>
+    </div>
+    <div class="avatar-preview">
+    <div id="imagePreview"
+style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+    </div>
+    </div>
+    </div>
+
+<button type="submit" class="edit-btn">
+    Edit photo
+</button>
+</form>`);
+        }
+
+    })
+})
+
 $(document).on('click', '.closeModal', function (event) {
     $('#rightSideModal').hide();
 })
-$('.payment-btn').on('click', function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: $(this).data('path'),
-        method: "get",
-        data: {_token: $('meta[name="csrf-token"]').attr('content')},
-        success: (response) => {
-            $('#ModalInfo').modal('show');
-        }
-    })
-});
+// $('.payment-btn').on('click', function (event) {
+//     event.preventDefault();
+//     $.ajax({
+//         url: $(this).data('path'),
+//         method: "get",
+//         data: {_token: $('meta[name="csrf-token"]').attr('content')},
+//         success: (response) => {
+//             $('#ModalInfo').modal('show');
+//         }
+//     })
+// });
 $('.myAccount').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -125,7 +292,7 @@ $('.myAccount').on('click', function (event) {
 $(document).ready(function () {
     $('.dropdown-item').on('click', function () {
         if ($(this).attr('href')) {
-            alert('redirect to ' + $(this).attr('href'));
+            // alert('redirect to ' + $(this).attr('href'));
             window.location.replace($(this).attr('href'));
 
         }

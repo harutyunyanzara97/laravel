@@ -19,6 +19,24 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
     <style>
+        #stripeModal .card input.group-radio {
+            margin: 0 !important;
+            width: 13px;
+            top: 0;
+            left: 0 !important;
+            /* right: 10px !important; */
+            margin-right: 12px !important;
+            position: relative;
+        }
+
+        label.radio-row {
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: start;
+            width: 265px;
+        }
+
         #selectedFiless {
             display: flex;
         }
@@ -203,11 +221,11 @@
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                                 <p>{{ Session::get('success') }}</p>
                             </div>
-{{--                            @else--}}
-{{--                            <div class="alert alert-danger text-center">--}}
-{{--                                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>--}}
-{{--                                <p>Your balance is smaller than the price requested by you!</p>--}}
-{{--                            </div>--}}
+                            {{--                            @else--}}
+                            {{--                            <div class="alert alert-danger text-center">--}}
+                            {{--                                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>--}}
+                            {{--                                <p>Your balance is smaller than the price requested by you!</p>--}}
+                            {{--                            </div>--}}
                         @endif
                         <div class="resources-forum-left">
                             <div class="banner d-flex">
@@ -296,7 +314,7 @@
                                             <span>   {{count($post->comments)}} Comments </span>
                                             <i class="fa fa-heart"></i>
                                             <button class="ml-3 payment-info" data-toggle="modal"
-                                                    @if($card) data-target="#stripeModal" @else
+                                                    @if($payments) data-target="#stripeModal" @else
                                                     data-target="#messageModal" @endif><img
                                                     src="{{asset('images/icon1.png')}}" width="30px" height="30px">
                                             </button>
@@ -585,36 +603,71 @@
                         <div id="card-errors" role="alert"></div>
                         <div class="card">
                             <div class="card-body">
+                                {{--                                    <form>--}}
+                                <div class="group d-flex flex-column flex-wrap">
 
-                                <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
-                                      data-cc-on-file="false"
-                                      data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
-                                      class="require-validation">
-                                    @csrf
-                                    <input type="hidden" value="{{$post->user->id}}" name="id">
-                                    <input type="hidden" value="{{$post->user}}" name="postUser">
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Price of post</label>
-                                            <input type="number" class="form-control" id="price" name="price">
+                                        <form id="payment-form" action="{{ route('stripe.post') }}" method="post">
+                                            @csrf
+
+                                            <input type="hidden" value="{{$post->user->id}}" name="id">
+                                            <input type="hidden" value="{{$post->user}}" name="postUser">
+                                            <div class='form-row row'>
+                                                <input type="number" class="form-control" id="price" name="price">
+                                            </div>
+                                            @if($payments)
+                                            @foreach($payments as $card)
+                                            <label class="radio-row">
+                                                <div>
+
+{{--                                                    <input type="hidden" name="customer_id" value="{{$card->customer}}" >--}}
+                                                    <input type="hidden" name="card_id" value="{{$card->id}}">
+                                                    <input type="radio" name="payment-source" class="group-radio"
+                                                           value="saved-card-1">
+                                                </div>
+
+                                                <div id="saved-card">**** **** **** {{$card->card->last4}}</div>
+                                            </label>
+                                            @endforeach
+                                            @endif
+                                            <div class="outcome">
+                                                <div class="error"></div>
+                                                <div class="success-saved-card">
+                                                    Success! Your are using saved card <span
+                                                        class="saved-card"></span>
+                                                </div>
+                                                <div class="success-new-card">
+                                                    Success! The Stripe token for your new card is <span
+                                                        class="token"></span>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button class="btn" id="payment-submit"
+                                                        type="submit">Add payment
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="credit-card mastercard selectable">
-                                        <div class="credit-card-last4">
-                                            8210
-                                        </div>
-                                        <div class="credit-card-expiry">
-                                            10/22
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <button class="btn" id="payment-submit"
-                                                    type="submit">Add payment
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    {{--                                    <div id="pouet">--}}
+
+                                    {{--                                        <span><input type="radio" name="payment-source" class="group-radio"--}}
+                                    {{--                                                     value="new-card" id="new-card-radio"></span>--}}
+                                    {{--                                        <div id="card-element" class="field"></div>--}}
+                                    {{--                                    </div>--}}
+                                </div>
+
+                                {{--                                    </form>--}}
+                                {{--                                    <div class="credit-card mastercard selectable">--}}
+                                {{--                                        <div class="credit-card-last4">--}}
+                                {{--                                            8210--}}
+                                {{--                                        </div>--}}
+                                {{--                                        <div class="credit-card-expiry">--}}
+                                {{--                                            10/22--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+
+
                             </div>
                         </div>
                     </div>
@@ -625,246 +678,246 @@
 
 
 
-{{--    @auth--}}
-{{--        <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">--}}
-{{--            aria-hidden="true">--}}
-{{--            <div class="modal-dialog modal-dialog-centered" role="document">--}}
-{{--                <div class="modal-content pb-5 pt-4">--}}
-{{--                    <div class="modal-header border-0">--}}
-{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                            <span aria-hidden="true">&times;</span>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
+    {{--    @auth--}}
+    {{--        <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">--}}
+    {{--            aria-hidden="true">--}}
+    {{--            <div class="modal-dialog modal-dialog-centered" role="document">--}}
+    {{--                <div class="modal-content pb-5 pt-4">--}}
+    {{--                    <div class="modal-header border-0">--}}
+    {{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+    {{--                            <span aria-hidden="true">&times;</span>--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
 
-{{--                    <div class="modal-body">--}}
-{{--                        <div>--}}
-{{--                            <div id="card-errors" role="alert"></div>--}}
-{{--                            <div class="card">--}}
-{{--                                <div class="card-body">--}}
+    {{--                    <div class="modal-body">--}}
+    {{--                        <div>--}}
+    {{--                            <div id="card-errors" role="alert"></div>--}}
+    {{--                            <div class="card">--}}
+    {{--                                <div class="card-body">--}}
 
-{{--                                    <form id="payment-form" action="{{ route('stripe.post') }}" method="post"--}}
-{{--                                          data-cc-on-file="false"--}}
-{{--                                          data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"--}}
-{{--                                          class="require-validation">--}}
-{{--                                        @csrf--}}
-{{--                                        <input type="hidden" value="{{$post->user->id}}" name="id">--}}
-{{--                                        <input type="hidden" value="{{$post->user}}" name="postUser">--}}
-{{--                                        <div class='form-row row'>--}}
-{{--                                            <div class='col-xs-12 form-group required'>--}}
-{{--                                                <label class='control-label'>Price of post</label>--}}
-{{--                                                <input type="number" class="form-control" id="price" name="price">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class='form-row row'>--}}
-{{--                                            <div class='col-xs-12 form-group required'>--}}
-{{--                                                <label class='control-label'>Name on Card</label> <input--}}
-{{--                                                    class='form-control' size='4' type='text' name="name"--}}
-{{--                                                    @if($card)value="{{$card->name}}"@endif>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+    {{--                                    <form id="payment-form" action="{{ route('stripe.post') }}" method="post"--}}
+    {{--                                          data-cc-on-file="false"--}}
+    {{--                                          data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"--}}
+    {{--                                          class="require-validation">--}}
+    {{--                                        @csrf--}}
+    {{--                                        <input type="hidden" value="{{$post->user->id}}" name="id">--}}
+    {{--                                        <input type="hidden" value="{{$post->user}}" name="postUser">--}}
+    {{--                                        <div class='form-row row'>--}}
+    {{--                                            <div class='col-xs-12 form-group required'>--}}
+    {{--                                                <label class='control-label'>Price of post</label>--}}
+    {{--                                                <input type="number" class="form-control" id="price" name="price">--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
+    {{--                                        <div class='form-row row'>--}}
+    {{--                                            <div class='col-xs-12 form-group required'>--}}
+    {{--                                                <label class='control-label'>Name on Card</label> <input--}}
+    {{--                                                    class='form-control' size='4' type='text' name="name"--}}
+    {{--                                                    @if($card)value="{{$card->name}}"@endif>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
 
-{{--                                        <div class='form-row row'>--}}
-{{--                                            <div class='col-xs-12 form-group card required'>--}}
-{{--                                                <label class='control-label'>Card Number</label> <input--}}
-{{--                                                    autocomplete='off' class='form-control card-number' name="number"--}}
-{{--                                                    size='20'--}}
-{{--                                                    type='text' @if($card)value="{{$card->card_number}}"@endif>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+    {{--                                        <div class='form-row row'>--}}
+    {{--                                            <div class='col-xs-12 form-group card required'>--}}
+    {{--                                                <label class='control-label'>Card Number</label> <input--}}
+    {{--                                                    autocomplete='off' class='form-control card-number' name="number"--}}
+    {{--                                                    size='20'--}}
+    {{--                                                    type='text' @if($card)value="{{$card->card_number}}"@endif>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
 
-{{--                                        <div class='form-row row'>--}}
-{{--                                            <div class='col-xs-12 col-md-4 form-group cvc required'>--}}
-{{--                                                <label class='control-label'>CVC</label> <input autocomplete='off'--}}
-{{--                                                                                                class='form-control card-cvc'--}}
-{{--                                                                                                placeholder='ex. 311'--}}
-{{--                                                                                                size='4'--}}
-{{--                                                                                                type='text' name="cvc"--}}
-{{--                                                                                                @if($card)value="{{$card->cvc}}"@endif>--}}
-{{--                                            </div>--}}
-{{--                                            <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
-{{--                                                <label class='control-label'>Expiration Month</label> <input--}}
-{{--                                                    class='form-control card-expiry-month' placeholder='MM' size='2'--}}
-{{--                                                    type='text' name="month" @if($card)value="{{$card->month}}"@endif>--}}
-{{--                                            </div>--}}
-{{--                                            <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
-{{--                                                <label class='control-label'>Expiration Year</label> <input--}}
-{{--                                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'--}}
-{{--                                                    type='text' name="year" @if($card)value="{{$card->year}}"@endif>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+    {{--                                        <div class='form-row row'>--}}
+    {{--                                            <div class='col-xs-12 col-md-4 form-group cvc required'>--}}
+    {{--                                                <label class='control-label'>CVC</label> <input autocomplete='off'--}}
+    {{--                                                                                                class='form-control card-cvc'--}}
+    {{--                                                                                                placeholder='ex. 311'--}}
+    {{--                                                                                                size='4'--}}
+    {{--                                                                                                type='text' name="cvc"--}}
+    {{--                                                                                                @if($card)value="{{$card->cvc}}"@endif>--}}
+    {{--                                            </div>--}}
+    {{--                                            <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
+    {{--                                                <label class='control-label'>Expiration Month</label> <input--}}
+    {{--                                                    class='form-control card-expiry-month' placeholder='MM' size='2'--}}
+    {{--                                                    type='text' name="month" @if($card)value="{{$card->month}}"@endif>--}}
+    {{--                                            </div>--}}
+    {{--                                            <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
+    {{--                                                <label class='control-label'>Expiration Year</label> <input--}}
+    {{--                                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'--}}
+    {{--                                                    type='text' name="year" @if($card)value="{{$card->year}}"@endif>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
 
-{{--                                        <div class='form-row row'>--}}
-{{--                                            <div class='col-md-12 error form-group hide'>--}}
-{{--                                                <div class='alert-danger alert'>Please correct the errors and try--}}
-{{--                                                    again.--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+    {{--                                        <div class='form-row row'>--}}
+    {{--                                            <div class='col-md-12 error form-group hide'>--}}
+    {{--                                                <div class='alert-danger alert'>Please correct the errors and try--}}
+    {{--                                                    again.--}}
+    {{--                                                </div>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
 
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-xs-12">--}}
-{{--                                                <button class="btn" id="payment-submit"--}}
-{{--                                                        type="submit">Add payment--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+    {{--                                        <div class="row">--}}
+    {{--                                            <div class="col-xs-12">--}}
+    {{--                                                <button class="btn" id="payment-submit"--}}
+    {{--                                                        type="submit">Add payment--}}
+    {{--                                                </button>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
 
-{{--                                    </form>--}}
-{{--                                    @endauth--}}
-                                </div>
-                            </div>
+    {{--                                    </form>--}}
+    {{--                                    @endauth--}}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p>Please add a payment method in your profile, to share your support to the post creator.</p>
+                    <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"
+                                                                                     href="{{route('profile')}}">Go
+                            to profile</a>
+                    </div>
+
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 go-profile-section">
+                        <div class="modal-footer">
+                            <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel
+                            </button>
+                            <button class="publish_btn" data-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <p>Please add a payment method in your profile, to share your support to the post creator.</p>
-                        <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"
-                                                                                         href="{{route('profile')}}">Go
-                                to profile</a>
-                        </div>
-
-                        <div class="modal-body">
-
-                        </div>
-                        <div class="d-flex justify-content-center mt-4 go-profile-section">
-                            <div class="modal-footer">
-                                <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel
-                                </button>
-                                <button class="publish_btn" data-dismiss="modal">OK</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 
-            <!--<script src="js/jquery.min.js"></script>-->
-            <!--<script src="js/bootstrap.js"></script>-->
-            <script src="{{asset('js/main.js')}}"></script>
-            <script id="rendered-js">
-                $(document).ready(function () {
-                    $('.dropdown-item').on('click', function () {
-                        if ($(this).attr('href')) {
-                            alert('redirect to ' + $(this).attr('href'));
-                            window.location.replace($(this).attr('href'));
+        <!--<script src="js/jquery.min.js"></script>-->
+        <!--<script src="js/bootstrap.js"></script>-->
+        <script src="{{asset('js/main.js')}}"></script>
+        <script id="rendered-js">
+            $(document).ready(function () {
+                $('.dropdown-item').on('click', function () {
+                    if ($(this).attr('href')) {
+                        alert('redirect to ' + $(this).attr('href'));
+                        window.location.replace($(this).attr('href'));
 
-                        }
+                    }
 
-                    });
                 });
-                // $(document).on('click', '.follow-btn', function (event) {
-                //     event.preventDefault();
-                //     let likeMe = $(this);
-                //     let toLikeId = $(this).attr('data-id');
-                //     let post_id = $(this).attr('data-path');
-                //     $.ajax({
-                //         type: "get",
-                //         url: '/insertLike',
-                //         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
-                //         success: function (r) {
-                //             likeMe.html('Liked');
-                //             if (likeMe.text = 'Liked') {
-                //                 likeMe.removeClass('like').addClass('Liked');
-                //             }
-                //         }
-                //
-                //     })
-                // })
+            });
+            // $(document).on('click', '.follow-btn', function (event) {
+            //     event.preventDefault();
+            //     let likeMe = $(this);
+            //     let toLikeId = $(this).attr('data-id');
+            //     let post_id = $(this).attr('data-path');
+            //     $.ajax({
+            //         type: "get",
+            //         url: '/insertLike',
+            //         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
+            //         success: function (r) {
+            //             likeMe.html('Liked');
+            //             if (likeMe.text = 'Liked') {
+            //                 likeMe.removeClass('like').addClass('Liked');
+            //             }
+            //         }
+            //
+            //     })
+            // })
 
-                $(document).on('click', '.like', function (event) {
-                    event.preventDefault();
-                    let likeMe = $(this);
-                    let toLikeId = $(this).attr('data-id');
-                    let post_id = $(this).attr('data-path');
-                    $.ajax({
-                        type: "get",
-                        url: '/insertLike',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
-                        success: function (r) {
-                            likeMe.html('Liked');
-                            if (likeMe.text = 'Liked') {
-                                likeMe.removeClass('like').addClass('Liked');
-                            }
+            $(document).on('click', '.like', function (event) {
+                event.preventDefault();
+                let likeMe = $(this);
+                let toLikeId = $(this).attr('data-id');
+                let post_id = $(this).attr('data-path');
+                $.ajax({
+                    type: "get",
+                    url: '/insertLike',
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
+                    success: function (r) {
+                        likeMe.html('Liked');
+                        if (likeMe.text = 'Liked') {
+                            likeMe.removeClass('like').addClass('Liked');
                         }
+                    }
 
-                    })
                 })
-                $(document).on('click', '.Liked', function (event) {
-                    event.preventDefault();
-                    let dislike = $(this);
-                    let likeId = $(this).attr('data-id');
-                    $.ajax({
-                        type: "get",
-                        url: '/dislike',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: likeId},
-                        success: function (r) {
-                            dislike.html('like');
-                            if (dislike.text = 'like') {
-                                dislike.removeClass('Liked').addClass('like');
-                            }
+            })
+            $(document).on('click', '.Liked', function (event) {
+                event.preventDefault();
+                let dislike = $(this);
+                let likeId = $(this).attr('data-id');
+                $.ajax({
+                    type: "get",
+                    url: '/dislike',
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'), id: likeId},
+                    success: function (r) {
+                        dislike.html('like');
+                        if (dislike.text = 'like') {
+                            dislike.removeClass('Liked').addClass('like');
                         }
+                    }
 
-                    })
                 })
-                //# sourceURL=pen.js
-            </script>
-            <script>
-                $(document).on('click', '.post-following', function (event) {
-                    event.preventDefault();
-                    let follow = $(this);
-                    let toFollowId = $(this).attr('data-id');
-                    let post_id = $(this).attr('data-path');
-                    $.ajax({
-                        type: "get",
-                        url: '/followPost',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
-                        success: function (r) {
-                            follow.html('Followed');
-                            if (follow.text = 'Following') {
-                                follow.removeClass('.member-following').addClass('followedPost');
-                            }
+            })
+            //# sourceURL=pen.js
+        </script>
+        <script>
+            $(document).on('click', '.post-following', function (event) {
+                event.preventDefault();
+                let follow = $(this);
+                let toFollowId = $(this).attr('data-id');
+                let post_id = $(this).attr('data-path');
+                $.ajax({
+                    type: "get",
+                    url: '/followPost',
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
+                    success: function (r) {
+                        follow.html('Followed');
+                        if (follow.text = 'Following') {
+                            follow.removeClass('.member-following').addClass('followedPost');
                         }
+                    }
 
-                    })
                 })
-                $(document).on('click', '.followedPost', function (event) {
-                    event.preventDefault();
-                    let unfollow = $(this);
-                    let followeId = $(this).attr('data-id');
-                    $.ajax({
-                        type: "get",
-                        url: '/unfollowPost',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
-                        success: function (r) {
-                            unfollow.html('follow');
-                            if (unfollow.text = 'post-following') {
-                                unfollow.removeClass('followedPost').addClass('post-following');
-                            }
+            })
+            $(document).on('click', '.followedPost', function (event) {
+                event.preventDefault();
+                let unfollow = $(this);
+                let followeId = $(this).attr('data-id');
+                $.ajax({
+                    type: "get",
+                    url: '/unfollowPost',
+                    data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+                    success: function (r) {
+                        unfollow.html('follow');
+                        if (unfollow.text = 'post-following') {
+                            unfollow.removeClass('followedPost').addClass('post-following');
                         }
+                    }
 
-                    })
                 })
+            })
 
-            </script>
-            <script>
-                $(document).on('click', '.replyMe', function (event) {
-                    event.preventDefault();
-                    let id = $(this).attr('data-id');
-                    let postId = $(this).attr('data-path');
-                    $(this).closest('.comments').next().append(`<form action="{{url('reply')}}" class="replyForm" method="post" enctype="multipart/form-data">
+        </script>
+        <script>
+            $(document).on('click', '.replyMe', function (event) {
+                event.preventDefault();
+                let id = $(this).attr('data-id');
+                let postId = $(this).attr('data-path');
+                $(this).closest('.comments').next().append(`<form action="{{url('reply')}}" class="replyForm" method="post" enctype="multipart/form-data">
     @csrf
-                    <input type="hidden" name="id">
-                                             <input type="hidden" value=${id} name="id">
+                <input type="hidden" name="id">
+                                         <input type="hidden" value=${id} name="id">
                                          <input type="hidden" value=${postId} name="post_id">
                         <div class="">
                             <input type="text" name="reply" class="txt" placeholder="Write a comment" autocomplete="off">
@@ -895,67 +948,134 @@
                                     </div>
         </form>`);
 
+            });
+
+        </script>
+        <script>
+            var selDiv = "";
+
+            document.addEventListener("DOMContentLoaded", init, false);
+
+            function init() {
+                document.querySelector('#imageUploadd').addEventListener('change', handleFileSelect, false);
+                selDiv = document.querySelector("#selectedFiless");
+            }
+
+            function handleFileSelect(e) {
+
+                if (!e.target.files || !window.FileReader) return;
+
+                selDiv.innerHTML = "";
+
+                let files = e.target.files;
+                let filesArr = Array.prototype.slice.call(files);
+                filesArr.forEach(function (f) {
+                    if (!f.type.match("image.*")) {
+                        return;
+                    }
+
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        let html = "<img src=\"" + e.target.result + "\">";
+                        selDiv.innerHTML += html;
+                    }
+                    reader.readAsDataURL(f);
                 });
 
-            </script>
-            <script>
-                var selDiv = "";
+            }
+        </script>
+        <script>
+            function fbShare(url, title, descr, image) {
+                window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer' + 'target=_blank');
+            }
+        </script>
+        <script>
+            $('.countComments').on('click', () => {
+                $('.txt').css('display', 'inline-block').focus();
+            })
+        </script>
+        <script>
+            // $('input#payment-submit').click( function() {
+            //     $.ajax({
+            //         url: 'some-url',
+            //         type: 'post',
+            //         dataType: 'json',
+            //         data: $('form#payment-form').serialize(),
+            //         success: function(data) {
+            //            console.log(data)
+            //         }
+            //     });
+        </script>
+        <script type="text/javascript">
 
-                document.addEventListener("DOMContentLoaded", init, false);
-
-                function init() {
-                    document.querySelector('#imageUploadd').addEventListener('change', handleFileSelect, false);
-                    selDiv = document.querySelector("#selectedFiless");
-                }
-
-                function handleFileSelect(e) {
-
-                    if (!e.target.files || !window.FileReader) return;
-
-                    selDiv.innerHTML = "";
-
-                    let files = e.target.files;
-                    let filesArr = Array.prototype.slice.call(files);
-                    filesArr.forEach(function (f) {
-                        if (!f.type.match("image.*")) {
-                            return;
-                        }
-
-                        let reader = new FileReader();
-                        reader.onload = function (e) {
-                            let html = "<img src=\"" + e.target.result + "\">";
-                            selDiv.innerHTML += html;
-                        }
-                        reader.readAsDataURL(f);
-                    });
-
-                }
-            </script>
-            <script>
-                function fbShare(url, title, descr, image) {
-                    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer' + 'target=_blank');
-                }
-            </script>
-            <script>
-                $('.countComments').on('click', () => {
-                    $('.txt').css('display', 'inline-block').focus();
-                })
-            </script>
-        {{--<script src="{{asset('js/main.js')}}"></script>--}}
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
-            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>-->
-            <!--<script src="js/bootstrap.js"></script>-->
-            <!--<script src="js/main.js"></script>-->
-            <!--<script>-->
-            <!--    $('.moreless-button').click(function () {-->
-            <!--        $('.moretext').slideToggle();-->
-            <!--        if ($('.moreless-button').text() == "Read more") {-->
-            <!--            $(this).text("Read less")-->
-            <!--        } else {-->
-            <!--            $(this).text("Read more")-->
-            <!--        }-->
-            <!--    });-->
-            <!--</script>-->
+            // $(function () {
+            //     var $form = $(".require-validation");
+            //     $('form.require-validation').bind('submit', function (e) {
+            //         var $form = $(".require-validation"),
+            //             inputSelector = ['input[type=email]', 'input[type=password]',
+            //                 'input[type=text]', 'input[type=file]',
+            //                 'textarea'].join(', '),
+            //             $inputs = $form.find('.required').find(inputSelector),
+            //             $errorMessage = $form.find('div.error'),
+            //             valid = true;
+            //         $errorMessage.addClass('hide');
+            //
+            //         $('.has-error').removeClass('has-error');
+            //         $inputs.each(function (i, el) {
+            //             var $input = $(el);
+            //             if ($input.val() === '') {
+            //                 $input.parent().addClass('has-error');
+            //                 $errorMessage.removeClass('hide');
+            //                 e.preventDefault();
+            //             }
+            //         });
+            //
+            //         if (!$form.data('cc-on-file')) {
+            //             e.preventDefault();
+            //             Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            //             Stripe.createToken({
+            //                 number: $('.card-number').val(),
+            //                 cvc: $('.card-cvc').val(),
+            //                 exp_month: $('.card-expiry-month').val(),
+            //                 exp_year: $('.card-expiry-year').val()
+            //             }, stripeResponseHandler);
+            //         }
+            //
+            //     });
+            //
+            //     function stripeResponseHandler(status, response) {
+            //         if (response.error) {
+            //             $('.error')
+            //                 .removeClass('hide')
+            //                 .find('.alert')
+            //                 .text(response.error.message);
+            //         } else {
+            //             // token contains id, last4, and card type
+            //             var token = response['id'];
+            //             // insert the token into the form so it gets submitted to the server
+            //             $form.find('input[type=text]').empty();
+            //             $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            //             $form.get(0).submit();
+            //         }
+            //     }
+            //
+            // });
+        </script>
+    {{--<script src="{{asset('js/main.js')}}"></script>--}}
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>-->
+        <!--<script src="js/bootstrap.js"></script>-->
+        <!--<script src="js/main.js"></script>-->
+        <!--<script>-->
+        <!--    $('.moreless-button').click(function () {-->
+        <!--        $('.moretext').slideToggle();-->
+        <!--        if ($('.moreless-button').text() == "Read more") {-->
+        <!--            $(this).text("Read less")-->
+        <!--        } else {-->
+        <!--            $(this).text("Read more")-->
+        <!--        }-->
+        <!--    });-->
+        <!--</script>-->
 
 
 @endsection

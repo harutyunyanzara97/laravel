@@ -167,96 +167,97 @@
                 </div>
             </div>
         </div>
-    <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content pb-5 pt-4">
-                <div class="modal-header border-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="card-errors" role="alert"></div>
-                    <div class="card">
-                        <div class="card-body">
+{{--    <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">--}}
+{{--        aria-hidden="true">--}}
+{{--        <div class="modal-dialog modal-dialog-centered" role="document">--}}
+{{--            <div class="modal-content pb-5 pt-4">--}}
+{{--                <div class="modal-header border-0">--}}
+{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                        <span aria-hidden="true">&times;</span>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <div id="card-errors" role="alert"></div>--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body">--}}
 
-                            <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
-                                  data-cc-on-file="false"
-                                  data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
-                                  class="require-validation">
-                                @csrf
-                                <div class='form-row row'>
-                                    <div class='col-xs-12 form-group required'>
-                                        <label class='control-label'>Price of post</label>
-                                        <input type="number" class="form-control"  name="price">
-                                    </div>
-                                </div>
-                                <div class='form-row row'>
-                                    <div class='col-xs-12 form-group required'>
-                                        <label class='control-label'>Name on Card</label> <input
-                                            class='form-control' size='4' type='text' name="name"
-                                            @if($card)value="{{$card->name}}"@endif>
-                                    </div>
-                                </div>
+{{--                            <form id="payment-form" action="{{ route('stripe.post') }}" method="post"--}}
+{{--                                  data-cc-on-file="false"--}}
+{{--                                  data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"--}}
+{{--                                  class="require-validation">--}}
+{{--                                @csrf--}}
 
-                                <div class='form-row row'>
-                                    <div class='col-xs-12 form-group card required'>
-                                        <label class='control-label'>Card Number</label> <input
-                                            autocomplete='off' class='form-control card-number'
-                                            name="number"
-                                            size='20'
-                                            type='text' @if($card)value="{{$card->card_number}}"@endif>
-                                    </div>
-                                </div>
+{{--                                <div class='form-row row'>--}}
+{{--                                    <div class='col-xs-12 form-group required'>--}}
+{{--                                        <label class='control-label'>Price of post</label>--}}
+{{--                                        <input type="number" class="form-control"  name="price">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class='form-row row'>--}}
+{{--                                    <div class='col-xs-12 form-group required'>--}}
+{{--                                        <label class='control-label'>Name on Card</label> <input--}}
+{{--                                            class='form-control' size='4' type='text' name="name"--}}
+{{--                                            @if($card)value="{{$card->name}}"@endif>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class='form-row row'>
-                                    <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                        <label class='control-label'>CVC</label> <input autocomplete='off'
-                                                                                        class='form-control card-cvc'
-                                                                                        placeholder='ex. 311'
-                                                                                        size='4'
-                                                                                        type='text'
-                                                                                        name="cvc"
-                                                                                        @if($card)value="{{$card->cvc}}"@endif>
-                                    </div>
-                                    <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                        <label class='control-label'>Expiration Month</label> <input
-                                            class='form-control card-expiry-month' placeholder='MM' size='2'
-                                            type='text' name="month"
-                                            @if($card)value="{{$card->month}}"@endif>
-                                    </div>
-                                    <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                        <label class='control-label'>Expiration Year</label> <input
-                                            class='form-control card-expiry-year' placeholder='YYYY'
-                                            size='4'
-                                            type='text' name="year" @if($card)value="{{$card->year}}"@endif>
-                                    </div>
-                                </div>
+{{--                                <div class='form-row row'>--}}
+{{--                                    <div class='col-xs-12 form-group card required'>--}}
+{{--                                        <label class='control-label'>Card Number</label> <input--}}
+{{--                                            autocomplete='off' class='form-control card-number'--}}
+{{--                                            name="number"--}}
+{{--                                            size='20'--}}
+{{--                                            type='text' @if($card)value="{{$card->card_number}}"@endif>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class='form-row row'>
-                                    <div class='col-md-12 error form-group hide'>
-                                        <div class='alert-danger alert'>Please correct the errors and try
-                                            again.
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class='form-row row'>--}}
+{{--                                    <div class='col-xs-12 col-md-4 form-group cvc required'>--}}
+{{--                                        <label class='control-label'>CVC</label> <input autocomplete='off'--}}
+{{--                                                                                        class='form-control card-cvc'--}}
+{{--                                                                                        placeholder='ex. 311'--}}
+{{--                                                                                        size='4'--}}
+{{--                                                                                        type='text'--}}
+{{--                                                                                        name="cvc"--}}
+{{--                                                                                        @if($card)value="{{$card->cvc}}"@endif>--}}
+{{--                                    </div>--}}
+{{--                                    <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
+{{--                                        <label class='control-label'>Expiration Month</label> <input--}}
+{{--                                            class='form-control card-expiry-month' placeholder='MM' size='2'--}}
+{{--                                            type='text' name="month"--}}
+{{--                                            @if($card)value="{{$card->month}}"@endif>--}}
+{{--                                    </div>--}}
+{{--                                    <div class='col-xs-12 col-md-4 form-group expiration required'>--}}
+{{--                                        <label class='control-label'>Expiration Year</label> <input--}}
+{{--                                            class='form-control card-expiry-year' placeholder='YYYY'--}}
+{{--                                            size='4'--}}
+{{--                                            type='text' name="year" @if($card)value="{{$card->year}}"@endif>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <button class="btn payment-submit"
-                                                type="submit">Add payment
-                                        </button>
-                                    </div>
-                                </div>
+{{--                                <div class='form-row row'>--}}
+{{--                                    <div class='col-md-12 error form-group hide'>--}}
+{{--                                        <div class='alert-danger alert'>Please correct the errors and try--}}
+{{--                                            again.--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-xs-12">--}}
+{{--                                        <button class="btn payment-submit"--}}
+{{--                                                type="submit">Add payment--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
         <div class="modal fade" id="stripe" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -280,7 +281,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Price of post</label>
-                                            <input type="number" class="form-control" id="price" name="price">
+                                            <input type="number" class="form-control" id="price" name="amount">
                                         </div>
                                     </div>
                                     <div class='form-row row'>

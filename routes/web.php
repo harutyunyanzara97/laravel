@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function() {
 //    Route::get('/home', [App\Http\Controllers\PlanController::class,'index'])->name('home');
     Route::get('/plans', [App\Http\Controllers\PlanController::class,'index'])->name('plans.index');
-    Route::get('/plan', [App\Http\Controllers\PlanController::class,'show'])->name('show');
+//    Route::get('/plan', [App\Http\Controllers\PlanController::class,'show'])->name('show');
     Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class,'create'])->name('subscription');
 });
 Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index'])->name('network');
@@ -59,7 +59,7 @@ Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'cre
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');
 Route::post('stripe-post', [App\Http\Controllers\StripePaymentController::class,'stripePost'])->name('stripe.post');
-Route::post('card', [App\Http\Controllers\UserController::class,'card'])->name('card-details');
+Route::post('card', [App\Http\Controllers\StripePaymentController::class,'card_create'])->name('stripe.create');
 Route::get('/searchCat',[App\Http\Controllers\SearchController::class,'searchCategory']);
 Route::get('/searchPost',[App\Http\Controllers\SearchController::class,'searchPost']);
 
