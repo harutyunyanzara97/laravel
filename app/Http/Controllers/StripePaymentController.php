@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use mysql_xdevapi\Exception;
 use Session;
 use Stripe;
@@ -44,24 +46,51 @@ class StripePaymentController extends Controller
                 $user->save();
 
 
-                $stripe->customers->createSource(
+                $card_payment=$stripe->customers->createSource(
                     $user->stripe_id,
                     ['source' => $request->stripeToken]
                 );
+
+                $card=new Card();
+                $card->id=$card_payment->id;
+                $card->card_number=$card_payment->last4;
+                $card->cvc=$card_payment->cvc_check;
+                $card->month=$card_payment->exp_month;
+                $card->year=$card_payment->exp_year;
+                $card->brand=$card_payment->brand;
+                $card->save();
             } else {
-                $stripe->customers->createSource(
+                $card_payment=$stripe->customers->createSource(
                     $user->stripe_id,
                     ['source' => $request->stripeToken]
                 );
+
+                $card=new Card();
+                $card->card_id=$card_payment->id;
+                $card->user_id=Auth::id();
+                $card->card_number=$card_payment->last4;
+                $card->cvc=$card_payment->cvc_check;
+                $card->month=$card_payment->exp_month;
+                $card->year=$card_payment->exp_year;
+                $card->brand=$card_payment->brand;
+                $card->save();
             }
         }
-        catch (Exception $e) {
-            dd($e);
+        catch (\Stripe\Exception\CardException $e) {
+            echo 'Status is:' . $e->getHttpStatus() . '\n';
+            echo 'Type is:' . $e->getError()->type . '\n';
+            echo 'Code is:' . $e->getError()->code . '\n';
+            // param is '' in this case
+            echo 'Param is:' . $e->getError()->param . '\n';
+            echo 'Message is:' . $e->getError()->message . '\n';
+
+//            return back(with($e));
         }
+        return $card;
+
     }
     public function stripePost(Request $request)
     {
-//        dd($request->card);
         $user=$request->user();
         $charged_user=User::where('id',$request->id)->first();
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));

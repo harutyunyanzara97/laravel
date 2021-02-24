@@ -25,15 +25,21 @@ Route::group(['middleware' => 'auth'], function() {
 //    Route::get('/plan', [App\Http\Controllers\PlanController::class,'show'])->name('show');
     Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class,'create'])->name('subscription');
 });
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/dashboard',[App\Http\Controllers\AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::post('/createCategory}', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('createCategory');
+    Route::get('/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete'])->name('delete');
+    Route::post('/update', [App\Http\Controllers\AdminController::class, 'update'])->name('updateCat');
+    Route::get('/edit', [App\Http\Controllers\AdminController::class, 'editCategory'])->name('edit');
+});
 Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index'])->name('network');
-Route::get('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('delete');
 Route::get('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('/members', [App\Http\Controllers\UserController::class, 'members'])->name('members');
 Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'contribute'])->name('contribute');
 Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editAbout');
 Route::post('/storeProfile', [App\Http\Controllers\UserController::class, 'storeProfile'])->name('storeProfile');
-Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
+//Route::post('/dashboard', [App\Http\Controllers\UserController::class, 'signIn'])->name('dashboard');
 Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
 Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
 Route::get('/history', [App\Http\Controllers\StripePaymentController::class, 'history'])->name('history');
@@ -45,7 +51,6 @@ Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFo
 Route::get('/insertLike', [App\Http\Controllers\CommentController::class, 'insertLikes'])->name('insertLike');
 Route::post('/reply', [App\Http\Controllers\CommentController::class, 'reply'])->name('replyMe');
 Route::get('/show/{id}', [App\Http\Controllers\CategoryController::class, 'showPosts'])->name('showPosts');
-Route::get('/edit', [App\Http\Controllers\CategoryController::class, 'editCategory'])->name('edit');
 Route::get('/unfollow', [App\Http\Controllers\CategoryController::class, 'unfollow'])->name('unfollow');
 Route::get('/dislike', [App\Http\Controllers\CommentController::class, 'dislike'])->name('dislike');
 Route::get('/followUser', [App\Http\Controllers\UserController::class, 'followUser'])->name('follow-user');
@@ -54,7 +59,6 @@ Route::get('/followPost', [App\Http\Controllers\PostController::class, 'followPo
 Route::get('/unfollowPost', [App\Http\Controllers\PostController::class, 'unfollowPost'])->name('unfollow-post');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::post('/updateUser', [App\Http\Controllers\UserController::class, 'updateUser'])->name('update');
-Route::post('/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('updateCat');
 Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');

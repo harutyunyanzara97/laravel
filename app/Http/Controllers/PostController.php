@@ -33,20 +33,13 @@ class PostController extends Controller
         $post = Post::where('id', $id)->with('categories')->first();
         $categories = Category::all();
         $postUser = Post::where('id', $id)->with('user')->first();
+        $cards=Card::where('user_id',Auth::id())->get();
         if (Auth::user()) {
-            $card_user = Cashier::findBillable(Auth::user()->stripe_id);
 
-            if ($card_user->paymentMethods()) {
-                $cards = $card_user->paymentMethods();
-
-                $payments = [];
-                foreach ($cards->values() as $value) {
-
-                    $payments[] = $value;
-                }
-            }
+            return view('comments.post-comments', compact('post', 'postUser', 'categories','cards'));
+        } else {
+            return view('comments.post-comments', compact('post', 'postUser', 'categories'));
         }
-        return view('comments.post-comments', compact('post', 'postUser', 'categories', 'payments'));
     }
 
     public function store(Request $request)

@@ -101,12 +101,12 @@ class UserController extends Controller
         return view('balance',compact('user','balance','card','transactions','seller_transactions'));
     }
 
-    public function card(Request $request){
-        $user=Auth::user();
-
-        Session::flash('success', 'Payment created successfully!');
-
-        return view('comments.post-comments',compact($card));
-    }
+//    public function card(Request $request){
+//        $user=Auth::user();
+//
+//        Session::flash('success', 'Payment created successfully!');
+//
+//        return view('comments.post-comments',compact($card));
+//    }
 
 }

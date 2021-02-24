@@ -9,7 +9,7 @@ use App\Models\Follow;
 class Category extends Model
 {
     protected $fillable = [
-        'name','page_title','description','img_url','comment_id'
+        'name','page_title','description','img_url','comment_id','user_id'
     ];
     use HasFactory;
 

@@ -313,11 +313,11 @@
 
                                             <span>   {{count($post->comments)}} Comments </span>
                                             <i class="fa fa-heart"></i>
-                                            <button class="ml-3 payment-info" data-toggle="modal"
-                                                    @if($payments) data-target="#stripeModal" @else
+                                            @auth<button class="ml-3 payment-info" data-toggle="modal"
+                                                    @if($cards) data-target="#stripeModal" @else
                                                     data-target="#messageModal" @endif><img
                                                     src="{{asset('images/icon1.png')}}" width="30px" height="30px">
-                                            </button>
+                                            </button>@endauth
                                         </a>
 
 
@@ -589,7 +589,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo" aria-hidden="true">
+   <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content pb-5 pt-4">
                 <div class="modal-header border-0">
@@ -606,16 +606,16 @@
                                 {{--                                    <form>--}}
                                 <div class="group d-flex flex-column flex-wrap">
 
-                                        <form id="payment-form" action="{{ route('stripe.post') }}" method="post">
+                                       @auth <form id="payment-form" action="{{ route('stripe.post') }}" method="post" class="require-validation">
                                             @csrf
 
                                             <input type="hidden" value="{{$post->user->id}}" name="id">
                                             <input type="hidden" value="{{$post->user}}" name="postUser">
                                             <div class='form-row row'>
-                                                <input type="number" class="form-control" id="price" name="price">
+                                                <input type="number" class="form-control" id="price" name="price" placeholder="Please enter the price">
                                             </div>
-                                            @if($payments)
-                                            @foreach($payments as $card)
+                                            @if($cards)
+                                            @foreach($cards as $card)
                                             <label class="radio-row">
                                                 <div>
 
@@ -625,7 +625,7 @@
                                                            value="saved-card-1">
                                                 </div>
 
-                                                <div id="saved-card">**** **** **** {{$card->card->last4}}</div>
+                                                <div id="saved-card">**** **** **** {{$card->card_number}}</div>
                                             </label>
                                             @endforeach
                                             @endif
@@ -641,11 +641,12 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    @endauth
 
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <button class="btn" id="payment-submit"
-                                                        type="submit">Add payment
+                                                        type="submit">Pay
                                                 </button>
                                             </div>
                                         </div>
@@ -675,6 +676,7 @@
             </div>
         </div>
     </div>
+
 
 
 

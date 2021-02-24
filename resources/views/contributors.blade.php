@@ -100,11 +100,11 @@
             </ul>
 
         </div>
-        @auth
+
             <div class="d-flex justify-content-center contribute">
                 <button type="button" data-toggle="modal"
-                        @if($card) data-target="#stripe" @else
-                        data-target="#messageModal" @endif class="donate-btn ml-3 payment-info">Donate
+                         data-target="#stripe"
+                        class="donate-btn ml-3 payment-info">Donate
                 </button>
             </div>
             <div class="modal fade" id="stripe" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
@@ -198,36 +198,36 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <p>Please add a payment method in your profile, to share your support to the post
-                                creator.</p>
-                            <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"
-                                                                                             href="{{route('profile')}}">Go
-                                    to profile</a>
-                            </div>
-                            <div class="modal-body">
+{{--            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"--}}
+{{--                 aria-hidden="true">--}}
+{{--                <div class="modal-dialog" role="document">--}}
+{{--                    <div class="modal-content">--}}
+{{--                        <div class="modal-header">--}}
+{{--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                                <span aria-hidden="true">&times;</span>--}}
+{{--                            </button>--}}
+{{--                            <p>Please add a payment method in your profile, to share your support to the post--}}
+{{--                                creator.</p>--}}
+{{--                            <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"--}}
+{{--                                                                                             href="{{route('profile')}}">Go--}}
+{{--                                    to profile</a>--}}
+{{--                            </div>--}}
+{{--                            <div class="modal-body">--}}
 
-                            </div>
-                            <div class="d-flex justify-content-center mt-4 go-profile-section">
-                                <div class="modal-footer">
-                                    <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                    <button class="publish_btn" data-dismiss="modal">Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endauth
-            </div>
+{{--                            </div>--}}
+{{--                            <div class="d-flex justify-content-center mt-4 go-profile-section">--}}
+{{--                                <div class="modal-footer">--}}
+{{--                                    <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">--}}
+{{--                                        Cancel--}}
+{{--                                    </button>--}}
+{{--                                    <button class="publish_btn" data-dismiss="modal">Ok</button>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--               --}}
+{{--            </div>--}}
     </div>
     <script src="{{asset('js/main.js')}}"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

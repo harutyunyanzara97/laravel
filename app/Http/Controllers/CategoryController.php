@@ -40,28 +40,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function editCategory(Request $request)
-    {
-        $modal_category = Category::where('id', $request->id)->first();
-        return view('category', compact('modal_category'));
-    }
 
-    public function update(Request $request)
-    {
-        $category = Category::where('id', $request->id)->first();
-        $category->user_id = Auth::user()->getId();
-        $category->update($request->all());
-        if ($request->hasfile('photo')) {
-
-            foreach ($request->file('photo') as $image) {
-                $name = time() . $image->getClientOriginalName();
-                $image->move(public_path() . '/images', $name);
-                $category->img_url = $name;
-                $category->save();
-            }
-        }
-        return response()->json($category);
-    }
 
     public function showPosts(Request $request, $id)
     {
@@ -70,12 +49,7 @@ class CategoryController extends Controller
         return view('posts.posts', compact('category', $category, 'posts'));
     }
 
-    public function delete(Request $request)
-    {
-        Category::where("id", $request->id)->delete();
 
-        return Redirect::to('/network/');
-    }
 
 
 }

@@ -31,6 +31,7 @@
             float: left;
             margin-bottom: 10px;
         }
+
     </style>
     {{--    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>--}}
 </head>
@@ -117,8 +118,8 @@
                             </button>
 
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                                <a class="dropdown-item" href="#">My Account</a>
+                                <a class="dropdown-item" @if(Auth::user()->is_admin===1) href="{{route('admin.dashboard')}}"@else href="{{route('profile')}}" @endif>Profile</a>
+                                <a class="dropdown-item" @if(Auth::user()->is_admin===1) href="{{route('profile')}}" @endif>My Account</a>
                                 <a class="logout-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

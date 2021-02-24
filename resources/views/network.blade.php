@@ -316,7 +316,10 @@
                                         @endforeach
                                         <span class="unfollow-user">Follow</span>
                                     </a>
+
                                     <div class="follow-details">
+                                        @auth
+                                            @if(Auth::user()->is_admin===1)
                                         <button type="button" class="btn dropdown-toggle p-0"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
@@ -325,7 +328,7 @@
                                                       d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
                                             </svg>
                                         </button>
-                                        @auth
+
                                             <div class="dropdown-menu">
 
                                                 <button type="button" class="dropdown-item edit"
@@ -364,6 +367,7 @@
                                                 {{--                                            Manage Categories--}}
                                                 {{--                                        </div>--}}
                                             </div>
+                                                @endif
                                         @endauth
 
                                     </div>

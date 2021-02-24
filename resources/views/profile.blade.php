@@ -30,6 +30,159 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i');
+
+
+    .title {
+        margin-bottom: 30px;
+        color: #162969;
+    }
+
+
+    .credit_card{
+        width: 320px;
+        height: 190px;
+        -webkit-perspective: 600px;
+        -moz-perspective: 600px;
+        perspective:600px;
+
+    }
+
+    .card__part{
+        box-shadow: 1px 1px #aaa3a3;
+        top: 0;
+        position: absolute;
+        z-index: 1000;
+        left: 0;
+        display: inline-block;
+        width: 320px;
+        height: 190px;
+        background-color:#aaa3a3;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+
+        -webkit-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -moz-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -ms-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -o-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+    }
+
+    .card__front{
+        padding: 18px;
+        -webkit-transform: rotateY(0);
+        -moz-transform: rotateY(0);
+    }
+
+    .card__back {
+        padding: 18px 0;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+    }
+
+    .card__black-line {
+        margin-top: 5px;
+        height: 38px;
+        background-color: #303030;
+    }
+
+    .card__logo {
+        height: 16px;
+    }
+
+    .card__front-logo{
+        position: absolute;
+        top: 18px;
+        right: 18px;
+    }
+    .card__square {
+        border-radius: 5px;
+        height: 30px;
+    }
+
+    .card_numer {
+        display: block;
+        width: 100%;
+        word-spacing: 4px;
+        font-size: 20px;
+        letter-spacing: 2px;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .card__space-75 {
+        width: 75%;
+        float: left;
+    }
+
+    .card__space-25 {
+        width: 25%;
+        float: left;
+    }
+
+    .card__label {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+        letter-spacing: 1px;
+    }
+
+    .card__info {
+        margin-bottom: 0;
+        margin-top: 5px;
+        font-size: 16px;
+        line-height: 18px;
+        color: #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .card__back-content {
+        padding: 15px 15px 0;
+    }
+    .card__secret--last {
+        color: #303030;
+        text-align: right;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .card__secret {
+        padding: 5px 12px;
+        background-color: #fff;
+        position:relative;
+    }
+
+    .card__secret:before{
+        content:'';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        height: calc(100% + 6px);
+        width: calc(100% - 42px);
+        border-radius: 4px;
+        background: repeating-linear-gradient(45deg, #ededed, #ededed 5px, #f9f9f9 5px, #f9f9f9 10px);
+    }
+
+    .card__back-logo {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .card__back-square {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+    }
     #stripeModal {
         height: 70%;
         margin: auto;
@@ -174,7 +327,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
                                 <a class="dropdown-item" href="#">My Account</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="logout-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -479,16 +632,18 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
+                            @include('credit_card_design')
                             <div class="modal-body">
                                 <div id="card-errors" role="alert"></div>
                                 <div class="card">
+
                                     <div class="card-body">
 
-                                        <form id="payment-form" action="{{ route('stripe.create') }}" method="post"
+                                        <form id="payment-form"  method="post"
                                               data-cc-on-file="false"
                                               data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
-                                              class="require-validation">
+                                              class="require-validation"
+                                              data-uri="{{route('stripe.create')}}">
 
                                             @csrf
 {{--                                            <div class='form-row row'>--}}
@@ -524,12 +679,12 @@
                                                                                                     name="cvc">
                                                 </div>
                                                 <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                    <label class='control-label'>Expiration Month</label> <input
+                                                    <label class='control-label'>Exp.Month</label> <input
                                                         class='form-control card-expiry-month' placeholder='MM' size='2'
                                                         type='text' name="month">
                                                 </div>
                                                 <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                    <label class='control-label'>Expiration Year</label> <input
+                                                    <label class='control-label'>Exp.Year</label> <input
                                                         class='form-control card-expiry-year' placeholder='YYYY'
                                                         size='4'
                                                         type='text' name="year">
@@ -543,7 +698,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            @if($errors->any())
+                                                <h4>{{$errors->first()}}</h4>
+                                            @endif
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <button class="btn payment-submit"
@@ -789,6 +946,36 @@
     $(() => {
         let textVal = $('#txtEditor').html();
         $('.Editor-editor').text(textVal);
+    })
+    $(document).on('click', '.edit-btn', function (event) {
+        // event.preventDefault();
+        $.ajax({
+            type: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: function (r) {
+                $('.profile-inner').empty();
+                $('.profile-inner').append(`<form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
+@csrf
+    <input type="hidden" value="{{Auth::user()->id}}" name="id">
+    <div class="avatar-upload">
+    <div class="avatar-edit">
+    <input type='file' id="imageUpload" name="photo[]">
+    <label for="imageUpload" style="margin-left: -58px;color:black">Upload</label>
+    </div>
+    <div class="avatar-preview">
+    <div id="imagePreview"
+style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+    </div>
+    </div>
+    </div>
+
+<button type="submit" class="edit-btn">
+    Edit photo
+</button>
+</form>`);
+            }
+
+        })
     })
 
 </script>

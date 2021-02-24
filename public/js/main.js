@@ -23,58 +23,58 @@ $('.moreless-button').click(function () {
     }
 });
 
-    $(function () {
-        var $form = $(".require-validation");
-        $('form.require-validation').bind('submit', function (e) {
-            var $form = $(".require-validation"),
-                inputSelector = ['input[type=email]', 'input[type=password]',
-                    'input[type=text]', 'input[type=file]',
-                    'textarea'].join(', '),
-                $inputs = $form.find('.required').find(inputSelector),
-                $errorMessage = $form.find('div.error'),
-                valid = true;
-            $errorMessage.addClass('hide');
-
-            $('.has-error').removeClass('has-error');
-            $inputs.each(function (i, el) {
-                var $input = $(el);
-                if ($input.val() === '') {
-                    $input.parent().addClass('has-error');
-                    $errorMessage.removeClass('hide');
-                    e.preventDefault();
-                }
-            });
-
-            if (!$form.data('cc-on-file')) {
-                e.preventDefault();
-                Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-                Stripe.createToken({
-                    number: $('.card-number').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: $('.card-expiry-month').val(),
-                    exp_year: $('.card-expiry-year').val()
-                }, stripeResponseHandler);
-            }
-
-        });
-
-        function stripeResponseHandler(status, response) {
-            if (response.error) {
-                $('.error')
-                    .removeClass('hide')
-                    .find('.alert')
-                    .text(response.error.message);
-            } else {
-                // token contains id, last4, and card type
-                var token = response['id'];
-                // insert the token into the form so it gets submitted to the server
-                $form.find('input[type=text]').empty();
-                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                $form.get(0).submit();
-            }
-        }
-
-    });
+    // $(function () {
+    //     var $form = $(".require-validation");
+    //     $('form.require-validation').bind('submit', function (e) {
+    //         var $form = $(".require-validation"),
+    //             inputSelector = ['input[type=email]', 'input[type=password]',
+    //                 'input[type=text]', 'input[type=file]',
+    //                 'textarea'].join(', '),
+    //             $inputs = $form.find('.required').find(inputSelector),
+    //             $errorMessage = $form.find('div.error'),
+    //             valid = true;
+    //         $errorMessage.addClass('hide');
+    //
+    //         $('.has-error').removeClass('has-error');
+    //         $inputs.each(function (i, el) {
+    //             var $input = $(el);
+    //             if ($input.val() === '') {
+    //                 $input.parent().addClass('has-error');
+    //                 $errorMessage.removeClass('hide');
+    //                 e.preventDefault();
+    //             }
+    //         });
+    //
+    //         if (!$form.data('cc-on-file')) {
+    //             e.preventDefault();
+    //             Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+    //             Stripe.createToken({
+    //                 number: $('.card-number').val(),
+    //                 cvc: $('.card-cvc').val(),
+    //                 exp_month: $('.card-expiry-month').val(),
+    //                 exp_year: $('.card-expiry-year').val()
+    //             }, stripeResponseHandler);
+    //         }
+    //
+    //     });
+    //
+    //     function stripeResponseHandler(status, response) {
+    //         if (response.error) {
+    //             $('.error')
+    //                 .removeClass('hide')
+    //                 .find('.alert')
+    //                 .text(response.error.message);
+    //         } else {
+    //             // token contains id, last4, and card type
+    //             var token = response['id'];
+    //             // insert the token into the form so it gets submitted to the server
+    //             $form.find('input[type=text]').empty();
+    //             $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+    //             $form.get(0).submit();
+    //         }
+    //     }
+    //
+    // });
 $('.myPosts').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -165,10 +165,12 @@ $(document).on('click', '.follow', function (event) {
         })
     }
 })
-$('#payment-submit').click(function () {
+$('#payment-submit').submit(function (e) {
+    e.preventDefault();
     let form = $('#payment-form');
     let formdata = new FormData(form[0]);
     let card = '';
+    console.log(form.data('uri'))
     // if($('input[type=radio]').is(":checked")){
     //     cat_id = $('input[type=radio]').data('card_id');
     // }
@@ -178,17 +180,17 @@ $('#payment-submit').click(function () {
         }
     })
     formdata.append('card',card);
-    console.log(card);
+
     $.ajax({
         type: form.attr('method'),
-        url: form.attr('action'),
+        url: form.data('uri'),
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data: formdata,
         processData: false,
         contentType: false,
         success: function (data)
         {
-
+            console.log(data);
         },
         error: function (err) {
             if (err.status == 422) {
@@ -232,36 +234,7 @@ $(document).on('click', '.edit', function (event) {
 
     })
 })
-$(document).on('click', '.edit-btn', function (event) {
-    // event.preventDefault();
-    $.ajax({
-        type: "get",
-        data: {_token: $('meta[name="csrf-token"]').attr('content')},
-        success: function (r) {
-            $('.profile-inner').empty();
-            $('.profile-inner').append(`<form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" value="{{Auth::user()->id}}" name="id">
-    <div class="avatar-upload">
-    <div class="avatar-edit">
-    <input type='file' id="imageUpload" name="photo[]">
-    <label for="imageUpload"></label>
-    </div>
-    <div class="avatar-preview">
-    <div id="imagePreview"
-style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
-    </div>
-    </div>
-    </div>
-
-<button type="submit" class="edit-btn">
-    Edit photo
-</button>
-</form>`);
-        }
-
-    })
-})
 
 $(document).on('click', '.closeModal', function (event) {
     $('#rightSideModal').hide();
@@ -522,6 +495,7 @@ $(document).on('click', '.followedPost', function (event) {
 
     })
 })
+
 // // Create a Stripe client.
 // var stripe = Stripe('pk_test_51IDT1rLV6S2YaGRAadUEI9mxO2j2wbfh5Jc69TSDKj7Cdo1sxfpn1XNyPJdmIPS0axoc3VyAWiC3y5QkSDlIuLnF00sP8sZ7Ge');
 // console.log(stripe);

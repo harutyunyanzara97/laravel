@@ -18,7 +18,7 @@ class CreateCardsTable extends Migration
             $table->string('name')->nullable();
             $table->bigInteger('card_number');
             $table->unsignedBigInteger('user_id')->nullable(false);
-            $table->integer('cvc');
+            $table->string('cvc');
             $table->integer('month');
             $table->integer('year');
             $table->timestamps();

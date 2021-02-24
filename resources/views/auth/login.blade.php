@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +34,7 @@
                         <form method="POST" action="{{ route('login') }}" class="pt-2">
                             @csrf
                             <div class="form-group">
-                                <input id="email" type="email" class="form-control pr-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control pr-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -45,7 +43,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input id="password" type="password" class="form-control pr-input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control pr-input @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
