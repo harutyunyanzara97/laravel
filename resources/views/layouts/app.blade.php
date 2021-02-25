@@ -54,27 +54,28 @@
                     <div class="navbar-collapse collapse" id="collapsingNavbar">
                         <ul>
                             <li>
-                                <a href="{{route('home')}}" class="active-item">
+
+                                <a href="{{route('home')}}" class="@if(\Illuminate\Support\Facades\URL::current() === route('home')) active-item @elseif(\Illuminate\Support\Facades\URL::current() === route('profile'))text @endif">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('network')}}">
+                                <a href="{{route('network')}}" class="@if(\Illuminate\Support\Facades\URL::current() === route('network')) active-item @endif">
                                     The Network
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('contribute')}}">
+                                <a href="{{route('contribute')}}" class="@if(\Illuminate\Support\Facades\URL::current() === route('contribute')) active-item @endif">
                                     Contributors
                                 </a>
                             </li>
                             <li>
-                                @guest <a href="{{route('login')}}">
+                                @guest <a href="{{route('login')}}" class="@if(\Illuminate\Support\Facades\URL::current() === route('login')) active-item @endif">
                                     Members
                                 </a>
                                 @endguest
                                 @auth
-                                    <a href="{{route('members')}}">
+                                    <a href="{{route('members')}}" class="@if(\Illuminate\Support\Facades\URL::current() === route('members')) active-item @endif">
                                         Members
                                     </a>
                                 @endauth
@@ -118,7 +119,7 @@
                             </button>
 
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" @if(Auth::user()->is_admin===1) href="{{route('admin.dashboard')}}"@else href="{{route('profile')}}" @endif>Profile</a>
+                                <a class="dropdown-item " @if(Auth::user()->is_admin===1) href="{{route('admin.dashboard')}}"@else href="{{route('profile')}}" @endif>Profile</a>
                                 <a class="dropdown-item" @if(Auth::user()->is_admin===1) href="{{route('profile')}}" @endif>My Account</a>
                                 <a class="logout-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

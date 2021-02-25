@@ -566,18 +566,19 @@
             <div class="profile-left-banner">
                 <div class="profile-inner">
 
-                        <div class="avatar-upload">
+                    <div class="avatar-upload">
 
-                            <div class="avatar-preview">
-                                <div id="imagePreview"
-                                     style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
-                                </div>
+                        <div class="avatar-preview">
+
+                            <div id="imagePreview"
+                                 style="background-image: url({{asset('images/'. $member->avatar_url)}})">
                             </div>
                         </div>
-                        <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
-                        <button type="button" class="edit-btn">
-                            Edit photo
-                        </button>
+                    </div>
+                    <p class="mt-3 mb-3 text-white text-center">{{$member->name}}</p>
+                    <button type="button" class="edit-btn">
+                        Follow
+                    </button>
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -586,25 +587,17 @@
                         </a>
                     </li>
                     <li>
-                        <a class="myPosts toCoursor">
+                        <a class="posts toCoursor" data-id="{{$member->id}}">
                             Forum Posts ({{count($posts)}})
                         </a>
                     </li>
                     <li>
-                        <a class="myComments toCoursor">
+                        <a class="comment toCoursor" data-id="{{$member->id}}">
                             Forum Comments ({{count($comments)}})
                         </a>
                     </li>
-                    <li>
-                        <a class="myAccount toCoursor">
-                            My Account
-                        </a>
-                    </li>
-                    <li>
-                        <a class="myBalance toCoursor">
-                            Payment
-                        </a>
-                    </li>
+
+
 
                     {{--                    <li>--}}
                     {{--                        <a href="#">--}}
@@ -618,112 +611,19 @@
                     {{--                    </li>--}}
                 </ul>
 
-                <button  class="btn payment-btn" data-toggle="modal"
-                        data-target="#stripeModal">Add card
-                </button>
+
 
                 @if (Session::has('success'))
                     <div class="alert alert-success text-center">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                         <p>{{ Session::get('success') }}</p>
                     </div>
-                        @elseif(Session::has('error'))
+                @elseif(Session::has('error'))
                     <div class="alert alert-danger text-center">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                         <p>{{ Session::get('error') }}</p>
                     </div>@endif
-                <div class="modal fade" id="stripeModal" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content pb-5 pt-4">
-                            <div class="modal-header border-0">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @include('credit_card_design')
-                            <div class="modal-body">
-                                <div id="card-errors" role="alert"></div>
-                                <div class="card">
 
-                                    <div class="card-body">
-
-                                        <form id="payment-form" action="{{ route('stripe.create') }}" method="post"
-                                              data-cc-on-file="false"
-                                              data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
-                                              class="require-validation">
-
-                                            @csrf
-{{--                                            <div class='form-row row'>--}}
-{{--                                                <div class='col-xs-12 form-group required'>--}}
-{{--                                                    <label class='control-label'>Price of post</label>--}}
-{{--                                                    <input type="number" class="form-control" id="price" name="amount">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-                                            <div class='form-row row'>
-                                                <div class='col-xs-12 form-group required'>
-                                                    <label class='control-label'>Name on Card</label> <input
-                                                        class='form-control' size='4' type='text' name="name">
-                                                </div>
-                                            </div>
-
-                                            <div class='form-row row'>
-                                                <div class='col-xs-12 form-group card required'>
-                                                    <label class='control-label'>Card Number</label> <input
-                                                        autocomplete='off' class='form-control card-number'
-                                                        name="number"
-                                                        size='20'
-                                                        type='text'>
-                                                </div>
-                                            </div>
-
-                                            <div class='form-row row'>
-                                                <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                                    <label class='control-label'>CVC</label> <input autocomplete='off'
-                                                                                                    class='form-control card-cvc'
-                                                                                                    placeholder='ex. 311'
-                                                                                                    size='4'
-                                                                                                    type='text'
-                                                                                                    name="cvc">
-                                                </div>
-                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                    <label class='control-label'>Exp.Month</label> <input
-                                                        class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                        type='text' name="month">
-                                                </div>
-                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                    <label class='control-label'>Exp.Year</label> <input
-                                                        class='form-control card-expiry-year' placeholder='YYYY'
-                                                        size='4'
-                                                        type='text' name="year">
-                                                </div>
-                                            </div>
-
-                                            <div class='form-row row'>
-                                                <div class='col-md-12 error form-group hide'>
-                                                    <div class='alert-danger alert'>Please correct the errors and try
-                                                        again.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @if($errors->any())
-                                                <h4>{{$errors->first()}}</h4>
-                                            @endif
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <button class="btn payment-submit"
-                                                            type="submit">Add payment
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="profile-right-banner">
                 <form method="POST" id="editProfile" enctype="multipart/form-data">
@@ -742,22 +642,14 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <textarea id="txtEditor">{{Auth::user()->about}}</textarea>
+                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here Yet
+                                            This member hasn't written about themselves.@endif</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="profile-btn-group">
-                            <button type="button" class="btn-grey">
-                                Discard
-                            </button>
-                            <button type="submit" class="btn-blue">
-                                Publish
-                            </button>
-                        </div>
-                        <p class="d-flex justify-content-end text-white">
-                            Unpublished Changes
-                        </p>
+
+
                     </div>
                 </form>
             </div>
@@ -765,109 +657,16 @@
 
     </main>
 </div>
-<div class="modal fade" id="ModalInfo" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content pb-5 pt-4">
-            <div class="modal-header border-0">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{asset('img/cross-icon.png')}}" alt=""></span>
-                </button>
-            </div>
-            <div class="modal-body">
 
-            </div>
-        </div>
-    </div>
-</div>
 </body>
-<script>
-    $('.cardButton').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: $(this).data('path'),
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $('#ModalInfo div.modal-body').html(response);
-            }
-        })
-    });
 
-</script>
-{{--<script src="https://js.stripe.com/v3/"></script>--}}
-{{--<script>--}}
-{{--    // Create a Stripe client.--}}
-{{--    var stripe = Stripe('pk_test_51IDT1rLV6S2YaGRAadUEI9mxO2j2wbfh5Jc69TSDKj7Cdo1sxfpn1XNyPJdmIPS0axoc3VyAWiC3y5QkSDlIuLnF00sP8sZ7Ge');--}}
-{{--    console.log(stripe);--}}
-{{--    // Create an instance of Elements.--}}
-{{--    var elements = stripe.elements();--}}
-{{--    // Custom styling can be passed to options when creating an Element.--}}
-{{--    // (Note that this demo uses a wider set of styles than the guide below.)--}}
-{{--    var style = {--}}
-{{--        base: {--}}
-{{--            color: '#32325d',--}}
-{{--            lineHeight: '18px',--}}
-{{--            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',--}}
-{{--            fontSmoothing: 'antialiased',--}}
-{{--            fontSize: '16px',--}}
-{{--            '::placeholder': {--}}
-{{--                color: '#aab7c4'--}}
-{{--            }--}}
-{{--        },--}}
-{{--        invalid: {--}}
-{{--            color: '#fa755a',--}}
-{{--            iconColor: '#fa755a'--}}
-{{--        }--}}
-{{--    };--}}
-{{--    var card = elements.create('card', {style: style});--}}
-{{--    // Add an instance of the card Element into the `card-element` <div>.--}}
-{{--    card.mount('#card-element');--}}
-{{--    // Handle real-time validation errors from the card Element.--}}
-{{--    card.addEventListener('change', function (event) {--}}
-{{--        var displayError = document.getElementById('card-errors');--}}
-{{--        if (event.error) {--}}
-{{--            displayError.textContent = event.error.message;--}}
-{{--        } else {--}}
-{{--            displayError.textContent = '';--}}
-{{--        }--}}
-{{--    });--}}
-{{--    // Handle form submission.--}}
-{{--    var form = document.getElementById('payment-form');--}}
-{{--    form.addEventListener('submit', function (event) {--}}
-{{--        event.preventDefault();--}}
-{{--        stripe.createToken(card).then(function (result) {--}}
-{{--            if (result.error) {--}}
-{{--                // Inform the user if there was an error.--}}
-{{--                var errorElement = document.getElementById('card-errors');--}}
-{{--                errorElement.textContent = result.error.message;--}}
-{{--            } else {--}}
-{{--                // Send the token to your server.--}}
-{{--                stripeTokenHandler(result.token);--}}
-{{--            }--}}
-{{--        });--}}
-{{--    });--}}
 
-{{--    // Submit the form with the token ID.--}}
-{{--    function stripeTokenHandler(token) {--}}
-{{--        // Insert the token ID into the form so it gets submitted to the server--}}
-{{--        var form = document.getElementById('payment-form');--}}
-{{--        var hiddenInput = document.createElement('input');--}}
-{{--        hiddenInput.setAttribute('type', 'hidden');--}}
-{{--        hiddenInput.setAttribute('name', 'token');--}}
-{{--        hiddenInput.setAttribute('value', 'token');--}}
-{{--        form.appendChild(hiddenInput);--}}
-{{--        // Submit the form--}}
-{{--        form.submit();--}}
-{{--    }--}}
-{{--</script>--}}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
+{{--<script src="{{asset('js/main.js')}}"></script>--}}
 <script src="{{asset('js/editor.js')}}"></script>
 <script id="rendered-js">
     $(document).ready(function () {
@@ -882,114 +681,32 @@
     });
     //# sourceURL=pen.js
 </script>
-
 <script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#imagePreview').hide();
-                $('#imagePreview').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imageUpload").change(function () {
-        readURL(this);
-    });
-</script>
-<script>
-    $('.payment').on('click', function (event) {
+    $('.comment').on('click', function (event) {
         event.preventDefault();
+        let id=$(this).data('id');
         $.ajax({
-            url: '/plans',
+            url: '/member-comments',
             method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
             success: (response) => {
                 console.log(response);
                 $(".profile-right-banner").html(response);
             }
         })
     });
-
-</script>
-<script>
-    $("#editProfile").on("submit", function (e) {
-        e.preventDefault();
-        var edit = $('.Editor-editor').text();
-        let id = $('input[name=id]').val();
-        var about = $('textarea#txtEditor').text(edit);
-        let aboutVal = about.val();
-        let formdata = new FormData($(this)[0]);
-        // let about = $("textarea#txtEditor").val();
-        // console.log(about);
-        // let formData={};
-        formdata.append('about', aboutVal);
-        // let formdata = new FormData($(this)[0]);
-        // formdata.append('about',about);
-        // console.log(formdata)
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+    $('.posts').on('click', function (event) {
+        event.preventDefault();
+        let id=$(this).data('id');
         $.ajax({
-            url: '{{route('editAbout')}}',
-            type: 'POST',
-            data: formdata,
-            // dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function (response) {
+            url: '/member-posts',
+            method: "get",
+            data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
+            success: (response) => {
                 console.log(response);
-            }, error: function (error) {
-                console.log(error)
+                $(".profile-right-banner").html(response);
             }
-        });
-
-    });
-    $(() => {
-        let textVal = $('#txtEditor').html();
-        $('.Editor-editor').text(textVal);
-    })
-    $(document).on('click', '.edit-btn', function (event) {
-        // event.preventDefault();
-        $.ajax({
-            type: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: function (r) {
-                $('.profile-inner').empty();
-                $('.profile-inner').append(`<form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
-@csrf
-    <input type="hidden" value="{{Auth::user()->id}}" name="id">
-   <div class="edit-photo">
-    <div class="avatar-upload">
-    <div class="avatar-edit">
-    <input type='file' id="imageUpload" name="photo[]">
-    <label for="imageUpload" style="margin:auto;color:black"> <svg width="30" height="19" viewBox="0 0 19 19">
-                                                <g fill-rule="evenodd">
-                                                    <path
-                                                        d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                                                </g>
-                                            </svg></label>
-    </div>
-    <div class="avatar-preview">
-    <div id="imagePreview"
-style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
-    </div>
-    </div>
-    </div>
-</div>
-<button type="submit" class="edit-btn">
-    Edit photo
-</button>
-</form>`);
-            }
-
         })
-    })
-
+    });
 </script>
+

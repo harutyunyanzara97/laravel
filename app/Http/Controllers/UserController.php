@@ -45,6 +45,12 @@ class UserController extends Controller
         $comments=Comment::where('user_id',Auth::user()->getId())->get();
         return view('profile',compact('posts',$posts,'comments',$comments));
     }
+    public function  membeProfile($id){
+        $member=User::where('id',$id)->first();
+        $posts=Post::where('user_id',$member->id)->get();
+        $comments=Comment::where('user_id',$member->id)->get();
+        return view('member-profile',compact('posts','comments','member'));
+    }
     public function storeProfile(Request $request)
     {
         $user = User::where('id', $request->id)->first();

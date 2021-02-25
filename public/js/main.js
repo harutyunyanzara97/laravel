@@ -90,9 +90,35 @@ $('.myPosts').on('click', function (event) {
 $('.myComments').on('click', function (event) {
     event.preventDefault();
     $.ajax({
-        url: '/myComments',
+        url: '/member-comments',
         method: "get",
         data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
+$('.comment').on('click', function (event) {
+    event.preventDefault();
+    let id=$(this).data('id');
+    $.ajax({
+        url: '/member-comments',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
+$('.posts').on('click', function (event) {
+    event.preventDefault();
+    let id=$(this).data('id');
+    $.ajax({
+        url: '/member-posts',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
         success: (response) => {
             console.log(response);
             $(".profile-right-banner").html(response);
@@ -165,43 +191,7 @@ $(document).on('click', '.follow', function (event) {
         })
     }
 })
-$('#payment-submit').submit(function (e) {
-    e.preventDefault();
-    let form = $('#payment-form');
-    let formdata = new FormData(form[0]);
-    let card = '';
-    console.log(form.data('uri'))
-    // if($('input[type=radio]').is(":checked")){
-    //     cat_id = $('input[type=radio]').data('card_id');
-    // }
-    $('input[type=radio]').each(function(){
-        if($(this).is(':checked')){
-            card = $(this).prev().val();
-        }
-    })
-    formdata.append('card',card);
 
-    $.ajax({
-        type: form.attr('method'),
-        url: form.data('uri'),
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        data: formdata,
-        processData: false,
-        contentType: false,
-        success: function (data)
-        {
-            console.log(data);
-        },
-        error: function (err) {
-            if (err.status == 422) {
-                $.each(err.responseJSON.errors, function (i, error) {
-                    var el = $(document).find('[name="' + i + '"]');
-                    el.after($('<span class="error-valid" style="color: red;">' + error[0] + '</span>'));
-                });
-            }
-        },
-    });
-});
 $(document).on('click', '.following', function (event) {
     event.preventDefault();
     let unfollow = $(this);

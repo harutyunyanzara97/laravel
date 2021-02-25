@@ -35,6 +35,7 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/network', [App\Http\Controllers\CategoryController::class, 'index'])->name('network');
 Route::get('/deletePost/{id}', [App\Http\Controllers\PostController::class, 'deletePost'])->name('deletePost');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+Route::get('/member-profile/{id}', [App\Http\Controllers\UserController::class, 'membeProfile'])->name('member-profile');
 Route::get('/members', [App\Http\Controllers\UserController::class, 'members'])->name('members');
 Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'contribute'])->name('contribute');
 Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editAbout');
@@ -44,7 +45,9 @@ Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])-
 Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
 Route::get('/history', [App\Http\Controllers\StripePaymentController::class, 'history'])->name('history');
 Route::get('/myPosts', [App\Http\Controllers\PostController::class, 'myPosts'])->name('myPosts');
+Route::get('/member-posts', [App\Http\Controllers\PostController::class, 'memberPosts'])->name('member-posts');
 Route::get('/myComments', [App\Http\Controllers\CommentController::class, 'myComments'])->name('myComments');
+Route::get('/member-comments', [App\Http\Controllers\CommentController::class, 'memberComments'])->name('member-comments');
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
 Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');

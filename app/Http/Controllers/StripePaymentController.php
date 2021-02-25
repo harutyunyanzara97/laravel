@@ -44,38 +44,49 @@ class StripePaymentController extends Controller
 
                 $user->stripe_id = $customer->id;
                 $user->save();
+                $card=Card::where('card_number',$request->number)->first();
+                if(!$card) {
+                    $card = new Card();
+                    $card->user_id = Auth::id();
+                    $card->card_number = $request->number;
+                    $card->save();
+
+                    $card_payment = $stripe->customers->createSource(
+                        $user->stripe_id,
+                        ['source' => $request->stripeToken]
+                    );
+                    $card->card_id = $card_payment->id;
+                    $card->brand = $card_payment->brand;
+                    $card->update();
+
+                }
+                else {
+                    Session::flash('error', 'You are already have this payment method.');
+                }
 
 
-                $card_payment=$stripe->customers->createSource(
-                    $user->stripe_id,
-                    ['source' => $request->stripeToken]
-                );
-
-                $card=new Card();
-                $card->id=$card_payment->id;
-                $card->card_number=$card_payment->last4;
-                $card->cvc=$card_payment->cvc_check;
-                $card->month=$card_payment->exp_month;
-                $card->year=$card_payment->exp_year;
-                $card->brand=$card_payment->brand;
-                $card->save();
             } else {
-                $card_payment=$stripe->customers->createSource(
-                    $user->stripe_id,
-                    ['source' => $request->stripeToken]
-                );
+                $card = Card::where('card_number', $request->number)->first();
+                if (!$card) {
+                    $card = new Card();
+                    $card->user_id = Auth::id();
+                    $card->card_number = $request->number;
+                    $card->save();
+                    $card_payment = $stripe->customers->createSource(
+                        $user->stripe_id,
+                        ['source' => $request->stripeToken]
+                    );
+                    $card->card_id = $card_payment->id;
+                    $card->brand = $card_payment->brand;
+                    $card->update();
 
-                $card=new Card();
-                $card->card_id=$card_payment->id;
-                $card->user_id=Auth::id();
-                $card->card_number=$card_payment->last4;
-                $card->cvc=$card_payment->cvc_check;
-                $card->month=$card_payment->exp_month;
-                $card->year=$card_payment->exp_year;
-                $card->brand=$card_payment->brand;
-                $card->save();
+                } else {
+                    Session::flash('error', 'You are already have this payment method.');
+                }
             }
-        }
+//                }
+            }
+
         catch (\Stripe\Exception\CardException $e) {
             echo 'Status is:' . $e->getHttpStatus() . '\n';
             echo 'Type is:' . $e->getError()->type . '\n';
@@ -86,9 +97,11 @@ class StripePaymentController extends Controller
 
 //            return back(with($e));
         }
-        return $card;
-
+        return Redirect::back();
+        Session::flash('success', 'Payment method created successfully.');
     }
+
+
     public function stripePost(Request $request)
     {
         $user=$request->user();
@@ -103,7 +116,7 @@ class StripePaymentController extends Controller
                 "currency" => "usd",
                 "description" => "Test payment.",
                 'customer' => $user->stripe_id,
-                'source' => $request->card,
+                'source' => $request->card_id,
             ]);
 
             if ($transaction) {

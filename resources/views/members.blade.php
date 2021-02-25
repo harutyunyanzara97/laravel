@@ -15,7 +15,7 @@
                             @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid "
                                                        alt="member" title="member">@endif
                         </div>
-                        <h2 class="member-name">{{$user->name}}</h2>
+                        <a href="{{route('member-profile',$user->id)}}" class="member-name">{{$user->name}}</a>
                         <button type="button" class="member-following" data-id="{{$user->id}}">Follow</button>
                     </div>
                 </div>

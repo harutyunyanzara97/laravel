@@ -125,4 +125,11 @@ class PostController extends Controller
         $user = User::where('id', Auth::user()->getId())->first();
         return view('posts.my-posts', compact('myPosts', $myPosts, 'user', $user));
     }
+    public function memberPosts(Request $request)
+    {
+
+        $memberPosts = Post::with('comments')->where('user_id', $request->id)->paginate(5);
+        $user = User::where('id', $request->id)->first();
+        return view('posts.member-posts', compact('memberPosts', $memberPosts, 'user', $user));
+    }
 }

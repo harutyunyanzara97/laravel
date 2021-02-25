@@ -1286,7 +1286,6 @@ input {
 
 .avatar-upload .avatar-edit input + label {
     display: inline-block;
-    width: 34px;
     height: 34px;
     margin-bottom: 0;
     border-radius: 100%;
@@ -1294,6 +1293,19 @@ input {
     font-weight: normal;
     transition: all 0.2s ease-in-out;
     background: transparent;
+}
+.edit-photo .avatar-upload .avatar-edit input + label {
+    display: inline-block;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+    background: transparent;
+}
+.edit-photo .imageUpload {
+    margin:auto;
 }
 
 .avatar-upload .avatar-edit input + label:after {
@@ -2431,4 +2443,9 @@ label > span, #pouet > span {
 .success-new-card .token, .success-saved-card .saved-card {
     font-weight: 500;
     font-size: 13px;
+}
+.about-member {
+    background-color: rgba(65,65,65,1);
+    position: relative;
+    height: 420px;
 }
