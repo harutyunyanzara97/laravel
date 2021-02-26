@@ -13,9 +13,13 @@
                     <div class="members-box ">
                         <div class="member-item">
                             @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid "
-                                                       alt="member" title="member">@endif
+                                                       alt="member" title="member"> @else
+                                <div style="min-height: 150px";></div>
+                            @endif
                         </div>
+                        <div class="d-flex justify-content-center">
                         <a href="{{route('member-profile',$user->id)}}" class="member-name">{{$user->name}}</a>
+                        </div>
                         <button type="button" class="member-following" data-id="{{$user->id}}">Follow</button>
                     </div>
                 </div>

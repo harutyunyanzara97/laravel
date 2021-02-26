@@ -90,7 +90,7 @@ $('.myPosts').on('click', function (event) {
 $('.myComments').on('click', function (event) {
     event.preventDefault();
     $.ajax({
-        url: '/member-comments',
+        url: '/myComments',
         method: "get",
         data: {_token: $('meta[name="csrf-token"]').attr('content')},
         success: (response) => {

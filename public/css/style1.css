@@ -93,7 +93,7 @@ header #collapsingNavbar a:hover {
 }
 
 .signup button.sign-up-btn {
-    background: #0198ff;
+    background: #455636;
     color: #fff;
     width: 100%;
     height: 50px;
@@ -814,7 +814,7 @@ button {
 }
 
 .login-container button {
-    color: #0198ff;
+    color: rgb(78, 102, 54);
 }
 
 .or-row {
@@ -1324,6 +1324,7 @@ input {
 .avatar-upload .avatar-preview {
     width: 90px;
     height: 90px;
+    margin:auto;
     position: relative;
     border-radius: 100%;
 }
@@ -1339,8 +1340,7 @@ input {
 
 .profile-inner
 .avatar-upload {
-    margin: 30px auto;
-    max-width: 100px;
+    margin: 0 auto;
 }
 
 .edit-btn {
@@ -1349,10 +1349,22 @@ input {
     padding: 7px;
     display: block;
     width: 80%;
-    margin: 0 auto 20px;
+    margin: 65px auto 0;
     color: #fff;
 }
+.edit-photos {
+    width: 176px;
+    height: 49px;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #fff;
+    padding: 7px;
+    display: block;
+    color: #fff !important;
+    margin:20px auto;
 
+
+}
 .resources-forum-left .line-control-menu-bar {
     display: none;
 }

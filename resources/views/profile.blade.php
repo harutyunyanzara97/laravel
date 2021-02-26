@@ -565,19 +565,38 @@
         <div class="profile-banner">
             <div class="profile-left-banner">
                 <div class="profile-inner">
-
                         <div class="avatar-upload">
 
                             <div class="avatar-preview">
                                 <div id="imagePreview"
                                      style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+
                                 </div>
+
+
+                            </div>
+                            <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
+                        </div>
+
+                    <form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" value="{{Auth::user()->id}}" name="id">
+                        <div class="edit-photo">
+                            <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" name="photo[]">
+                                    <label for="imageUpload" style="margin:auto;color:black"><a type="button" class="edit-photos">
+                                           Edit photo
+                                        </a></label>
+                                </div>
+
                             </div>
                         </div>
-                        <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
-                        <button type="button" class="edit-btn">
-                            Edit photo
+                        <button type="submit" class="edit-btn" style="display: none">
+                            Upload
                         </button>
+                    </form>
+
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -641,7 +660,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            @include('credit_card_design')
+
                             <div class="modal-body">
                                 <div id="card-errors" role="alert"></div>
                                 <div class="card">
@@ -897,6 +916,8 @@
     }
 
     $("#imageUpload").change(function () {
+        $('.edit-photos').remove();
+        $('.edit-btn').css('display','block');
         readURL(this);
     });
 </script>
@@ -961,32 +982,9 @@
             type: "get",
             data: {_token: $('meta[name="csrf-token"]').attr('content')},
             success: function (r) {
+                $('#imageUpload').change();
                 $('.profile-inner').empty();
-                $('.profile-inner').append(`<form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
-@csrf
-    <input type="hidden" value="{{Auth::user()->id}}" name="id">
-   <div class="edit-photo">
-    <div class="avatar-upload">
-    <div class="avatar-edit">
-    <input type='file' id="imageUpload" name="photo[]">
-    <label for="imageUpload" style="margin:auto;color:black"> <svg width="30" height="19" viewBox="0 0 19 19">
-                                                <g fill-rule="evenodd">
-                                                    <path
-                                                        d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                                                </g>
-                                            </svg></label>
-    </div>
-    <div class="avatar-preview">
-    <div id="imagePreview"
-style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
-    </div>
-    </div>
-    </div>
-</div>
-<button type="submit" class="edit-btn">
-    Edit photo
-</button>
-</form>`);
+                $('.profile-inner').append(``);
             }
 
         })
