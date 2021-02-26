@@ -129,7 +129,7 @@
                                             @csrf
                                             <div class='form-row row'>
                                                 <div class='col-xs-12 form-group required'>
-                                                    <label class='control-label'>Price of post</label>
+                                                    <label class='control-label'>Price of donation</label>
                                                     <input type="number" class="form-control" id="price" name="price">
                                                 </div>
                                             </div>

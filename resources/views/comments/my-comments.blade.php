@@ -32,20 +32,21 @@
     <div class="profile-banner align-items-center">
         <div class="account-form comments-container">
             <h2 class="mb-3">Forum Comments</h2>
-            @foreach($myPosts as $myPost)
+            @foreach($myComments as $myComment)
+
                 <div class="green-box mb-3">
                     <div class="comment-inner-container mb-3">
                         <p>
-                            {{$myPost->title}}
+                            {{$myComment->posts->title}}
                         </p>
                         <span class="green-border"></span>
                         <div class="d-flex align-items-center justify-content-between">
-                            <p class="mt-3"> {{count($myPost->comments)}} comments
+{{--                            <p class="mt-3"> {{count($myComments)}} comments--}}
 
-                            </p>
+{{--                            </p>--}}
                             <div class="d-flex">
                                 <p>
-                                    {{count($myPost->likes)}}
+                                    {{count($myComment->posts->likes)}}
                                 </p>
                                 <div>
                                     <i class="fa fa-heart ml-3"></i>
@@ -67,7 +68,7 @@
                         </div>
                         <div class="d-flex">
                             <p>
-                                {{date_format(date_create($myPost->created_at),'M d y')}}
+                                {{date_format(date_create($myComment->posts->created_at),'M d y')}}
                             </p>
                             {{--                        <div class="follow-details">--}}
                             {{--                            <button type="button" class="btn dropdown-toggle p-0"--}}
@@ -119,14 +120,14 @@
 
                     </div>
                     <div class="d-flex flex-column">
-                        @foreach($myPost->comments as $myComments)
-                            <p class="mt-3">{{$myComments->description}}</p>
+                        @foreach($myComments as $myComment)
+                            <p class="mt-3">{{$myComment->description}}</p>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div></div>
                                 <div class="d-flex">
-                                    <p>
-                                        {{count($myComments->likes)}}
-                                    </p>
+{{--                                    <p>--}}
+{{--                                        {{count($myComment->likes)}}--}}
+{{--                                    </p>--}}
                                     <div>
                                         <i class="fa fa-heart ml-3"></i>
                                     </div>
@@ -136,6 +137,7 @@
                     </div>
                 </div>
             @endforeach
+
         </div>
     </div>
 </div>

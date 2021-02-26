@@ -53,9 +53,9 @@ class CommentController extends Controller
         }
     }
     public function myComments() {
-        $myPosts=Post::with('comments.likes','likes')->where('user_id',Auth::user()->getId())->get();
+        $myComments=Comment::with('posts.likes','likes')->where('user_id',Auth::user()->getId())->get();
         $user=User::where('id', Auth::user()->getId())->first();
-        return view('comments.my-comments',compact('myPosts',$myPosts,'user',$user));
+        return view('comments.my-comments',compact('myComments',$myComments,'user',$user));
     }
     public function memberComments(Request $request) {
         $memberPosts=Post::with('comments.likes','likes')->where('user_id',$request->id)->get();

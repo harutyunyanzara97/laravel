@@ -14,10 +14,6 @@ class Comment extends Model
         'files',
         'category_id'
     ];
-    public function post()
-    {
-        return $this->belongsTo(Post::class, 'post_id','id');
-    }
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
