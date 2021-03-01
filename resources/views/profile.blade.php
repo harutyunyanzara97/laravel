@@ -966,6 +966,8 @@
             contentType: false,
             success: function (response) {
                 console.log(response);
+                alert('Now other users have information about you!');
+                window.location.reload();
             }, error: function (error) {
                 console.log(error)
             }

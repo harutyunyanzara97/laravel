@@ -12,10 +12,12 @@
                 <div class="col-4">
                     <div class="members-box ">
                         <div class="member-item">
+                            <a href="{{route('member-profile',$user->id)}}">
                             @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid "
                                                        alt="member" title="member"> @else
                                 <div style="min-height: 150px";></div>
                             @endif
+                            </a>
                         </div>
                         <div class="d-flex justify-content-center">
                         <a href="{{route('member-profile',$user->id)}}" class="member-name">{{$user->name}}</a>

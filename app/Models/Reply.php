@@ -37,4 +37,8 @@ class Reply extends Model
 //        return $this->hasMany(Like::class, 'reply_id');
 //    }
 
+    public function replies()
+    {
+        return $this->hasMany(Answer::class, 'reply_id');
+    }
 }

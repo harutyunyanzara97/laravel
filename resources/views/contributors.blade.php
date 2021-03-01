@@ -107,6 +107,16 @@
                         class="donate-btn ml-3 payment-info">Donate
                 </button>
             </div>
+        @if (Session::has('success'))
+            <div class="alert alert-success text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p>{{ Session::get('success') }}</p>
+            </div>
+        @elseif(Session::has('error'))
+            <div class="alert alert-danger text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p>{{ Session::get('error') }}</p>
+            </div>@endif
             <div class="modal fade" id="stripe" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -122,7 +132,7 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
+                                        <form id="payment-form" action="{{ route('stripe.donate') }}" method="post"
                                               data-cc-on-file="false"
                                               data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
                                               class="require-validation">
@@ -192,6 +202,7 @@
                                             </div>
 
                                         </form>
+
                                     </div>
                                 </div>
                         </div>

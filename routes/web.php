@@ -53,6 +53,8 @@ Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'inse
 Route::get('/insert', [App\Http\Controllers\CategoryController::class, 'insertFollows'])->name('insert');
 Route::get('/insertLike', [App\Http\Controllers\CommentController::class, 'insertLikes'])->name('insertLike');
 Route::post('/reply', [App\Http\Controllers\CommentController::class, 'reply'])->name('replyMe');
+Route::post('/answer', [App\Http\Controllers\CommentController::class, 'reply_to_reply'])->name('answer');
+Route::post('/answer-to', [App\Http\Controllers\CommentController::class, 'answer_to_reply'])->name('answerToReply');
 Route::get('/show/{id}', [App\Http\Controllers\CategoryController::class, 'showPosts'])->name('showPosts');
 Route::get('/unfollow', [App\Http\Controllers\CategoryController::class, 'unfollow'])->name('unfollow');
 Route::get('/dislike', [App\Http\Controllers\CommentController::class, 'dislike'])->name('dislike');
@@ -66,6 +68,8 @@ Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'cre
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');
 Route::post('stripe-post', [App\Http\Controllers\StripePaymentController::class,'stripePost'])->name('stripe.post');
+Route::post('pay', [App\Http\Controllers\StripePaymentController::class,'pay'])->name('stripe.pay');
+Route::post('stripe-donate', [App\Http\Controllers\StripePaymentController::class,'donation'])->name('stripe.donate');
 Route::post('card', [App\Http\Controllers\StripePaymentController::class,'card_create'])->name('stripe.create');
 Route::get('/searchCat',[App\Http\Controllers\SearchController::class,'searchCategory']);
 Route::get('/searchPost',[App\Http\Controllers\SearchController::class,'searchPost']);

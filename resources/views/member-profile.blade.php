@@ -582,7 +582,7 @@
                 </div>
                 <ul class="profile-list">
                     <li>
-                        <a href="{{route('profile')}}" class="active">
+                        <a href="{{route('member-profile',$member->id)}}" class="active">
                             Profile
                         </a>
                     </li>
@@ -642,7 +642,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here Yet
+                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here yet
                                             This member hasn't written about themselves.@endif</div>
                                     </div>
                                 </div>

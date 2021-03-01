@@ -57,7 +57,7 @@
     #stripe .input-group {
         border:1px solid #d6d6d6;
     }
-    #payment-form {
+    #payments {
         height: 100px;
     }
 </style>
@@ -273,7 +273,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <form id="payment-form" action="{{ route('stripe.post') }}" method="post"
+                                <form id="payments" action="{{ route('stripe.pay') }}" method="post"
                                       data-cc-on-file="false"
                                       data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
                                       class="require-validation">
