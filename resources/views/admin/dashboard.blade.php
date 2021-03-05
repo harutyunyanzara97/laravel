@@ -3,7 +3,7 @@
 @section('content')
 </head>
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
 <div class="position-relative">
 {{--    <div class="avatar">--}}
 {{--        <img src="{{asset('images/'.$admin->avatar_url)}}"--}}
@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center catModal">
-                                    <button type="submit" class="btn green-btn"> Update<i
+                                    <button type="submit" class="btn green-btn">Create<i
                                             class="fa fa-paper-plane ml-1"></i></button>
                                     <a role="button" class="btn white-btn closeModal"
                                        data-dismiss="modal">Cancel</a>
@@ -275,6 +275,23 @@
             }
         });
 
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imageUpload").change(function () {
+        $('.edit-photos').remove();
+        $('.edit-btn').css('display','block');
+        readURL(this);
     });
 </script>
 @endsection

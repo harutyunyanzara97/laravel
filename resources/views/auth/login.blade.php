@@ -24,7 +24,7 @@
                     <p>
                         New to this site?
                     </p>
-                    <button type="button"><a href="{{route('register')}}">Sign up</a></button>
+                    <button type="button"><a href="{{route('register')}}"  class="sign-up-now">Sign up</a></button>
 
                 </div>
             </div>
@@ -51,8 +51,9 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="d-flex w-100">
+                            <div class="form-group row ml-4">
+                                <div class="col-mr-2 offset">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember">
@@ -62,20 +63,18 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                            <div class="form-group row mb-0 ml-4">
+                                <div class="col-mr-2 offset">
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link text-black-50" href="{{ route('password.request') }}">
+                                        <a class="text-black-50" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
                                 </div>
                             </div>
+                            </div>
                             <div class="text-center mt-4 relative">
                                 <button type="submit" class="sign-up-btn">Sign In</button>
-                                <div class="chat abs">
-                                    <img src="img/supportChat.png" alt="">
-                                </div>
                             </div>
                             <div class="position-relative or-row">
                                 <p>or sign up with</p>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/editor.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
 
     {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">--}}
@@ -576,9 +576,8 @@
                         </div>
                     </div>
                     <p class="mt-3 mb-3 text-white text-center">{{$member->name}}</p>
-                    <button type="button" class="edit-btn">
-                        Follow
-                    </button>
+                    @if($member->notify===1)<button type="button"  class="followed follow-mem" data-id="{{$member->id}}">Followed</button>@else
+                        <button type="button"  class="follow-mem edit-btn" data-id="{{$member->id}}">Follow</button>@endif
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -709,4 +708,40 @@
         })
     });
 </script>
+<script>
+    $(document).on('click', '.edit-btn', function (event) {
+        event.preventDefault();
+        let follow = $(this);
+        let toFollowId = $(this).attr('data-id');
+        let user_id = $(this).attr('data-path');
+        $.ajax({
+            type: "get",
+            url: '/followUser',
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: user_id},
+            success: function (r) {
+                follow.html('Followed');
+                if (follow.text = 'Following') {
+                    follow.removeClass('.edit-btn').addClass('followed');
+                }
+            }
 
+        })
+    })
+    $(document).on('click', '.followed', function (event) {
+        event.preventDefault();
+        let unfollow = $(this);
+        let followeId = $(this).attr('data-id');
+        $.ajax({
+            type: "get",
+            url: '/unfollowUser',
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+            success: function (r) {
+                unfollow.html('Follow');
+                    unfollow.removeClass('followed').addClass('edit-btn');
+
+            }
+
+        })
+    })
+
+</script>

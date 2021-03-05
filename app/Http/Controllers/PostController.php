@@ -35,7 +35,6 @@ class PostController extends Controller
         $postUser = Post::where('id', $id)->with('user')->first();
         $cards=Card::where('user_id',Auth::id())->get();
         if (Auth::user()) {
-
             return view('comments.post-comments', compact('post', 'postUser', 'categories','cards'));
         } else {
             return view('comments.post-comments', compact('post', 'postUser', 'categories'));
@@ -44,22 +43,33 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $newPost = new Post();
-        $newPost->fill($request->all());
-        $newPost->user_id = Auth::user()->getId();
-        $newPost->category_id = $request->id;
-        $newPost->follow_id = 1;
-        $newPost->save();
-        if ($request->hasfile('photo')) {
-
-            foreach ($request->file('photo') as $image) {
-                $name = time() . $image->getClientOriginalName();
-                $this->IMAGE .= $name . '/';
-                $image->move(public_path() . '/images/', $name);
-                $newPost->images = substr($this->IMAGE, 0, -1);
-            }
+        $validatedData = $request->validate([
+            'title' => ['required', 'unique:posts', 'max:255'],
+            'description' => ['required']
+        ]);
+        if($validatedData) {
+            $newPost = new Post();
+            $newPost->fill($request->all());
+            $newPost->user_id = Auth::user()->getId();
+            $newPost->category_id = $request->id;
+            $newPost->follow_id = 1;
             $newPost->save();
+            if ($request->hasfile('photo')) {
+
+                foreach ($request->file('photo') as $image) {
+                    $name = time() . $image->getClientOriginalName();
+                    $this->IMAGE .= $name . '/';
+                    $image->move(public_path() . '/images/', $name);
+                    $newPost->images = substr($this->IMAGE, 0, -1);
+                }
+                $newPost->save();
+            }
+        } else {
+            return redirect('createPost')
+                ->withErrors($validatedData)
+                ->withInput();
         }
+
         return view('posts.post-created', compact('newPost'));
     }
 
@@ -105,9 +115,14 @@ class PostController extends Controller
         if (!$follow) {
             $follow = new Follow();
             $follow->user_id = Auth::user()->getId();
-            $follow->category_id = Auth::user()->getId();
+            $follow->category_id = null;
             $follow->post_id = $request->postId;
             $follow->save();
+            if($follow->save()){
+                $post=Post::where('id',$request->postId)->first();
+                $post->isFollowed=1;
+                $post->save();
+            }
         }
     }
 
@@ -131,5 +146,25 @@ class PostController extends Controller
         $memberPosts = Post::with('comments')->where('user_id', $request->id)->paginate(5);
         $user = User::where('id', $request->id)->first();
         return view('posts.member-posts', compact('memberPosts', $memberPosts, 'user', $user));
+    }
+    public function editPost(Request $request)
+    {
+        $modal_post = Post::where('id', $request->id)->first();
+        return view('posts.post', compact('modal_post'));
+    }
+
+    public function update(Request $request)
+    {
+        $post= Post::where('id', $request->id)->first();
+        $post->update($request->all());
+        if ($request->hasfile('photo')) {
+            foreach ($request->file('photo') as $image) {
+                $name = time() . $image->getClientOriginalName();
+                $image->move(public_path() . '/images', $name);
+                $post->img_url = $name;
+                $post->save();
+            }
+        }
+        return response()->json($post);
     }
 }

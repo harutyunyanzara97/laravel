@@ -98,8 +98,8 @@ class CommentController extends Controller
     }
 
     public function memberComments(Request $request) {
-        $memberPosts=Post::with('comments.likes','likes')->where('user_id',$request->id)->get();
+        $memberComments=Comment::where('user_id',$request->id)->with('likes')->get();
         $user=User::where('id', $request->id)->first();
-        return view('comments.member-comments',compact('memberPosts',$memberPosts,'user',$user));
+        return view('comments.member-comments',compact('memberComments',$memberComments,'user',$user));
     }
 }

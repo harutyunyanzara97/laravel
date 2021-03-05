@@ -65,7 +65,7 @@
                                             </svg>
                                             <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                         </div>
-                                        <input type="text" name="description" class="description"
+                                        <input type="text" name="description" class="description catname"
                                                value="{{$modal_category->description}}">
                                     </div>
                                 </div>
@@ -73,13 +73,15 @@
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
                                             <input type="file" id="imageUpload" name="photo[]" onchange="readURL(this)">
-                                            <label for="imageUpload">
-                                                <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1"
-                                                     xmlns="http://www.w3.org/2000/svg" class="_55Vto">
-                                                    <path
-                                                        d="M3,7.8 L3,3.2 C3,3.08954305 3.08954305,3 3.2,3 L3.8,3 C3.91045695,3 4,3.08954305 4,3.2 L4,5.79219722 C5.19002477,4.10459307 7.17019471,3 9.41185475,3 C13.0503869,3 16,5.91014913 16,9.5 C16,9.668236 15.9935219,9.83497919 15.9807983,10 L14.9637136,10 C14.9787551,9.83531898 14.9864392,9.66854485 14.9864392,9.5 C14.9864392,6.46243388 12.4906127,4 9.41185475,4 C7.24552793,4 5.3678131,5.21916205 4.44511245,7 L7.8,7 C7.91045695,7 8,7.08954305 8,7.2 L8,7.8 C8,7.91045695 7.91045695,8 7.8,8 L3.2,8 C3.08954305,8 3,7.91045695 3,7.8 Z M16,11.2 L16,15.8 C16,15.9104569 15.9104569,16 15.8,16 L15.2,16 C15.0895431,16 15,15.9104569 15,15.8 L15,13.2078028 C13.8099752,14.8954069 11.8298053,16 9.58814525,16 C5.9496131,16 3,13.0898509 3,9.5 C3,9.331764 3.00647814,9.16502081 3.01920172,9 L4.03628637,9 C4.02124492,9.16468102 4.01356081,9.33145515 4.01356081,9.5 C4.01356081,12.5375661 6.50938727,15 9.58814525,15 C11.7544721,15 13.6321869,13.780838 14.5548875,12 L11.2,12 C11.0895431,12 11,11.9104569 11,11.8 L11,11.2 C11,11.0895431 11.0895431,11 11.2,11 L15.8,11 C15.9104569,11 16,11.0895431 16,11.2 Z"
-                                                        id="path-1"></path>
-                                                </svg>
+                                            <label for="imageUpload" class="colorLabel">
+                                                <div class="_1qOTu css-mm44dn css-1402lio">
+                                                    <svg width="30" height="19" viewBox="0 0 19 19" class="avaImgSvg">
+                                                        <g fill-rule="evenodd">
+                                                            <path
+                                                                d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
                                                 Change Image</label>
                                         </div>
                                         <div class="avatar-preview">
@@ -104,7 +106,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center catModal">
-                                    <button type="submit" class="btn green-btn"> Update<i
+                                    <button type="submit" class="btn green-btn">Update<i
                                             class="fa fa-paper-plane ml-1"></i></button>
                                     <a role="button" class="btn white-btn closeModal"
                                        data-dismiss="modal">Cancel</a>
@@ -254,9 +256,10 @@
             contentType: false,
             success: function (response) {
                 console.log(response);
+                let image=response.img_url;
                 $('#name-' + response.id).text(response.name);
                 $('#desc-' + response.id).text(response.description);
-                {{--$('#img-' + response.id).prop('src','{{asset('images/' + ${response.img_url})}}');--}}
+                {{--$('#img-' + response.id).attr('src', `{{asset('images/' + ${image})}}`);--}}
             }, error: function (error) {
                 console.log(error)
             }
@@ -265,4 +268,4 @@
     });
 </script>
 
-</html>
+

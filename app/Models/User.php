@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'about',
+        'follower_id',
         'name',
         'stripe_token',
     ];

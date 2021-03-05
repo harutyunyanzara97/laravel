@@ -44,6 +44,8 @@ Route::post('/storeProfile', [App\Http\Controllers\UserController::class, 'store
 Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
 Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
 Route::get('/history', [App\Http\Controllers\StripePaymentController::class, 'history'])->name('history');
+Route::post('/update-post', [App\Http\Controllers\PostController::class, 'update'])->name('updatePost');
+Route::get('/edit-post', [App\Http\Controllers\PostController::class, 'editPost'])->name('editPost');
 Route::get('/myPosts', [App\Http\Controllers\PostController::class, 'myPosts'])->name('myPosts');
 Route::get('/member-posts', [App\Http\Controllers\PostController::class, 'memberPosts'])->name('member-posts');
 Route::get('/myComments', [App\Http\Controllers\CommentController::class, 'myComments'])->name('myComments');
@@ -68,6 +70,7 @@ Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'cre
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe'])->name('stripe');
 Route::post('stripe-post', [App\Http\Controllers\StripePaymentController::class,'stripePost'])->name('stripe.post');
+Route::post('stripe-payout', [App\Http\Controllers\StripePaymentController::class,'payout'])->name('stripe.payout');
 Route::post('pay', [App\Http\Controllers\StripePaymentController::class,'pay'])->name('stripe.pay');
 Route::post('stripe-donate', [App\Http\Controllers\StripePaymentController::class,'donation'])->name('stripe.donate');
 Route::post('card', [App\Http\Controllers\StripePaymentController::class,'card_create'])->name('stripe.create');

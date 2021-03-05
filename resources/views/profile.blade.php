@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/editor.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
 
     {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">--}}
@@ -33,160 +33,11 @@
     @import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i');
 
 
-    .title {
-        margin-bottom: 30px;
-        color: #162969;
-    }
 
-
-    .credit_card{
-        width: 320px;
-        height: 190px;
-        -webkit-perspective: 600px;
-        -moz-perspective: 600px;
-        perspective:600px;
-
-    }
-
-    .card__part{
-        box-shadow: 1px 1px #aaa3a3;
-        top: 0;
-        position: absolute;
-        z-index: 1000;
-        left: 0;
-        display: inline-block;
-        width: 320px;
-        height: 190px;
-        background-color:#aaa3a3;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        border-radius: 8px;
-
-        -webkit-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        -moz-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        -ms-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        -o-transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        -webkit-transform-style: preserve-3d;
-        -moz-transform-style: preserve-3d;
-        -webkit-backface-visibility: hidden;
-        -moz-backface-visibility: hidden;
-    }
-
-    .card__front{
-        padding: 18px;
-        -webkit-transform: rotateY(0);
-        -moz-transform: rotateY(0);
-    }
-
-    .card__back {
-        padding: 18px 0;
-        -webkit-transform: rotateY(-180deg);
-        -moz-transform: rotateY(-180deg);
-    }
-
-    .card__black-line {
-        margin-top: 5px;
-        height: 38px;
-        background-color: #303030;
-    }
-
-    .card__logo {
-        height: 16px;
-    }
-
-    .card__front-logo{
-        position: absolute;
-        top: 18px;
-        right: 18px;
-    }
-    .card__square {
-        border-radius: 5px;
-        height: 30px;
-    }
-
-    .card_numer {
-        display: block;
-        width: 100%;
-        word-spacing: 4px;
-        font-size: 20px;
-        letter-spacing: 2px;
-        color: #fff;
-        text-align: center;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-
-    .card__space-75 {
-        width: 75%;
-        float: left;
-    }
-
-    .card__space-25 {
-        width: 25%;
-        float: left;
-    }
-
-    .card__label {
-        font-size: 10px;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.8);
-        letter-spacing: 1px;
-    }
-
-    .card__info {
-        margin-bottom: 0;
-        margin-top: 5px;
-        font-size: 16px;
-        line-height: 18px;
-        color: #fff;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .card__back-content {
-        padding: 15px 15px 0;
-    }
-    .card__secret--last {
-        color: #303030;
-        text-align: right;
-        margin: 0;
-        font-size: 14px;
-    }
-
-    .card__secret {
-        padding: 5px 12px;
-        background-color: #fff;
-        position:relative;
-    }
-
-    .card__secret:before{
-        content:'';
-        position: absolute;
-        top: -3px;
-        left: -3px;
-        height: calc(100% + 6px);
-        width: calc(100% - 42px);
-        border-radius: 4px;
-        background: repeating-linear-gradient(45deg, #ededed, #ededed 5px, #f9f9f9 5px, #f9f9f9 10px);
-    }
-
-    .card__back-logo {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-    }
-
-    .card__back-square {
-        position: absolute;
-        bottom: 15px;
-        left: 15px;
-    }
     #stripeModal {
-        height: 70%;
+        max-height: 70%;
         margin: auto;
-        overflow: hidden;
+        overflow-y: auto;
     }
     #stripeModal  .modal-content {
         padding: 20px;
@@ -206,7 +57,7 @@
         left: 0;
         right: 0;
         max-width: 500px;
-        height: 50%;
+        height: auto;
         bottom: 0;
         top: 0;
         border-radius: 10px;
@@ -216,6 +67,10 @@
     }
 
     #stripeModal  .modal-body {
+        position: relative;
+        overflow-y: auto;
+        max-height: 400px;
+        overflow-x: hidden;
         padding: 15px 0;
     }
 
@@ -567,32 +422,32 @@
                 <div class="profile-inner">
                         <div class="avatar-upload">
 
-                            <div class="avatar-preview">
+                            <div class="avatar-preview mt-2">
                                 <div id="imagePreview"
-                                     style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})">
+                                     @if(Auth::user()) @if(Auth::user()->avatar_url) style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})" @endif @endif>
 
                                 </div>
 
 
                             </div>
-                            <p class="mt-3 mb-3 text-white text-center">{{Auth::user()->name}}</p>
+                            <p class="mt-3 mb-3 text-white text-center">@if(Auth::user()){{Auth::user()->name}}@endif</p>
                         </div>
 
                     <form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" value="{{Auth::user()->id}}" name="id">
+                        <input type="hidden" value="@if(Auth::user()){{Auth::user()->id}} @endif" name="id">
                         <div class="edit-photo">
                             <div class="avatar-upload">
                                 <div class="avatar-edit">
                                     <input type='file' id="imageUpload" name="photo[]">
                                     <label for="imageUpload" style="margin:auto;color:black"><a type="button" class="edit-photos">
-                                           Edit photo
+                                            @if(Auth::user()) @if(Auth::user()->avatar_url) Edit photo @else Upload photo @endif @endif
                                         </a></label>
                                 </div>
 
                             </div>
                         </div>
-                        <button type="submit" class="edit-btn" style="display: none">
+                        <button type="submit" class="edit-btn" style="display: none;background:rgba(155, 203, 108, 0.8);">
                             Upload
                         </button>
                     </form>
@@ -621,7 +476,7 @@
                     </li>
                     <li>
                         <a class="myBalance toCoursor">
-                            Payment
+                            Balance history
                         </a>
                     </li>
 
@@ -660,8 +515,35 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <div class="cards">
+                            @foreach($cards as $card)
+                            <div class="card-i">
+                                <div class="bank-name" title="BestBank">{{$card->brand}}</div>
+                                <div class="chip">
+                                    <div class="side left"></div>
+                                    <div class="side right"></div>
+                                    <div class="vertical top"></div>
+                                    <div class="vertical bottom"></div>
+                                </div>
+                                <div class="data">
+                                    <div class="pan" title="4123 4567 8910 1112">{{$card->card_number}}</div>
+                                    <div class="exp-date-wrapper">
+                                        <div class="left-label">EXPIRES END</div>
+                                        <div class="exp-date">
+                                            <div class="upper-labels">MONTH/YEAR</div>
+                                            <div class="date" title="01/17">{{$card->exp_month}}/{{substr($card->exp_year, -2)}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="name-on-card" title="John Doe">@if(Auth::user()->name && Auth::user()->surname){{Auth::user()->name - Auth::user()->surname}}@endif</div>
+                                </div>
+                                <div class="lines-down"></div>
+                                <div class="lines-up"></div>
+                            </div>
 
-                            <div class="modal-body">
+@endforeach
+                            </div>
+
+                            <div class="modal-body payment-body">
                                 <div id="card-errors" role="alert"></div>
                                 <div class="card">
 
@@ -673,12 +555,21 @@
                                               class="require-validation">
 
                                             @csrf
+{{--                                            <div class="d-flex">--}}
+{{--                                                @foreach($cards as $card)--}}
+
+{{--                                                  <div id="saved-card">**** ****--}}
+{{--                                                      **** {{substr($card->card_number, -4)}}</div>--}}
+{{--                                              --}}
+{{--                                                    @endforeach--}}
+{{--                                            </div>--}}
 {{--                                            <div class='form-row row'>--}}
 {{--                                                <div class='col-xs-12 form-group required'>--}}
 {{--                                                    <label class='control-label'>Price of post</label>--}}
 {{--                                                    <input type="number" class="form-control" id="price" name="amount">--}}
 {{--                                                </div>--}}
 {{--                                            </div>--}}
+
                                             <div class='form-row row'>
                                                 <div class='col-xs-12 form-group required'>
                                                     <label class='control-label'>Name on Card</label> <input
@@ -748,7 +639,7 @@
                 <form method="POST" id="editProfile" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="POST">
-                    <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
                     <div class="container-fluid rich-editor">
                         <h3>About
                         </h3>
@@ -761,7 +652,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <textarea id="txtEditor">{{Auth::user()->about}}</textarea>
+                                        <textarea id="txtEditor">@if(Auth::user()){{Auth::user()->about}}@endif</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -815,72 +706,7 @@
     });
 
 </script>
-{{--<script src="https://js.stripe.com/v3/"></script>--}}
-{{--<script>--}}
-{{--    // Create a Stripe client.--}}
-{{--    var stripe = Stripe('pk_test_51IDT1rLV6S2YaGRAadUEI9mxO2j2wbfh5Jc69TSDKj7Cdo1sxfpn1XNyPJdmIPS0axoc3VyAWiC3y5QkSDlIuLnF00sP8sZ7Ge');--}}
-{{--    console.log(stripe);--}}
-{{--    // Create an instance of Elements.--}}
-{{--    var elements = stripe.elements();--}}
-{{--    // Custom styling can be passed to options when creating an Element.--}}
-{{--    // (Note that this demo uses a wider set of styles than the guide below.)--}}
-{{--    var style = {--}}
-{{--        base: {--}}
-{{--            color: '#32325d',--}}
-{{--            lineHeight: '18px',--}}
-{{--            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',--}}
-{{--            fontSmoothing: 'antialiased',--}}
-{{--            fontSize: '16px',--}}
-{{--            '::placeholder': {--}}
-{{--                color: '#aab7c4'--}}
-{{--            }--}}
-{{--        },--}}
-{{--        invalid: {--}}
-{{--            color: '#fa755a',--}}
-{{--            iconColor: '#fa755a'--}}
-{{--        }--}}
-{{--    };--}}
-{{--    var card = elements.create('card', {style: style});--}}
-{{--    // Add an instance of the card Element into the `card-element` <div>.--}}
-{{--    card.mount('#card-element');--}}
-{{--    // Handle real-time validation errors from the card Element.--}}
-{{--    card.addEventListener('change', function (event) {--}}
-{{--        var displayError = document.getElementById('card-errors');--}}
-{{--        if (event.error) {--}}
-{{--            displayError.textContent = event.error.message;--}}
-{{--        } else {--}}
-{{--            displayError.textContent = '';--}}
-{{--        }--}}
-{{--    });--}}
-{{--    // Handle form submission.--}}
-{{--    var form = document.getElementById('payment-form');--}}
-{{--    form.addEventListener('submit', function (event) {--}}
-{{--        event.preventDefault();--}}
-{{--        stripe.createToken(card).then(function (result) {--}}
-{{--            if (result.error) {--}}
-{{--                // Inform the user if there was an error.--}}
-{{--                var errorElement = document.getElementById('card-errors');--}}
-{{--                errorElement.textContent = result.error.message;--}}
-{{--            } else {--}}
-{{--                // Send the token to your server.--}}
-{{--                stripeTokenHandler(result.token);--}}
-{{--            }--}}
-{{--        });--}}
-{{--    });--}}
 
-{{--    // Submit the form with the token ID.--}}
-{{--    function stripeTokenHandler(token) {--}}
-{{--        // Insert the token ID into the form so it gets submitted to the server--}}
-{{--        var form = document.getElementById('payment-form');--}}
-{{--        var hiddenInput = document.createElement('input');--}}
-{{--        hiddenInput.setAttribute('type', 'hidden');--}}
-{{--        hiddenInput.setAttribute('name', 'token');--}}
-{{--        hiddenInput.setAttribute('value', 'token');--}}
-{{--        form.appendChild(hiddenInput);--}}
-{{--        // Submit the form--}}
-{{--        form.submit();--}}
-{{--    }--}}
-{{--</script>--}}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -921,21 +747,7 @@
         readURL(this);
     });
 </script>
-<script>
-    $('.payment').on('click', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/plans',
-            method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content')},
-            success: (response) => {
-                console.log(response);
-                $(".profile-right-banner").html(response);
-            }
-        })
-    });
 
-</script>
 <script>
     $("#editProfile").on("submit", function (e) {
         e.preventDefault();

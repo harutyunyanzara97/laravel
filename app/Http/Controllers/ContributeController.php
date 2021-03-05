@@ -11,6 +11,7 @@ class ContributeController extends Controller
 {
     public function contribute(){
         $card = Card::where('user_id', Auth::id())->first();
-        return view('contributors',compact('card'));
+        $cards=Card::where('user_id',Auth::id())->get();
+        return view('contributors',compact('card','cards'));
     }
 }

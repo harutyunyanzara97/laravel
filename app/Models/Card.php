@@ -13,8 +13,8 @@ class Card extends Model
         'card_number',
         'cvc',
         'user_id',
-        'month',
-        'year',
+        'exp_month',
+        'exp_year',
         'brand'
         ];
 

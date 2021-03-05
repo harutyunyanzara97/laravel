@@ -407,7 +407,6 @@ p, .middle-content ul li {
     border: 1px solid #8bb661;
     padding: 20px;
     border-radius: 1px;
-    height: 208px;
     width: 200px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px rgba(255, 255, 255, 0.25);
@@ -710,7 +709,13 @@ button {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-
+.form-check-label, .text-black-50, .sign-up-now, .moreless-button{
+    color:#455636 !important;
+    font-size: 17px;
+}
+.invalid-feedback, .error{
+    font-size:17px;
+}
 .modal-dialog.modal-notify .heading {
     color: #000 !important;
     margin: 31px 0 0 30px !important;

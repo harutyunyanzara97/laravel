@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
 @section('content')
     <div class="position-relative">
@@ -52,10 +52,6 @@
                 </p>
             </div>
         </div>
-
-        {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--}}
-        {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>--}}
-
     </div>
 
 @endsection

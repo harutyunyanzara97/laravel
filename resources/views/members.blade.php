@@ -3,7 +3,7 @@
 @section('content')
 </head>
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
 <div class="position-relative">
 
     <main>
@@ -22,7 +22,8 @@
                         <div class="d-flex justify-content-center">
                         <a href="{{route('member-profile',$user->id)}}" class="member-name">{{$user->name}}</a>
                         </div>
-                        <button type="button" class="member-following" data-id="{{$user->id}}">Follow</button>
+                        @if($user->follower_id ===Auth::id())<button type="button"  class="member-following followed" data-id="{{$user->id}}">Followed</button>@else
+                            <button type="button"  class="member-following" data-id="{{$user->id}}">Follow</button>@endif
                     </div>
                 </div>
 
@@ -48,7 +49,7 @@
             url: '/followUser',
             data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: user_id},
             success: function (r) {
-                follow.html('Followed');
+                follow.html('followed');
                 if (follow.text = 'Following') {
                     follow.removeClass('.member-following').addClass('followed');
                 }
@@ -70,7 +71,6 @@
                     unfollow.removeClass('followed').addClass('member-following');
                 }
             }
-
         })
     })
 

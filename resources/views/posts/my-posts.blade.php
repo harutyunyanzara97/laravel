@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{asset('css/reset.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/editor.css')}}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

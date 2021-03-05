@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 <style>
     #stripe {
@@ -65,7 +65,48 @@
     #payment-form {
         height: 100px;
     }
+    #donation .card input.group-radio{
+        margin: 0 !important;
+        width: 13px;
+        top: 0;
+        left: 0 !important;
+        /* right: 10px !important; */
+        margin-right: 12px !important;
+        position: relative;
+    }
+
+    label.radio-row {
+        display: flex;
+        align-items: center;
+        position: relative;
+        justify-content: start;
+        width: 265px;
+    }
+
+    #selectedFiless {
+        display: flex;
+    }
+
+    #selectedFiless img {
+        max-width: 210px;
+        max-height: 125px;
+        float: left;
+        margin-bottom: 10px;
+    }
+
+    #donation {
+        margin: auto;
+        height: 64%;
+        overflow: hidden;
+    }
+
+    #payment-submitt {
+        background: rgb(78, 102, 54);
+        border: none;
+        cursor: pointer;
+    }
 </style>
+
 
     <div class="contributors-container">
         <div class="main-banner contributors-heading">
@@ -100,13 +141,6 @@
             </ul>
 
         </div>
-
-            <div class="d-flex justify-content-center contribute">
-                <button type="button" data-toggle="modal"
-                         data-target="#stripe"
-                        class="donate-btn ml-3 payment-info">Donate
-                </button>
-            </div>
         @if (Session::has('success'))
             <div class="alert alert-success text-center">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -117,6 +151,114 @@
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                 <p>{{ Session::get('error') }}</p>
             </div>@endif
+            <div class="d-flex justify-content-center contribute">
+                <button type="button" @guest data-toggle="modal" data-target="#stripe"
+                        class="donate-btn ml-3 payment-info" @else data-toggle="modal" data-target="@if($card) #donation @else #messageModal @endif"
+                        class="donate-btn ml-3 payment-info" @endguest >Donate
+                </button>
+            </div>
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <p class="contributed">Please add a payment method in your profile.</p>
+                        <div class="d-flex go-profile-section justify-content-center"><a class="go-profile" href="{{route('profile')}}">Go
+                                to profile</a>
+                        </div>
+
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 go-profile-section">
+                            <div class="modal-footer">
+                                <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">Cancel
+                                </button>
+                                <button class="publish_btn" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="modal fade" id="donation" tabindex="-1" role="dialog" aria-labelledby="ModalInfo"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content pb-5 pt-4">
+                    <div class="modal-header border-0">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <div id="card-errors" role="alert"></div>
+                            <div class="card">
+                                <div class="card-body">
+                                    {{--                                    <form>--}}
+                                    <div class="group d-flex flex-column flex-wrap">
+
+                                        @auth
+                                            <form id="payment-form-donate" action="{{ route('stripe.donate') }}" method="post"
+                                                  class="require-validation">
+                                                @csrf
+
+                                                <div class='form-row row'>
+                                                    <input type="number" class="form-control" id="price" name="price"
+                                                           placeholder="Please enter the price">
+                                                </div>
+                                                @if($cards)
+                                                    @foreach($cards as $card)
+                                                        <label class="radio-row">
+                                                            <div>
+                                                                {{--                                                    <input type="hidden" name="customer_id" value="{{$card->customer}}" >--}}
+                                                                <input type="hidden" name="card_id"
+                                                                       value="{{$card->card_id}}">
+                                                                <input type="radio" name="payment-source"
+                                                                       class="group-radio"
+                                                                       value="saved-card-1">
+                                                            </div>
+
+                                                            <div id="saved-card">**** ****
+                                                                **** {{substr($card->card_number, -4)}}</div>
+                                                        </label>
+                                                    @endforeach
+                                                @endif
+                                                <div class="outcome">
+                                                    <div class="error"></div>
+                                                    <div class="success-saved-card">
+                                                        Success! Your are using saved card <span
+                                                            class="saved-card"></span>
+                                                    </div>
+                                                    <div class="success-new-card">
+                                                        Success! The Stripe token for your new card is <span
+                                                            class="token"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <button class="btn" id="payment-submitt"
+                                                                type="submit">Donate
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        @endauth
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="modal fade" id="stripe" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -209,41 +351,49 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"--}}
-{{--                 aria-hidden="true">--}}
-{{--                <div class="modal-dialog" role="document">--}}
-{{--                    <div class="modal-content">--}}
-{{--                        <div class="modal-header">--}}
-{{--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                                <span aria-hidden="true">&times;</span>--}}
-{{--                            </button>--}}
-{{--                            <p>Please add a payment method in your profile, to share your support to the post--}}
-{{--                                creator.</p>--}}
-{{--                            <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"--}}
-{{--                                                                                             href="{{route('profile')}}">Go--}}
-{{--                                    to profile</a>--}}
-{{--                            </div>--}}
-{{--                            <div class="modal-body">--}}
 
-{{--                            </div>--}}
-{{--                            <div class="d-flex justify-content-center mt-4 go-profile-section">--}}
-{{--                                <div class="modal-footer">--}}
-{{--                                    <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">--}}
-{{--                                        Cancel--}}
-{{--                                    </button>--}}
-{{--                                    <button class="publish_btn" data-dismiss="modal">Ok</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--               --}}
-{{--            </div>--}}
     </div>
     <script src="{{asset('js/main.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+    <script>
+        $('#payment-submitt').click(function () {
+            let form = $('#payment-form-donate');
+            let formdata = new FormData(form[0]);
+            let card = '';
+            // if($('input[type=radio]').is(":checked")){
+            //     cat_id = $('input[type=radio]').data('card_id');
+            // }
+            $('input[type=radio]').each(function () {
+                if ($(this).is(':checked')) {
+                    card = $(this).prev().val();
+                }
+            })
+            formdata.append('card', card);
+
+            $.ajax({
+                type: "post",
+                url: form.attr('action'),
+                data: formdata,
+                processData: false,
+                contentType: false,
+
+                success: function (response) {
+                    Swal.fire(response);
+                    $('#donation').modal('hide');
+                    $('.modal-backdrop').css('display','none')
+                },
+                error: function (err) {
+                    $('#donation #card-errors').html(`<p style="color:red"> ${err.responseJSON.message}</p>`);
+
+                }
+
+            });
+        });
+    </script>
 @endsection
 
 

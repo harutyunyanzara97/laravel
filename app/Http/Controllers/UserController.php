@@ -28,8 +28,14 @@ class UserController extends Controller
         $follow = Follow::where(['user_id' =>$request->id])->first();
         if (!$follow) {
             $follow = new Follow();
-            $follow->user_id = Auth::user()->getId();
+            $follow->user_id = Auth::id();
             $follow->save();
+            if($follow->save()) {
+            $user=User::where('id',$request->id)->first();
+            $user->notify=1;
+            $user->follower_id=Auth::id();
+            $user->save();
+            }
         }
     }
     public function unfollowUser(Request $request)
@@ -41,9 +47,10 @@ class UserController extends Controller
     }
 
     public function  profile(){
-        $posts=Post::where('user_id',Auth::user()->getId())->get();
-        $comments=Comment::where('user_id',Auth::user()->getId())->get();
-        return view('profile',compact('posts',$posts,'comments',$comments));
+        $posts=Post::where('user_id',Auth::id())->get();
+        $cards=Card::where('user_id',Auth::id())->get();
+        $comments=Comment::where('user_id',Auth::id())->get();
+        return view('profile',compact('posts','comments','cards'));
     }
     public function  membeProfile($id){
         $member=User::where('id',$id)->first();
@@ -74,9 +81,7 @@ class UserController extends Controller
         , '</script>';
     }
     public function editProfile(Request $request){
-//        dd($request->id);
         $user = User::where('id', $request->id)->update(['about'=>$request->about]);
-//        $user->save();
         return response()->json($user);
     }
     public function updateUser(Request $request){
@@ -102,8 +107,12 @@ class UserController extends Controller
         $user =  Auth::user();
         $card = Card::where('user_id', $user->id)->first();
         $balance=$user->balance;
+        $cards=Card::where('user_id',Auth::id())->get();
         $transactions = Transaction::with('user','seller')->where('user_id',$user->id)->get();
         $seller_transactions = Transaction::with('user','seller')->where('to_id',$user->id)->get();
+        if (Auth::user() && $transactions) {
+            return view('balance', compact('user', 'balance', 'card', 'transactions', 'seller_transactions', 'cards'));
+        } else
         return view('balance',compact('user','balance','card','transactions','seller_transactions'));
     }
 

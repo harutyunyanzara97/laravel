@@ -45,7 +45,6 @@ class AdminController extends Controller
         $category->user_id=$user->id;
         $category->update($request->all());
         if ($request->hasfile('photo')) {
-
             foreach ($request->file('photo') as $image) {
                 $name = time() . $image->getClientOriginalName();
                 $image->move(public_path() . '/images', $name);

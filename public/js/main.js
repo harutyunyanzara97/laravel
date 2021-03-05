@@ -23,58 +23,6 @@ $('.moreless-button').click(function () {
     }
 });
 
-    // $(function () {
-    //     var $form = $(".require-validation");
-    //     $('form.require-validation').bind('submit', function (e) {
-    //         var $form = $(".require-validation"),
-    //             inputSelector = ['input[type=email]', 'input[type=password]',
-    //                 'input[type=text]', 'input[type=file]',
-    //                 'textarea'].join(', '),
-    //             $inputs = $form.find('.required').find(inputSelector),
-    //             $errorMessage = $form.find('div.error'),
-    //             valid = true;
-    //         $errorMessage.addClass('hide');
-    //
-    //         $('.has-error').removeClass('has-error');
-    //         $inputs.each(function (i, el) {
-    //             var $input = $(el);
-    //             if ($input.val() === '') {
-    //                 $input.parent().addClass('has-error');
-    //                 $errorMessage.removeClass('hide');
-    //                 e.preventDefault();
-    //             }
-    //         });
-    //
-    //         if (!$form.data('cc-on-file')) {
-    //             e.preventDefault();
-    //             Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-    //             Stripe.createToken({
-    //                 number: $('.card-number').val(),
-    //                 cvc: $('.card-cvc').val(),
-    //                 exp_month: $('.card-expiry-month').val(),
-    //                 exp_year: $('.card-expiry-year').val()
-    //             }, stripeResponseHandler);
-    //         }
-    //
-    //     });
-    //
-    //     function stripeResponseHandler(status, response) {
-    //         if (response.error) {
-    //             $('.error')
-    //                 .removeClass('hide')
-    //                 .find('.alert')
-    //                 .text(response.error.message);
-    //         } else {
-    //             // token contains id, last4, and card type
-    //             var token = response['id'];
-    //             // insert the token into the form so it gets submitted to the server
-    //             $form.find('input[type=text]').empty();
-    //             $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-    //             $form.get(0).submit();
-    //         }
-    //     }
-    //
-    // });
 $('.myPosts').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -229,17 +177,7 @@ $(document).on('click', '.edit', function (event) {
 $(document).on('click', '.closeModal', function (event) {
     $('#rightSideModal').hide();
 })
-// $('.payment-btn').on('click', function (event) {
-//     event.preventDefault();
-//     $.ajax({
-//         url: $(this).data('path'),
-//         method: "get",
-//         data: {_token: $('meta[name="csrf-token"]').attr('content')},
-//         success: (response) => {
-//             $('#ModalInfo').modal('show');
-//         }
-//     })
-// });
+
 $('.myAccount').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -314,20 +252,6 @@ $(function() {
     }
 
 });
-//# sourceURL=pen.js
-
-// $('.payment').on('click', function (event) {
-//     event.preventDefault();
-//     $.ajax({
-//         url: '/plans',
-//         method: "get",
-//         data: {_token: $('meta[name="csrf-token"]').attr('content')},
-//         success: (response) => {
-//             console.log(response);
-//             $(".profile-right-banner").html(response);
-//         }
-//     })
-// });
 $('.my-account').on('click', function (event) {
     event.preventDefault();
     $.ajax({
@@ -486,136 +410,38 @@ $(document).on('click', '.followedPost', function (event) {
     })
 })
 
-// // Create a Stripe client.
-// var stripe = Stripe('pk_test_51IDT1rLV6S2YaGRAadUEI9mxO2j2wbfh5Jc69TSDKj7Cdo1sxfpn1XNyPJdmIPS0axoc3VyAWiC3y5QkSDlIuLnF00sP8sZ7Ge');
-// console.log(stripe);
-// // Create an instance of Elements.
-// var elements = stripe.elements();
-// // Custom styling can be passed to options when creating an Element.
-// // (Note that this demo uses a wider set of styles than the guide below.)
-// var style = {
-//     base: {
-//         color: '#32325d',
-//         lineHeight: '18px',
-//         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-//         fontSmoothing: 'antialiased',
-//         fontSize: '16px',
-//         '::placeholder': {
-//             color: '#aab7c4'
-//         }
-//     },
-//     invalid: {
-//         color: '#fa755a',
-//         iconColor: '#fa755a'
-//     }
-// };
-// var card = elements.create('card', {style: style});
-// // Add an instance of the card Element into the `card-element` <div>.
-// card.mount('#card-element');
-// // Handle real-time validation errors from the card Element.
-// card.addEventListener('change', function (event) {
-//     var displayError = document.getElementById('card-errors');
-//     if (event.error) {
-//         displayError.textContent = event.error.message;
-//     } else {
-//         displayError.textContent = '';
-//     }
-// });
-// // Handle form submission.
-// var form = document.getElementById('payment-form');
-// form.addEventListener('submit', function (event) {
-//     event.preventDefault();
-//     stripe.createToken(card).then(function (result) {
-//         if (result.error) {
-//             // Inform the user if there was an error.
-//             var errorElement = document.getElementById('card-errors');
-//             errorElement.textContent = result.error.message;
-//         } else {
-//             // Send the token to your server.
-//             stripeTokenHandler(result.token);
-//         }
-//     });
-// });
-//
-// // Submit the form with the token ID.
-// function stripeTokenHandler(token) {
-//     // Insert the token ID into the form so it gets submitted to the server
-//     var form = document.getElementById('payment-form');
-//     var hiddenInput = document.createElement('input');
-//     hiddenInput.setAttribute('type', 'hidden');
-//     hiddenInput.setAttribute('name', 'token');
-//     hiddenInput.setAttribute('value', 'token');
-//     form.appendChild(hiddenInput);
-//     // Submit the form
-//     form.submit();
-// }
-// $('.cardButton').on('click', function (event) {
-//     event.preventDefault();
-//     $.ajax({
-//         url: $(this).data('path'),
-//         method: "get",
-//         data: {_token: $('meta[name="csrf-token"]').attr('content')},
-//         success: (response) => {
-//             console.log(response);
-//             $('#ModalInfo div.modal-body').html(response);
-//         }
-//     })
-// });
-//
-// $(document).ready(function(){
-//
-//     // Create a Stripe client
-//     var stripe = Stripe('pk_test_A45s2laXHrCRj6Tow44dk67z');
-//
-//     // Create an instance of Elements
-//     var elements = stripe.elements();
-//
-//     // Try to match bootstrap 4 styling
-//     var style = {
-//         base: {
-//             'lineHeight': '1.35',
-//             'fontSize': '1.11rem',
-//             'color': '#495057',
-//             'fontFamily': 'apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
-//         }
-//     };
-//
-//     // Card number
-//     var card = elements.create('cardNumber', {
-//         'placeholder': '',
-//         'style': style
-//     });
-//     card.mount('#card-number');
-//
-//     // CVC
-//     var cvc = elements.create('cardCvc', {
-//         'placeholder': '',
-//         'style': style
-//     });
-//     cvc.mount('#card-cvc');
-//
-//     // Card number
-//     var exp = elements.create('cardExpiry', {
-//         'placeholder': '',
-//         'style': style
-//     });
-//     exp.mount('#card-exp');
-//
-//     // Submit
-//     $('#payment-submit').on('click', function(e){
-//         e.preventDefault();
-//         var cardData = {
-//             'name': $('#name').val()
-//         };
-//         stripe.createToken(card, cardData).then(function(result) {
-//             console.log(result);
-//             if(result.error && result.error.message){
-//                 alert(result.error.message);
-//             }else{
-//                 alert(result.token.id);
-//             }
-//         });
-//     });
-//
-// });
+$(document).on('click', '.member-following', function (event) {
+    event.preventDefault();
+    let follow = $(this);
+    let toFollowId = $(this).attr('data-id');
+    let user_id = $(this).attr('data-path');
+    $.ajax({
+        type: "get",
+        url: '/followUser',
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: user_id},
+        success: function (r) {
+            follow.html('Followed');
+            if (follow.text = 'Following') {
+                follow.removeClass('.member-following').addClass('followed');
+            }
+        }
 
+    })
+})
+$(document).on('click', '.followed', function (event) {
+    event.preventDefault();
+    let unfollow = $(this);
+    let followeId = $(this).attr('data-id');
+    $.ajax({
+        type: "get",
+        url: '/unfollowUser',
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+        success: function (r) {
+            unfollow.html('follow');
+            if (unfollow.text = 'member-following') {
+                unfollow.removeClass('followed').addClass('member-following');
+            }
+        }
+
+    })
+})
