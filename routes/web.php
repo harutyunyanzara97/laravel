@@ -21,9 +21,9 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function() {
 //    Route::get('/home', [App\Http\Controllers\PlanController::class,'index'])->name('home');
-    Route::get('/plans', [App\Http\Controllers\PlanController::class,'index'])->name('plans.index');
+//    Route::get('/plans', [App\Http\Controllers\PlanController::class,'index'])->name('plans.index');
 //    Route::get('/plan', [App\Http\Controllers\PlanController::class,'show'])->name('show');
-    Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class,'create'])->name('subscription');
+//    Route::post('/subscription', [App\Http\Controllers\SubscriptionController::class,'create'])->name('subscription');
 });
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/dashboard',[App\Http\Controllers\AdminController::class,'dashboard'])->name('admin.dashboard');
@@ -45,7 +45,7 @@ Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])-
 Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
 Route::get('/history', [App\Http\Controllers\StripePaymentController::class, 'history'])->name('history');
 Route::post('/update-post', [App\Http\Controllers\PostController::class, 'update'])->name('updatePost');
-Route::get('/edit-post', [App\Http\Controllers\PostController::class, 'editPost'])->name('editPost');
+Route::get('/edit-post/{id}', [App\Http\Controllers\PostController::class, 'editPost'])->name('editPost');
 Route::get('/myPosts', [App\Http\Controllers\PostController::class, 'myPosts'])->name('myPosts');
 Route::get('/member-posts', [App\Http\Controllers\PostController::class, 'memberPosts'])->name('member-posts');
 Route::get('/myComments', [App\Http\Controllers\CommentController::class, 'myComments'])->name('myComments');

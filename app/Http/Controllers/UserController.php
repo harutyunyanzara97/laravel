@@ -8,6 +8,7 @@ use App\Models\Follow;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Post;
+use Illuminate\Pagination;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ use Session;
 class UserController extends Controller
 {
     public function members(){
-        $users=User::all();
+        $users=User::orderBy('id', 'DESC')->paginate(6);
         return view ('members',compact('users'));
     }
     public function followUser(Request $request)
@@ -40,9 +41,12 @@ class UserController extends Controller
     }
     public function unfollowUser(Request $request)
     {
+        $user=User::where('id',$request->id)->first();
         $follow = Follow::where(['user_id' => $request->id])->first();
         if ($follow) {
             $follow->delete();
+            $user->follower_id === 0;
+
         }
     }
 
@@ -115,13 +119,5 @@ class UserController extends Controller
         } else
         return view('balance',compact('user','balance','card','transactions','seller_transactions'));
     }
-
-//    public function card(Request $request){
-//        $user=Auth::user();
-//
-//        Session::flash('success', 'Payment created successfully!');
-//
-//        return view('comments.post-comments',compact($card));
-//    }
 
 }

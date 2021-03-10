@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>sanctuaryforhumanity</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+@extends('layouts.app')
+
+@section('content')
 </head>
 <div class="modal show right" id="rightSideModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="display: block">
@@ -112,32 +106,10 @@
                                        data-dismiss="modal">Cancel</a>
                                 </div>
                             </form>
-                            {{--                            <form action="#" class="radio-form mt-5">--}}
-                            {{--                                <p class="mb-0">--}}
-                            {{--                                    <input type="radio" id="radio1" name="radio-group" checked>--}}
-                            {{--                                    <label for="radio1">Discussions & Questions</label>--}}
-                            {{--                                </p>--}}
-                            {{--                                <p class="mb-0">--}}
-                            {{--                                    <input type="radio" id="radio2" name="radio-group">--}}
-                            {{--                                    <label for="radio2">Discussions</label>--}}
-                            {{--                                </p>--}}
-                            {{--                                <p class="mb-0">--}}
-                            {{--                                    <input type="radio" id="radio3" name="radio-group">--}}
-                            {{--                                    <label for="radio3">Questions</label>--}}
-                            {{--                                </p>--}}
-                            {{--                            </form>--}}
                         </div>
 
                     </div>
                     <div class="card">
-                        {{--                        <div class="card-header" id="headingTwo">--}}
-                        {{--                            <h5 class="mb-0">--}}
-                        {{--                                <button class="btn-link" data-toggle="collapse" data-target="#collapseTwo"--}}
-                        {{--                                        aria-expanded="true" aria-controls="collapseTwo">Category Permissions--}}
-                        {{--                                </button>--}}
-
-                        {{--                            </h5>--}}
-                        {{--                        </div>--}}
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                              data-parent="#accordion">
                             <div class="card-body">
@@ -153,20 +125,6 @@
                                         <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                     </div>
                                 </div>
-                                {{--                                <form action="#" class="radio-form mt-5">--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio4" name="radio-group" checked>--}}
-                                {{--                                        <label for="radio4">Discussions & Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio5" name="radio-group">--}}
-                                {{--                                        <label for="radio5">Discussions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio6" name="radio-group">--}}
-                                {{--                                        <label for="radio6">Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                </form>--}}
                                 <div>
                                     <div class="tooltip">Who can access this category?
 
@@ -179,35 +137,7 @@
                                         <span class="tooltiptext">The category name appears in your forum home page  and in the navigation menu.</span>
                                     </div>
                                 </div>
-                                {{--                                <form action="#" class="radio-form mt-5">--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio7" name="radio-group" checked>--}}
-                                {{--                                        <label for="radio7">Discussions & Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio8" name="radio-group">--}}
-                                {{--                                        <label for="radio8">Discussions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio9" name="radio-group">--}}
-                                {{--                                        <label for="radio9">Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                </form>--}}
 
-                                {{--                                <form action="#" class="radio-form mt-5">--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio10" name="radio-group" checked>--}}
-                                {{--                                        <label for="radio10">Discussions & Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio11" name="radio-group">--}}
-                                {{--                                        <label for="radio11">Discussions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                    <p class="mb-0">--}}
-                                {{--                                        <input type="radio" id="radio12" name="radio-group">--}}
-                                {{--                                        <label for="radio12">Questions</label>--}}
-                                {{--                                    </p>--}}
-                                {{--                                </form>--}}
                             </div>
                         </div>
                     </div>
@@ -267,5 +197,5 @@
 
     });
 </script>
-
+@endsection
 

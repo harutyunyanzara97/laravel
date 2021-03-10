@@ -39,24 +39,10 @@ class CategoryController extends Controller
             $follows->delete();
         }
     }
-
-
-
-    public function showPosts(Request $request, $id)
+    public function showPosts($id)
     {
         $category = Category::where('id', $id)->first();
         $posts = Post::with('comments', 'likes')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
         return view('posts.posts', compact('category', $category, 'posts'));
     }
-
-
-
-
 }
-
-
-
-//$cat = Category::where('id', $request->id)->update(['name' => $request->name]);
-//$cat->save();
-//return Redirect::to('/network');
-//}

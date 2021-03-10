@@ -641,7 +641,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here yet
+                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here yet.
                                             This member hasn't written about themselves.@endif</div>
                                     </div>
                                 </div>

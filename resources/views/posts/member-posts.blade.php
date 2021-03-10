@@ -34,25 +34,6 @@
             <h2 class="mb-3">Forum Post</h2>
             @foreach($memberPosts as $post)
                 <div class="green-box mb-3">
-                    {{--                <div class="comment-inner-container">--}}
-                    {{--                    <p>--}}
-                    {{--                        Welcome to the Resources Forum!--}}
-                    {{--                    </p>--}}
-                    {{--                    <span class="green-border"></span>--}}
-                    {{--                    <div class="d-flex align-items-center justify-content-between">--}}
-                    {{--                        <p class="mt-3"> 2 comments--}}
-
-                    {{--                        </p>--}}
-                    {{--                        <div class="d-flex">--}}
-                    {{--                            <p>--}}
-                    {{--                                0--}}
-                    {{--                            </p>--}}
-                    {{--                            <p>a</p>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-
-                    {{--                </div>--}}
-
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex">
                             @if($user->avatar_url)<img class="mt-1 ava" src="{{asset('images/'.$user->avatar_url)}}" width="40px"

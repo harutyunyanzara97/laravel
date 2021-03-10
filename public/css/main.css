@@ -1406,8 +1406,7 @@ path {
     margin: 10px 0 0px 30px;
 }
 
-.middle-content
-p, .middle-content ul li {
+.middle-content p, .middle-content ul li {
     color: #fff;
     font-size: 17px;
     font-weight: bold;
@@ -2907,7 +2906,28 @@ label {
 }
 
 .member-following {
-
+    background: rgba(202, 229, 175, 0.6);
+    height: 40px;
+    width: 85%;
+    color: rgba(78, 102, 54, 1);
+    margin: 25px auto 0;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
+ .network-banner{
+     overflow-y: auto;
+     z-index: 1;
+     position: relative;
+ }
+.member-following:hover {
+    opacity: .8
+}
+.followedMember {
     background: rgba(202, 229, 175, 0.6);
     height: 40px;
     width: 85%;
@@ -2922,7 +2942,7 @@ label {
     right: 0;
 }
 
-.member-following:hover {
+.followedMember:hover {
     opacity: .8
 }
 
@@ -3711,6 +3731,16 @@ label > span, #pouet > span {
 }
 
 @media screen and (max-width: 600px) {
+    .navbar-collapse{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 11px;
+        z-index: 999;
+    }
+    .postTable td, th {
+        width: 85px;
+    }
     .postTable {
         border: 0;
     }
@@ -3739,7 +3769,6 @@ label > span, #pouet > span {
     .postTable td {
         border-bottom: 1px solid transparent;
         display: block;
-        font-size: .8em;
         text-align: right;
     }
 
@@ -3969,3 +3998,6 @@ label.radio-row {
     border: none;
     cursor: pointer;
 }
+ .bordered_tr {
+     border-bottom:1px solid rgb(97, 116, 81);
+ }

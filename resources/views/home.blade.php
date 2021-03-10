@@ -1,6 +1,5 @@
 @extends('layouts.app')
-<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
+
 @section('content')
     <div class="position-relative">
         <div class="main-banner">

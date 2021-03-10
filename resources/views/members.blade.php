@@ -9,11 +9,11 @@
     <main>
         <div class="members-section row">
             @foreach($users as $user)
-                <div class="col-4">
-                    <div class="members-box ">
+                <div class="col-lg-4">
+                    <div class="members-box">
                         <div class="member-item">
                             <a href="{{route('member-profile',$user->id)}}">
-                            @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid "
+                            @if($user->avatar_url)<img src="{{asset('images/'.$user->avatar_url)}}" class="img-fluid"
                                                        alt="member" title="member"> @else
                                 <div style="min-height: 150px";></div>
                             @endif
@@ -28,6 +28,9 @@
                 </div>
 
             @endforeach
+                <div class="d-flex pagination">
+                    {{ $users->links() }}
+                </div>
         </div>
     </main>
 </div>

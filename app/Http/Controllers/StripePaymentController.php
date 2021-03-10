@@ -34,7 +34,7 @@ class StripePaymentController extends Controller
     {
         $user = $request->user();
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $stripe = new \Stripe\StripeClient('sk_test_51IDT1rLV6S2YaGRAJ4BLZcGt468ETmMzHuGWlHVv7MBTjjLda3pXurPbmwD74BalNTuV7kLhiqbiwKBfKTuRnjqq00pKL4vtzv');
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         try {
             if (!$user->stripe_id) {
                 $customer = \Stripe\Customer::create([

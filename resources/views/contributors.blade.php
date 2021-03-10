@@ -258,7 +258,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
             <div class="modal fade" id="stripe" tabindex="-1" role="dialog" aria-labelledby="ModalInfo">
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -352,7 +352,6 @@
                 </div>
             </div>
 
-    </div>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>

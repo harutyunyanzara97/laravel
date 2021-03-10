@@ -65,13 +65,28 @@
     .mt-lg-30 {
         margin-top: 30px;
     }
+
 }
 
 @media (max-width: 760px) {
     .confidence-right {
         max-width: 100%;
     }
-
+    .menu-box{
+        position: absolute;
+        left: 0;
+        top: 100px;
+        width: 100%;
+        z-index: 999;
+        background: #fff;
+    }
+    .navbar-collapse ul {
+        background: #fff;
+    }
+    header.header-inner #collapsingNavbar a {
+        border-color: transparent;
+        background: transparent !important;
+    }
     .h-box {
         width: 100%;
     }
@@ -142,18 +157,10 @@
         flex-direction: column;
     }
 
-    .menu-box {
-        position: absolute;
-        /*left: 0;*/
-        /*top: 73px;*/
-        /*background: #fff;*/
-        /*z-index: 1;*/
-        /*padding: 0 8px 15px 6px;*/
-        /*width: 100%;*/
-    }
+
 
     header .navbar-toggler-icon {
-        background-image: url(../images/btn.svg) !important;
+        background-image: url(../images/hamburger-button-computer-icons-menu-bar-line.jpg) !important;
     }
 
     .navbar-toggler:focus, .navbar-toggler:hover {

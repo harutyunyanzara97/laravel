@@ -52,56 +52,56 @@
                         </div>
                     </div>
                     @auth
-                    <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/store')}}">
-                        @csrf
-                        <input type="hidden" value="{{$category->id}}" name="id">
-                        <input type="text" name="title" class="textEditt post-create @error('title') is-invalid @enderror"
-                               placeholder="Give this post a title" autocomplete="Off">
-                        @error('title')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="">
-                                <textarea name="description" class="textEdit @error('description') is-invalid @enderror"
-                                          placeholder="Write your post here.Add photos,videos and more to get your message across."></textarea>
-                            @error('description')
+                        <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/update-post')}}">
+                            @csrf
+                            <input type="hidden" value="{{$modal_post->id}}" name="id">
+                            <input type="text" name="title" class="textEditt post-create @error('title') is-invalid @enderror"
+                                   placeholder="Give this post a title" value="{{$modal_post->title}}" autocomplete="Off">
+                            @error('title')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                        </div>
-                        <div class="image-upload post">
-                            <div class="avatar-upload postAv">
-                                <div class="avatar-edit">
+                            <div class="">
+                                <textarea name="description" class="textEdit @error('description') is-invalid @enderror"
+                                          placeholder="Write your post here.Add photos,videos and more to get your message across.">{{$modal_post->description}}</textarea>
+                                @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="image-upload post">
+                                <div class="avatar-upload postAv">
+                                    <div class="avatar-edit">
 
-                                    <label for="imageUpload">
-                                        <div class="_1qOTu css-mm44dn css-1402lio">
-                                            <svg width="30" height="19" viewBox="0 0 19 19">
-                                                <g fill-rule="evenodd">
-                                                    <path
-                                                        d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                        <input type="file" id="imageUpload" name="photo[]" multiple/>
-                                    </label>
+                                        <label for="imageUpload">
+                                            <div class="_1qOTu css-mm44dn css-1402lio">
+                                                <svg width="30" height="19" viewBox="0 0 19 19">
+                                                    <g fill-rule="evenodd">
+                                                        <path
+                                                            d="M2 6a1 1 0 0 1 1-1h2.75l.668-1.424A1 1 0 0 1 7.323 3h4.354a1 1 0 0 1 .905.576L13.25 5H16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6zm1 0v8h13V6h-3.5l-1.018-2H7.518L6.5 6H3zm6.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                            <input type="file" id="imageUpload" name="photo[]" multiple/>
+                                        </label>
+                                    </div>
+                                    <div id="selectedFiles"></div>
                                 </div>
-                                <div id="selectedFiles"></div>
+
+                                <input id="upload" type="file" name="video[]" onchange="readURL(this);"
+                                       style="display: none" class="form-control">
+
+
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                </div>
+                                <div class="d-flex justify-content-between w-70">
+                                    <button type="reset" class="publish_cancel">Cancel</button>
+                                    <button class="publish_btn" type="submit">Publish</button>
+                                </div>
                             </div>
 
-                            <input id="upload" type="file" name="video[]" onchange="readURL(this);"
-                                   style="display: none" class="form-control">
-
-
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                            </div>
-                            <div class="d-flex justify-content-between w-70">
-                                <button type="reset" class="publish_cancel">Cancel</button>
-                                <button class="publish_btn" type="submit">Publish</button>
-                            </div>
-                        </div>
-
-                    </form>
-                        @endauth
+                        </form>
+                    @endauth
                 </div>
             </div>
         </div>

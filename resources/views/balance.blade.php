@@ -174,27 +174,7 @@
                                                 </div>
                                             </form>
                                         @endauth
-
-
-                                        {{--                                    <div id="pouet">--}}
-
-                                        {{--                                        <span><input type="radio" name="payment-source" class="group-radio"--}}
-                                        {{--                                                     value="new-card" id="new-card-radio"></span>--}}
-                                        {{--                                        <div id="card-element" class="field"></div>--}}
-                                        {{--                                    </div>--}}
                                     </div>
-
-                                    {{--                                    </form>--}}
-                                    {{--                                    <div class="credit-card mastercard selectable">--}}
-                                    {{--                                        <div class="credit-card-last4">--}}
-                                    {{--                                            8210--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                        <div class="credit-card-expiry">--}}
-                                    {{--                                            10/22--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-
-
                                 </div>
                             </div>
                         </div>
@@ -266,27 +246,7 @@
                                                 </div>
                                             </form>
                                         @endauth
-
-
-                                        {{--                                    <div id="pouet">--}}
-
-                                        {{--                                        <span><input type="radio" name="payment-source" class="group-radio"--}}
-                                        {{--                                                     value="new-card" id="new-card-radio"></span>--}}
-                                        {{--                                        <div id="card-element" class="field"></div>--}}
-                                        {{--                                    </div>--}}
                                     </div>
-
-                                    {{--                                    </form>--}}
-                                    {{--                                    <div class="credit-card mastercard selectable">--}}
-                                    {{--                                        <div class="credit-card-last4">--}}
-                                    {{--                                            8210--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                        <div class="credit-card-expiry">--}}
-                                    {{--                                            10/22--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-
-
                                 </div>
                             </div>
                         </div>
@@ -320,39 +280,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-        {{--                <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"--}}
-        {{--                     aria-hidden="true">--}}
-        {{--                    <div class="modal-dialog" role="document">--}}
-        {{--                        <div class="modal-content">--}}
-        {{--                            <div class="modal-header">--}}
-        {{--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-        {{--                                    <span aria-hidden="true">&times;</span>--}}
-        {{--                                </button>--}}
-        {{--                                <p>Please add a payment method in your profile, to share your support to the post--}}
-        {{--                                    creator.</p>--}}
-        {{--                                <div class="d-flex go-profile-section justify-content-center"><a class="go-profile"--}}
-        {{--                                                                                                 href="{{route('profile')}}">Go--}}
-        {{--                                        to profile</a>--}}
-        {{--                                </div>--}}
-        {{--                                <div class="modal-body">--}}
-
-        {{--                                </div>--}}
-        {{--                                <div class="d-flex justify-content-center mt-4 go-profile-section">--}}
-        {{--                                    <div class="modal-footer">--}}
-        {{--                                        <button type="reset" class="pull-right publish_btn mt-0" data-dismiss="modal">--}}
-        {{--                                            Cancel--}}
-        {{--                                        </button>--}}
-        {{--                                        <button class="publish_btn" data-dismiss="modal">Ok</button>--}}
-        {{--                                    </div>--}}
-        {{--                                </div>--}}
-        {{--                            </div>--}}
-        {{--                        </div>--}}
-        {{--                    </div>--}}
-        {{--                    @endauth--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
     </div>
 @endauth
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -375,25 +302,6 @@
 
         });
     });
-    // $(document).on('click', '.follow-btn', function (event) {
-    //     event.preventDefault();
-    //     let likeMe = $(this);
-    //     let toLikeId = $(this).attr('data-id');
-    //     let post_id = $(this).attr('data-path');
-    //     $.ajax({
-    //         type: "get",
-    //         url: '/insertLike',
-    //         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toLikeId, postId: post_id},
-    //         success: function (r) {
-    //             likeMe.html('Liked');
-    //             if (likeMe.text = 'Liked') {
-    //                 likeMe.removeClass('like').addClass('Liked');
-    //             }
-    //         }
-    //
-    //     })
-    // })
-
     $(document).on('click', '.like', function (event) {
         event.preventDefault();
         let likeMe = $(this);
@@ -703,22 +611,4 @@
     });
 
 </script>
-
-{{--<script src="{{asset('js/main.js')}}"></script>--}}
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>-->
-<!--<script src="js/bootstrap.js"></script>-->
-<!--<script src="js/main.js"></script>-->
-<!--<script>-->
-<!--    $('.moreless-button').click(function () {-->
-<!--        $('.moretext').slideToggle();-->
-<!--        if ($('.moreless-button').text() == "Read more") {-->
-<!--            $(this).text("Read less")-->
-<!--        } else {-->
-<!--            $(this).text("Read more")-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-
-
-
+</div>

@@ -132,6 +132,9 @@ class PostController extends Controller
         if ($follow) {
             $follow->delete();
         }
+        $post=Post::where('id',$request->postId)->first();
+        $post->isFollowed=0;
+        $post->save();
     }
 
     public function myPosts()
@@ -149,8 +152,9 @@ class PostController extends Controller
     }
     public function editPost(Request $request)
     {
-        $modal_post = Post::where('id', $request->id)->first();
-        return view('posts.post', compact('modal_post'));
+        $modal_post = Post::with('categories')->where('id', $request->id)->first();
+        $category = $modal_post->categories;
+        return view('posts.edit-post', compact('modal_post','category'));
     }
 
     public function update(Request $request)
@@ -161,10 +165,10 @@ class PostController extends Controller
             foreach ($request->file('photo') as $image) {
                 $name = time() . $image->getClientOriginalName();
                 $image->move(public_path() . '/images', $name);
-                $post->img_url = $name;
+                $post->images = $name;
                 $post->save();
             }
         }
-        return response()->json($post);
+        return Redirect::back();
     }
 }

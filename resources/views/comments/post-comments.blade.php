@@ -211,7 +211,7 @@
                                                                      class="img-fluid logo " width=24px
                                                                      height="24px"/>@endif
                                     @auth
-                                        <a href="{{route('profile')}}"
+                                        <a href="{{route('member-profile',$post->user->id)}}"
                                            style="color:#fff;margin-left:8px;">{{$post->user->name}} </a>
                                     @endauth
                                     <svg xmlns="http://www.w3.org/2000/svg" width="19" viewBox="0 0 19 19"
@@ -281,7 +281,7 @@
                                             </svg>
 
                                             <span>   {{count($post->comments)}} Comments </span>
-                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart mr-2"></i>{{count($post->likes)}}
                                             @auth
                                                 <button class="ml-3 payment-info" data-toggle="modal"
                                                         @if($cards) data-target="#stripeModal" @else
@@ -570,7 +570,8 @@
                                         </svg>
                                         Followed
                                     </a>
-                                @else
+                                @endif
+                                    @if($post->isFollowed === 0)
                                     <a href="" class="follow-btn post-following" data-id="{{Auth::id()}}"
                                        data-path="{{$post->id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

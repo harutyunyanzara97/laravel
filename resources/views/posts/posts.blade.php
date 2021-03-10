@@ -3,9 +3,6 @@
 @section('content')
 </head>
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <div class="modal fade login-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
 
@@ -32,7 +29,6 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="block-wrap">
-
 
                     <!-- facebook	 -->
                     <div>
@@ -228,6 +224,7 @@
                 <a href="{{route('network')}}">
                     The network
                 </a>
+                @if($category)
                 <a href="#">
                     {{$category->name}}
                 </a>
@@ -243,6 +240,7 @@
             </div>
         </div>
         <div class="main-container">
+
             @if($category->img_url)
                 <div class="network-panel-overlay"
                      style="background-image: url({{asset('images/'.$category->img_url)}}) !important;"></div>@endif
@@ -261,13 +259,14 @@
                     </div>
                 </div>
                 <div class="resources-forum-right">
-                    @auth()
+                    @auth
                         <a href="{{route('createPost', $category->id)}}" class="comment-btn">
                             Create new post
                         </a>
                     @endauth
                 </div>
             </div>
+            @endif
             <div class="network-banner">
                 <table class="postTable">
                     <thead class="w-100" style="display: flex;
@@ -294,7 +293,8 @@
                                       transform="translate(-333.5 -212.5)"></path>
                             </svg>
                         </th>
-                        <th scope="col"><img src="{{asset('images/icon1.png')}}" width="30px" height="30px" class="ml-3"></th>
+                        <th scope="col"><img src="{{asset('images/icon1.png')}}" width="30px" height="30px"
+                                             class="ml-3"></th>
                         <th scope="col" style="color: rgb(255, 255, 255);">Recent activity</th>
 
                     </tr>
@@ -302,13 +302,13 @@
                     <tbody>
                     @if($posts)
                         @foreach($posts as $post)
-                            <tr scope="row" style="color:rgb(255, 255, 255);display: flex;
+                            <tr class="bordered_tr" scope="row" style="color:rgb(255, 255, 255);display: flex;
                                              justify-content: space-between;">
                                 <td>
                                     <div class="d-flex">
                                         <div class="network-banner-details">
 
-                                            <a href="{{route('comments',$post->id)}}" class="whiteText"
+                                            <a href="{{route('comments',$post->id)}}" class="whiteText" id="title-{{$post->id}}"
                                                style="color: rgb(235 238 233);">
                                                 {{$post->title}}
                                             </a>
@@ -324,119 +324,124 @@
                                                 class="ava">@endif @endauth</div></span>{{date_format(date_create($post->created_at),'M d y')}}
                                     @auth
                                         @if($post->user->id === Auth::id() || Auth::user()->is_admin===1)
-                                        <div class="follow-details">
-                                            <button type="button" class="dropdown-toggle p-0"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24"
-                                                     height="24"
-                                                     viewBox="0 0 24 24">
-                                                    <path fill-rule="evenodd"
-                                                          d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
-                                                </svg>
-                                            </button>
-                                            @auth
+                                            <div class="follow-details">
+                                                <button type="button" class="dropdown-toggle p-0"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24"
+                                                         height="24"
+                                                         viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd"
+                                                              d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
+                                                    </svg>
+                                                </button>
+                                                @auth
 
-                                                <div class="dropdown-menu">
-                                            @if($post->user->id === Auth::id())
-                                            <button type="button" class="dropdown-item edit"
-                                              data-id="{{$post->id}}" data-toggle="modal"
-                                              data-target="#rightSideModal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                               viewBox="0 0 24 24">
-                                              <path fill-rule="evenodd"
-                                                    d="M16.679 5.602l1.702 1.704c.826.827.826 2.172 0 3l-8.17 8.18L4 20l1.512-6.218 8.17-8.18c.799-.802 2.196-.803 2.997 0zM8.661 16.046l1.312 1.314 5.652-5.658-3.336-3.341-5.652 5.659 1.317 1.319 3.193-3.193c.195-.195.512-.195.707 0 .195.196.195.512 0 .708L8.66 16.046zm7.645-5.026L17.7 9.624c.45-.451.45-1.186 0-1.637l-1.702-1.704c-.437-.437-1.197-.436-1.634 0L12.97 7.679l3.336 3.34zm-10.88 7.554l3.569-.83-2.741-2.745-.828 3.575z"></path>
-                                            </svg>
-                                            <p class="p0">Edit post</p>
-                                            </button>
-                                                    @endif
-                                            <a class="dropdown-item align-items-center"
-                                            href="{{route('deletePost',$post->id)}}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                               viewBox="0 0 24 24">
-                                              <path fill-rule="evenodd"
-                                                    d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
-                                            </svg>
-                                            Delete Post</a>
-                                            <div class="dropdown-divider"></div>
+                                                    <div class="dropdown-menu">
+                                                        @if($post->user->id === Auth::id())
+                                                            <a class="dropdown-item align-items-center"
+                                                               href="{{route('editPost',$post->id)}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24"
+                                                                     viewBox="0 0 24 24">
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M16.679 5.602l1.702 1.704c.826.827.826 2.172 0 3l-8.17 8.18L4 20l1.512-6.218 8.17-8.18c.799-.802 2.196-.803 2.997 0zM8.661 16.046l1.312 1.314 5.652-5.658-3.336-3.341-5.652 5.659 1.317 1.319 3.193-3.193c.195-.195.512-.195.707 0 .195.196.195.512 0 .708L8.66 16.046zm7.645-5.026L17.7 9.624c.45-.451.45-1.186 0-1.637l-1.702-1.704c-.437-.437-1.197-.436-1.634 0L12.97 7.679l3.336 3.34zm-10.88 7.554l3.569-.83-2.741-2.745-.828 3.575z"></path>
+                                                                </svg>
+                                                                Edit post</a>
+                                                            </button>
+                                                        @endif
+                                                        <a class="dropdown-item align-items-center"
+                                                           href="{{route('deletePost',$post->id)}}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                 height="24"
+                                                                 viewBox="0 0 24 24">
+                                                                <path fill-rule="evenodd"
+                                                                      d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
+                                                            </svg>
+                                                            Delete Post</a>
+                                                        <div class="dropdown-divider"></div>
+                                                    </div>
+
+                                                @endauth
+
                                             </div>
-
-@endauth
-
-</div>
-@endif
-@endauth
-</td>
-</tr>
-@endforeach
-@else
-<p>No posts here</p>
-@endif
-</tbody>
-</table>
-</div>
-<div class="d-flex pagination">
-{{ $posts->links() }}
-</div>
-</div>
-</div>
+                                        @endif
+                                    @endauth
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <p>No posts here</p>
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex pagination">
+                {{ $posts->links() }}
+            </div>
+        </div>
+    </div>
 </div>
 
 </div>
 <script>
-$('#searchPost').on('keyup', function () {
-let value = $(this).val();
-$.ajax({
-type: 'get',
-url: '{{URL::to('searchPost')}}',
-data: {'search': value},
-success: function (data) {
-$('.postTable tbody').empty();
-$(data.data).each(function (val, i) {
-$('.postTable tbody').append(`<tr style="color:rgb(255, 255, 255);display: flex;
-justify-content: space-between;">
-<td>
-@isset($post)
-<div class="d-flex">
-<div class="network-banner-details">
-<a href="{{route('comments',$post->id)}}" class="whiteText" style="color: rgb(235 238 233);">
-${i.title}
-</a>
-</div>
-</div>
-</td>
-<td>{{count($post->comments)}}</td>
-<td>{{count($post->likes)}}</td>
-<td></td>
-<td><span><div class="avaImg">@auth @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}" class="ava">@endif @endauth</div></span>{{date_format(date_create($post->created_at),'M d y')}}
-@auth<div class="follow-details">
-<button type="button" class="dropdown-toggle p-0"
-data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
-viewBox="0 0 24 24">
-<path fill-rule="evenodd"
-d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
-</svg>
-</button>
-@auth
-<div class="dropdown-menu">
-<a class="dropdown-item align-items-center" href="{{route('deletePost',$post->id)}}">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-viewBox="0 0 24 24">
-<path fill-rule="evenodd"
-d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
-</svg>
-Delete Post</a>
-<div class="dropdown-divider"></div>
-</div>
-@endauth
-</div>@endauth
-@endisset
-</td>
-</tr>`);
-})
-}
-})
-})
+    $('#searchPost').on('keyup', function () {
+        let value = $(this).val();
+        $.ajax({
+            type: 'get',
+            url: '{{URL::to('searchPost')}}',
+            data: {'search': value},
+            success: function (data) {
+                $('.postTable tbody').empty();
+                $(data.data).each(function (val, i) {
+                    $('.postTable tbody').append(`<tr style="color:rgb(255, 255, 255);display: flex;
+                                            justify-content: space-between;">
+                                            <td>
+                                            @isset($post)
+                    <div class="d-flex">
+                    <div class="network-banner-details">
+                    <a href="{{route('comments',$post->id)}}" class="whiteText" style="color: rgb(235 238 233);">
+                                            ${i.title}
+                                            </a>
+                                            </div>
+                                            </div>
+                                            </td>
+                                            <td>{{count($post->comments)}}</td>
+                                            <td>{{count($post->likes)}}</td>
+                                            <td></td>
+                                            <td><span><div class="avaImg">@auth @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}" class="ava">@endif @endauth</div></span>{{date_format(date_create($post->created_at),'M d y')}}
+                    @auth<div class="follow-details">
+                                            <button type="button" class="dropdown-toggle p-0"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                            d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
+                                            </svg>
+                                            </button>
+                                            @auth
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item align-items-center" href="{{route('deletePost',$post->id)}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                            d="M17 17c0 1.657-1.343 3-3 3H9c-1.657 0-3-1.343-3-3V7H5V6h13v1h-1v10zM9 9h1v7H9V9zm4 0h1v7h-1V9zm-6 8c0 1.105.895 2 2 2h5c1.105 0 2-.895 2-2V7H7v10zm6-11V5h-3v1H9V5c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v1h-1z"></path>
+                                            </svg>
+                                            Delete Post</a>
+                                            <div class="dropdown-divider"></div>
+                                            </div>
+                                            @endauth
+                    </div>@endauth
+                    @endisset
+                    </td>
+                    </tr>`);
+                })
+            }
+        })
+    })
+
+</script>
+<script>
 
 </script>
 @endsection

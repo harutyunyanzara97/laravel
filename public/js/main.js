@@ -157,21 +157,39 @@ $(document).on('click', '.following', function (event) {
 
     })
 })
-$(document).on('click', '.edit', function (event) {
-    // event.preventDefault();
+// $(document).on('click', '.edit', function (event) {
+//     // event.preventDefault();
+//
+//     let editedId = $(this).attr('data-id');
+//     let rightSideModal = $('#rightSideModal');
+//     $.ajax({
+//         type: "get",
+//         url: 'edit',
+//         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: editedId},
+//         success: function (r) {
+//             $('.modalOpen').prepend(r);
+//         }
+//
+//     })
+// })
+//
+// $(document).on('click', '.editpost', function (event) {
+//     // event.preventDefault();
+//
+//     let editedId = $(this).attr('data-id');
+//
+//     $.ajax({
+//         type: "get",
+//         url: '/edit-post',
+//         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: editedId},
+//         success: function (r) {
+//             console.log(r);
+//             $('.modalOpen').prepend(r);
+//         }
+//
+//     })
+// })
 
-    let editedId = $(this).attr('data-id');
-    let rightSideModal = $('#rightSideModal');
-    $.ajax({
-        type: "get",
-        url: 'edit',
-        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: editedId},
-        success: function (r) {
-            $('.modalOpen').prepend(r);
-        }
-
-    })
-})
 
 
 $(document).on('click', '.closeModal', function (event) {
@@ -396,10 +414,11 @@ $(document).on('click', '.followedPost', function (event) {
     event.preventDefault();
     let unfollow = $(this);
     let followeId = $(this).attr('data-id');
+    let post_id = $(this).attr('data-path');
     $.ajax({
         type: "get",
         url: '/unfollowPost',
-        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId,post_id: post_id},
         success: function (r) {
             unfollow.html('follow');
             if (unfollow.text = 'post-following') {

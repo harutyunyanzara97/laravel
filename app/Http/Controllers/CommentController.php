@@ -64,42 +64,26 @@ class CommentController extends Controller
         }
         return back();
     }
-//    public function answer_to_reply(Request $request)
-//    {
-//
-//        $answered = Answer::where('id', $request->id)->first();
-//        dd($answered);
-//        $answer = new Answer();
-//        $answer->name = $request->answer;
-//        $answer->reply_id = $answered->id;
-//        $answer->user_id = Auth::id();
-//        $answer->save();
-//        if ($request->hasfile('photo')) {
-//            foreach ($request->file('photo') as $image) {
-//                $name = time() . $image->getClientOriginalName();
-//                $image->move(public_path() . '/images', $name);
-//                $answer->images = $name;
-//                $answer->save();
-//            }
-//        }
-//        return back();
-//    }
+
     public function dislike(Request $request)
     {
-        $likes = Like::where(['user_id' => Auth::user()->getId(), 'comment_id' => $request->id])->first();
+        $likes = Like::where(['user_id' => Auth::id(), 'comment_id' => $request->id])->first();
         if ($likes) {
             $likes->delete();
         }
     }
-    public function myComments() {
-        $myComments=Comment::where('user_id',Auth::id())->get();
-        $user=User::where('id', Auth::user()->getId())->first();
-        return view('comments.my-comments',compact('myComments',$myComments,'user',$user));
+
+    public function myComments()
+    {
+        $posts = Post::with('comments')->get();
+        $user = User::where('id', Auth::id())->first();
+        return view('comments.my-comments', compact('posts', $posts, 'user', $user));
     }
 
-    public function memberComments(Request $request) {
-        $memberComments=Comment::where('user_id',$request->id)->with('likes')->get();
-        $user=User::where('id', $request->id)->first();
-        return view('comments.member-comments',compact('memberComments',$memberComments,'user',$user));
+    public function memberComments(Request $request)
+    {
+        $memberComments = Comment::where('user_id', $request->id)->with('likes')->get();
+        $user = User::where('id', $request->id)->first();
+        return view('comments.member-comments', compact('memberComments', $memberComments, 'user', $user));
     }
 }
