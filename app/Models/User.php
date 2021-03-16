@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Category;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Category;
 use Laravel\Cashier\Billable;
 class User extends Authenticatable
 {
@@ -48,9 +48,33 @@ class User extends Authenticatable
     {
         return $this->id;
     }
-    public function follow(){
+//    public function follow(){
+//
+//        return $this->hasMany(Follow::class,'user_id','id');
+//    }
+    public function followings() {
+        return $this->belongsToMany(User::class, 'users_followers', 'follower_id', 'leader_id');
+    }
 
-        return $this->hasMany(Follow::class,'user_id','id');
+// users that follow this user
+    public function followers() {
+        return $this->belongsToMany(User::class, 'users_followers', 'leader_id', 'follower_id');
+    }
+
+    public function following_categories() {
+        return $this->belongsToMany(Category::class, 'category_followers', 'follower_id', 'leader_id');
+    }
+
+    public function category_followers() {
+        return $this->belongsToMany(Post::class, 'category_followers', 'leader_id', 'follower_id');
+    }
+
+    public function following_posts() {
+        return $this->belongsToMany(Post::class, 'post_followers', 'follower_id', 'leader_id');
+    }
+
+    public function post_followers() {
+        return $this->belongsToMany(Post::class, 'post_followers', 'leader_id', 'follower_id');
     }
     public function transactions() {
 

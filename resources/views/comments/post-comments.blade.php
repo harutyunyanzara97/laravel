@@ -206,10 +206,11 @@
                         <div class="resources-forum-left">
                             <div class="banner d-flex">
                                 <div class="d-flex">
-
+                                    <a href="{{route('member-profile',$post->user->id)}}">
                                     @if($post->user->avatar_url)<img src="{{asset('images/'.$post->user->avatar_url)}}"
                                                                      class="img-fluid logo " width=24px
                                                                      height="24px"/>@endif
+                                    </a>
                                     @auth
                                         <a href="{{route('member-profile',$post->user->id)}}"
                                            style="color:#fff;margin-left:8px;">{{$post->user->name}} </a>
@@ -239,7 +240,15 @@
                                             </p>
                                         </div>
                                     </div>
-
+                                    @if($post->files)
+                                        @foreach(explode('/',$post->files) as $file)
+                                            <div class="mySlides">
+                                                <video controls src="{{asset('uploads/'.$file)}}" height=200px width=200px style="display: block"
+                                                       alt="slide">
+                                                </video>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                     @if($post->images)
                                         <div class="post-slider position-relative">
 
@@ -558,8 +567,8 @@
                                 Follow Post
                             </a>
                             @else
-                                @if($post->isFollowed === 1)
-                                    <a href="" class="follow-btn post-following followedPost" data-id="{{Auth::id()}}"
+
+                                    <a href="" id="post-following" class="follow-btn"
                                        data-path="{{$post->id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24"
@@ -568,22 +577,8 @@
                                                 d="M36.5 15c.828 0 1.5.672 1.5 1.5v.708l.193.058C40.403 17.98 42 20.053 42 22.5v2.882c0 .682.514 1.085.724 1.17.907.46 1.276 1.327 1.276 2.066V29c0 .552-.448 1-1 1h-4.05c-.232 1.141-1.24 2-2.45 2-1.21 0-2.218-.859-2.45-2H30c-.552 0-1-.448-1-1v-.382c0-.816.43-1.567 1.124-1.982.584-.281.876-.7.876-1.254V22.5c0-2.518 1.692-4.64 4-5.293V16.5c0-.828.672-1.5 1.5-1.5zm1.414 15h-2.828c.206.583.761 1 1.414 1 .653 0 1.208-.417 1.414-1zM36.5 16c-.276 0-.5.224-.5.5v1.527c-2.25.249-4 2.157-4 4.473v2.882c0 .816-.43 1.567-1.124 1.982l-.115.06c-.284.156-.761.5-.761 1.194V29h13v-.382c0-.696-.482-1.039-.724-1.17-.68-.318-1.276-1.13-1.276-2.066V22.5c0-2.316-1.75-4.223-4-4.472V16.5c0-.276-.224-.5-.5-.5z"
                                                 transform="translate(-24 -12)"></path>
                                         </svg>
-                                        Followed
+                                        @if(Auth::user()->following_posts->contains($post->id))Followed @else Follow @endif
                                     </a>
-                                @endif
-                                    @if($post->isFollowed === 0)
-                                    <a href="" class="follow-btn post-following" data-id="{{Auth::id()}}"
-                                       data-path="{{$post->id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24"
-                                             class="button-fill">
-                                            <path
-                                                d="M36.5 15c.828 0 1.5.672 1.5 1.5v.708l.193.058C40.403 17.98 42 20.053 42 22.5v2.882c0 .682.514 1.085.724 1.17.907.46 1.276 1.327 1.276 2.066V29c0 .552-.448 1-1 1h-4.05c-.232 1.141-1.24 2-2.45 2-1.21 0-2.218-.859-2.45-2H30c-.552 0-1-.448-1-1v-.382c0-.816.43-1.567 1.124-1.982.584-.281.876-.7.876-1.254V22.5c0-2.518 1.692-4.64 4-5.293V16.5c0-.828.672-1.5 1.5-1.5zm1.414 15h-2.828c.206.583.761 1 1.414 1 .653 0 1.208-.417 1.414-1zM36.5 16c-.276 0-.5.224-.5.5v1.527c-2.25.249-4 2.157-4 4.473v2.882c0 .816-.43 1.567-1.124 1.982l-.115.06c-.284.156-.761.5-.761 1.194V29h13v-.382c0-.696-.482-1.039-.724-1.17-.68-.318-1.276-1.13-1.276-2.066V22.5c0-2.316-1.75-4.223-4-4.472V16.5c0-.276-.224-.5-.5-.5z"
-                                                transform="translate(-24 -12)"></path>
-                                        </svg>
-                                        Follow Post
-                                    </a>
-                                @endif
                             @endguest
                             <div class="resources-forum-box">
                                 {{--                            0 comments--}}
@@ -789,41 +784,30 @@
                 //# sourceURL=pen.js
             </script>
             <script>
-                $(document).on('click', '.post-following', function (event) {
+                $(document).on('click', '#post-following', function (event) {
                     event.preventDefault();
                     let follow = $(this);
-                    let toFollowId = $(this).attr('data-id');
-                    let post_id = $(this).attr('data-path');
-                    $.ajax({
-                        type: "get",
-                        url: '/followPost',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: post_id},
-                        success: function (r) {
-                            follow.html('Followed');
-                            if (follow.text = 'Following') {
-                                follow.removeClass('.member-following').addClass('followedPost');
-                            }
-                        }
+                    let toFollowId = $(this).attr('data-path');
+                    {
+                        $.ajax({
+                            type: "post",
+                            url: '/followPost',
+                            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId},
+                            success: function (r) {
 
-                    })
-                })
-                $(document).on('click', '.followedPost', function (event) {
-                    event.preventDefault();
-                    let unfollow = $(this);
-                    let followeId = $(this).attr('data-id');
-                    $.ajax({
-                        type: "get",
-                        url: '/unfollowPost',
-                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
-                        success: function (r) {
-                            unfollow.html('follow');
-                            if (unfollow.text = 'post-following') {
-                                unfollow.removeClass('followedPost').addClass('post-following');
-                            }
-                        }
+                                if( r==1 ) {
+                                    follow.html('Followed');
 
-                    })
+                                } else if( r==2 ) {
+                                    follow.html('Follow');
+
+                                }
+
+                            }
+                        })
+                    }
                 })
+
 
             </script>
             <script>

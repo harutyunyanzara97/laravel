@@ -499,6 +499,7 @@
                                 </button>
                             </div>
                             <div class="cards">
+
                             @foreach($cards as $card)
                             <div class="card-i">
                                 <div class="bank-name" title="BestBank">{{$card->brand}}</div>

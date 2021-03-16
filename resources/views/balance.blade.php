@@ -488,7 +488,7 @@
             success: function (response) {
                 Swal.fire(response);
                 $('#stripeMod').modal('hide');
-                $('.modal-backdrop').css('display','none')
+                $('.modal-backdrop').css('display','none');
             },
             error: function (err) {
                 $('#stripeMod #card-errors').html(`<p style="color:red"> ${err.responseJSON.message}</p>`);

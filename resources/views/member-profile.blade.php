@@ -568,7 +568,7 @@
 
                     <div class="avatar-upload">
 
-                        <div class="avatar-preview">
+                        <div class="avatar-preview mt-3">
 
                             <div id="imagePreview"
                                  style="background-image: url({{asset('images/'. $member->avatar_url)}})">
@@ -576,8 +576,9 @@
                         </div>
                     </div>
                     <p class="mt-3 mb-3 text-white text-center">{{$member->name}}</p>
-                    @if($member->notify===1)<button type="button"  class="followed follow-mem" data-id="{{$member->id}}">Followed</button>@else
-                        <button type="button"  class="follow-mem edit-btn" data-id="{{$member->id}}">Follow</button>@endif
+                    @auth
+                            <button type="button" id="followButton" class="edit-btn{{Auth::user()->followings->contains($member->id) ? 'followed edit-btn' : 'followings edit-btn' }}"  data-id="{{$member->id}}">@if(Auth::user()->followings->contains($member->id))Followed @else Follow @endif </button>
+                        @endauth
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -628,7 +629,7 @@
                 <form method="POST" id="editProfile" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="POST">
-                    <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="id" value="@auth{{Auth::user()->id}}@endauth">
                     <div class="container-fluid rich-editor">
                         <h3>About
                         </h3>
@@ -727,21 +728,30 @@
 
         })
     })
-    $(document).on('click', '.followed', function (event) {
+
+    $(document).on('click', '#followButton', function (event) {
         event.preventDefault();
-        let unfollow = $(this);
-        let followeId = $(this).attr('data-id');
-        $.ajax({
-            type: "get",
-            url: '/unfollowUser',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
-            success: function (r) {
-                unfollow.html('Follow');
-                    unfollow.removeClass('followed').addClass('edit-btn');
+        let follow = $(this);
+        let toFollowId = $(this).attr('data-id');
+        {
+            $.ajax({
+                type: "post",
+                url: '/followUser',
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId},
+                success: function (r) {
 
-            }
+                    if( r==1 ) {
+                        follow.html('Followed');
 
-        })
+                    } else if( r==2 ) {
+                        follow.html('Follow');
+
+                    }
+
+                }
+            })
+        }
     })
+
 
 </script>

@@ -59,8 +59,18 @@
                         </div>
                     </div>
                     <p class="mt-4">{{$newPost->title}}</p>
+
                     <div class="row post-created-inner">
                         <div class="col-9"><p class="new-post-txt">{{$newPost->description}}</p>
+                            @if($newPost->files)
+                            @foreach(explode('/',$newPost->files) as $file)
+                                <div class="mySlides">
+                                    <video controls src="{{asset('uploads/'.$file)}}" height=200px width=200px style="display: block"
+                                           alt="slide">
+                                    </video>
+                                </div>
+                            @endforeach
+                            @endif
                             @if($newPost->images)
                                 <div class="row post-slider position-relative">
 
@@ -85,6 +95,9 @@
                                 </div>
                             @endif
                         </div>
+
+
+
                         <div class="col-3 resources-forum-right">
                             <a href="" class="follow-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -176,21 +176,11 @@
 
                                 </div>
                                 <div class="d-flex follow-banner">
-                                    <a @auth class="follow"
+                                    <a @auth id="followCat" class="{{Auth::user()->following_categories->contains($category->id) ? 'follow-category' : 'following-category' }}"
                                        @endauth style="color:white;font-size: 13px; cursor: pointer;z-index:1;"
                                        @guest data-toggle="modal" aria-haspopup="true" aria-expanded="false"
                                        data-target=".login-modal" @else data-id="{{$category->id}}" @endguest>
-                                        @foreach($category->followers as $item)
-                                            @if($item->category_id === $category->id)
-                                                @auth
-                                                    <span class="following-user">Following</span>
-                                                @endauth
-                                            @else
-                                                <span class="unfollow-user">Follow</span>
-                                            @endif
-
-                                        @endforeach
-                                        <span class="unfollow-user">Follow</span>
+                                        @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif
                                     </a>
 
                                     <div class="follow-details">
@@ -242,6 +232,32 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
         <script>
+            $(document).on('click', '#followCat', function (event) {
+                event.preventDefault();
+                let follow = $(this);
+                let toFollowId = $(this).attr('data-id');
+                {
+                    $.ajax({
+                        type: "post",
+                        url: '/insert',
+                        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId},
+                        success: function (r) {
+
+                            if( r==1 ) {
+                                follow.html('Followed');
+
+                            } else if( r==2 ) {
+                                follow.html('Follow');
+
+                            }
+
+                        }
+                    })
+                }
+            })
+
+        </script>
+        <script>
             $('#search').on('keyup', function () {
                 let value = $(this).val();
                 $.ajax({
@@ -282,28 +298,21 @@
 
                         </div>
                         <div class="d-flex follow-banner">
-                            <a @auth class="follow" @endauth style="color:white;font-size: 13px; cursor: pointer;z-index:1;" @guest data-toggle="modal"  aria-haspopup="true" aria-expanded="false"  data-target=".login-modal"  @else data-id="{{$category->id}}"  @endguest>
-                                            @foreach($category->followers as $item)
-                            @if($item->category_id === $category->id)
-                            @auth
-                            <span class="following-user">Following</span>
-@endauth
-                            @else
-                            <span class="unfollow-user">Follow</span>
-@endif
-
-                            @endforeach
-                            <span class="unfollow-user">Follow</span>
-                    </a>
-                    <div class="follow-details">
-                        <button type="button" class="btn dropdown-toggle p-0"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
-                                 viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                      d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
-                            </svg>
-                        </button>
+                             <a @auth id="followCat" class="{{Auth::user()->following_categories->contains($category->id) ? 'follow-category' : 'following-category' }}"
+                                       @endauth style="color:white;font-size: 13px; cursor: pointer;z-index:1;"
+                                       @guest data-toggle="modal" aria-haspopup="true" aria-expanded="false"
+                                       data-target=".login-modal" @else data-id="{{$category->id}}" @endguest>
+                                        @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif
+                            </a>
+            <div class="follow-details">
+                <button type="button" class="btn dropdown-toggle p-0"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24"
+                         viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                              d="M22.444 13.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463.821.01 1.482.679 1.482 1.5-.016.844-.712 1.515-1.556 1.5zm0-6.5c-.82-.03-1.464-.716-1.444-1.537.02-.82.697-1.473 1.518-1.463C23.34 4.01 24 4.68 24 5.5c-.016.844-.712 1.515-1.556 1.5zm.112 10c.82.03 1.464.716 1.444 1.537-.02.82-.697 1.473-1.519 1.463-.82-.01-1.48-.679-1.481-1.5.017-.843.713-1.514 1.556-1.5z"></path>
+                    </svg>
+                </button>
 @auth
                             <div class="dropdown-menu">
 

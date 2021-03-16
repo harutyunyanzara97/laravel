@@ -97,81 +97,22 @@ $('.myBalance').on('click', function (event) {
         }
     })
 });
-$(document).on('click', '.follow', function (event) {
-    let followMe = $(this);
-    event.preventDefault();
-    if ($(this).find('span.following-user').text() === 'Following') {
-        $(this).find('span.following-user').hide();
-        $(this).find('span.unfollow-user').show();
-        $(this).find('span.unfollow-user').text('Follow')
-        $(this).find('span.following-user').text('Follow')
-        let unfollow = $(this);
-        let followId = $(this).attr('data-id');
-        $.ajax({
-            type: "get",
-            url: '/unfollow',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followId},
-            success: function (r) {
-                // unfollow.html('Follow');
-                if (unfollow.text() === 'Follow') {
-                    unfollow.removeClass('following').addClass('follow');
-                }
-            }
 
-        })
-    } else {
-        $(this).find('span.following-user').hide();
-        $(this).find('span.unfollow-user').show();
-        $(this).find('span.unfollow-user').text('Following')
-        let idd = $(this).attr('data-id');
-        $.ajax({
-            type: "get",
-            url: '/insert',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: idd},
-            success: function (r) {
-                // followMe.html('Following');
-                console.log(followMe.text());
-                if (followMe.text() === 'Following') {
-                    followMe.removeClass('follow').addClass('following');
-                }
-            }
+$(document).on('click', '.edit', function (event) {
+    // event.preventDefault();
 
-        })
-    }
-})
-
-$(document).on('click', '.following', function (event) {
-    event.preventDefault();
-    let unfollow = $(this);
-    let followId = $(this).attr('data-id');
+    let editedId = $(this).attr('data-id');
+    let rightSideModal = $('#rightSideModal');
     $.ajax({
         type: "get",
-        url: '/unfollow',
-        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followId},
+        url: 'edit',
+        data: {_token: $('meta[name="csrf-token"]').attr('content'), id: editedId},
         success: function (r) {
-            unfollow.html('follow');
-            if (unfollow.text() === 'Follow') {
-                unfollow.removeClass('following').addClass('follow');
-            }
+            $('.modalOpen').prepend(r);
         }
 
     })
 })
-// $(document).on('click', '.edit', function (event) {
-//     // event.preventDefault();
-//
-//     let editedId = $(this).attr('data-id');
-//     let rightSideModal = $('#rightSideModal');
-//     $.ajax({
-//         type: "get",
-//         url: 'edit',
-//         data: {_token: $('meta[name="csrf-token"]').attr('content'), id: editedId},
-//         success: function (r) {
-//             $('.modalOpen').prepend(r);
-//         }
-//
-//     })
-// })
 //
 // $(document).on('click', '.editpost', function (event) {
 //     // event.preventDefault();

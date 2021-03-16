@@ -10,6 +10,7 @@ use App\Models\Like;
 use App\Models\Category;
 use App\Models\Reply;
 use App\Models\User;
+use App\Models\Post_follower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
@@ -34,7 +35,7 @@ class PostController extends Controller
         $categories = Category::all();
         $postUser = Post::where('id', $id)->with('user')->first();
         $cards=Card::where('user_id',Auth::id())->get();
-        if (Auth::user()) {
+        if (Auth::user() && $cards) {
             return view('comments.post-comments', compact('post', 'postUser', 'categories','cards'));
         } else {
             return view('comments.post-comments', compact('post', 'postUser', 'categories'));
@@ -64,6 +65,16 @@ class PostController extends Controller
                 }
                 $newPost->save();
             }
+            if($request->hasFile('file')){
+                foreach ($request->file('file') as $video) {
+                    $filename = $video->getClientOriginalName();
+                    $path = public_path() . '/uploads/';
+                  $video=$video->move($path, $filename);
+
+                    $newPost->files = $video->getFilename();
+                }
+                $newPost->save();
+            }
         } else {
             return redirect('createPost')
                 ->withErrors($validatedData)
@@ -89,16 +100,17 @@ class PostController extends Controller
                 $comments->save();
             }
         }
-        if ($request->hasFile('video')) {
-            foreach ($request->file('photo') as $video) {
-                $file = Request::file('video');
-                $filename = $file->getClientOriginalName();
-                $path = public_path() . '/uploads/';
-                $file->move($path, $filename);
-                $comments->files = $filename;
-                $comments->save();
-            }
-        }
+
+//        if ($request->hasFile('video')) {
+//            foreach ($request->file('photo') as $video) {
+//                $file = Request::file('video');
+//                $filename = $file->getClientOriginalName();
+//                $path = public_path() . '/uploads/';
+//                $file->move($path, $filename);
+//                $comments->files = $filename;
+//                $comments->save();
+//            }
+//        }
         return Redirect::back();
     }
 
@@ -111,30 +123,19 @@ class PostController extends Controller
 
     public function followPost(Request $request)
     {
-        $follow = Follow::where(['user_id' => $request->id, 'category_id' => 1])->first();
-        if (!$follow) {
-            $follow = new Follow();
-            $follow->user_id = Auth::user()->getId();
-            $follow->category_id = null;
-            $follow->post_id = $request->postId;
-            $follow->save();
-            if($follow->save()){
-                $post=Post::where('id',$request->postId)->first();
-                $post->isFollowed=1;
-                $post->save();
-            }
-        }
-    }
+        $post=Post::findOrFail($request->id);
 
-    public function unfollowPost(Request $request)
-    {
-        $follow = Follow::where(['user_id' => $request->id])->first();
-        if ($follow) {
-            $follow->delete();
+        if(Auth::user()->following_posts->contains($request->id)){
+            Auth::user()->following_posts()->detach($post->id);
+            $follow=2;
         }
-        $post=Post::where('id',$request->postId)->first();
-        $post->isFollowed=0;
-        $post->save();
+        elseif(!Auth::user()->following_posts->contains($request->id)) {
+            Auth::user()->following_posts()->attach($post->id);
+            $follow=1;
+        }
+
+        return response()->json($follow);
+
     }
 
     public function myPosts()

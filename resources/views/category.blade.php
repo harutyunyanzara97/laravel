@@ -1,4 +1,4 @@
-@extends('layouts.app')
+
 
 @section('content')
 </head>
@@ -197,5 +197,5 @@
 
     });
 </script>
-@endsection
+
 

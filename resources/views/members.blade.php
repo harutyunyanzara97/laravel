@@ -22,8 +22,7 @@
                         <div class="d-flex justify-content-center">
                         <a href="{{route('member-profile',$user->id)}}" class="member-name">{{$user->name}}</a>
                         </div>
-                        @if($user->follower_id ===Auth::id())<button type="button"  class="member-following followed" data-id="{{$user->id}}">Followed</button>@else
-                            <button type="button"  class="member-following" data-id="{{$user->id}}">Follow</button>@endif
+                      <button type="button" id="followButton" class="{{Auth::user()->followings->contains($user->id) ? 'followed' : 'followings' }}"  data-id="{{$user->id}}">@if(Auth::user()->followings->contains($user->id))Followed @else Follow @endif </button>
                     </div>
                 </div>
 
@@ -42,39 +41,28 @@
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script>
-    $(document).on('click', '.member-following', function (event) {
+    $(document).on('click', '#followButton', function (event) {
         event.preventDefault();
         let follow = $(this);
         let toFollowId = $(this).attr('data-id');
-        let user_id = $(this).attr('data-path');
-        $.ajax({
-            type: "get",
-            url: '/followUser',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId, postId: user_id},
-            success: function (r) {
-                follow.html('followed');
-                if (follow.text = 'Following') {
-                    follow.removeClass('.member-following').addClass('followed');
-                }
-            }
+        {
+            $.ajax({
+                type: "post",
+                url: '/followUser',
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId},
+                success: function (r) {
 
-        })
-    })
-    $(document).on('click', '.followed', function (event) {
-        event.preventDefault();
-        let unfollow = $(this);
-        let followeId = $(this).attr('data-id');
-        $.ajax({
-            type: "get",
-            url: '/unfollowUser',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: followeId},
-            success: function (r) {
-                unfollow.html('follow');
-                if (unfollow.text = 'member-following') {
-                    unfollow.removeClass('followed').addClass('member-following');
+                    if( r==1 ) {
+                        follow.html('Followed');
+
+                    } else if( r==2 ) {
+                        follow.html('Follow');
+
+                    }
+
                 }
-            }
-        })
+            })
+        }
     })
 
 </script>

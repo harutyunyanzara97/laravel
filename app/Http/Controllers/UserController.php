@@ -8,6 +8,7 @@ use App\Models\Follow;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Users_follower;
 use Illuminate\Pagination;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -22,33 +23,26 @@ class UserController extends Controller
 {
     public function members(){
         $users=User::orderBy('id', 'DESC')->paginate(6);
-        return view ('members',compact('users'));
+        $follow=Users_follower::where('follower_id',Auth::id())->first();
+        return view ('members',compact('users','follow'));
     }
     public function followUser(Request $request)
     {
-        $follow = Follow::where(['user_id' =>$request->id])->first();
-        if (!$follow) {
-            $follow = new Follow();
-            $follow->user_id = Auth::id();
-            $follow->save();
-            if($follow->save()) {
-            $user=User::where('id',$request->id)->first();
-            $user->notify=1;
-            $user->follower_id=Auth::id();
-            $user->save();
-            }
-        }
-    }
-    public function unfollowUser(Request $request)
-    {
-        $user=User::where('id',$request->id)->first();
-        $follow = Follow::where(['user_id' => $request->id])->first();
-        if ($follow) {
-            $follow->delete();
-            $user->follower_id === 0;
+        $user=User::findOrFail($request->id);
 
+        if(Auth::user()->followings->contains($request->id)){
+            Auth::user()->followings()->detach($user->id);
+            $follow=2;
         }
+        elseif(!Auth::user()->followings->contains($request->id)) {
+            Auth::user()->followings()->attach($user->id);
+            $follow=1;
+        }
+
+        return response()->json($follow);
+
     }
+
 
     public function  profile(){
         $posts=Post::where('user_id',Auth::id())->get();
@@ -56,7 +50,7 @@ class UserController extends Controller
         $comments=Comment::where('user_id',Auth::id())->get();
         return view('profile',compact('posts','comments','cards'));
     }
-    public function  membeProfile($id){
+    public function  memberProfile($id){
         $member=User::where('id',$id)->first();
         $posts=Post::where('user_id',$member->id)->get();
         $comments=Comment::where('user_id',$member->id)->get();

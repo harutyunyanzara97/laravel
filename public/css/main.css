@@ -1090,21 +1090,10 @@ button.sign-up {
     margin-bottom: 15px;
 }
 
-.follow-btn {
-    display: flex;
-    background: transparent;
-    height: 40px;
-    width: 100%;
-    color: #fff;
-    /* width: 200px; */
-    font-size: 14px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(155, 203, 108, 0.73);
-    color: rgba(155, 203, 108, 0.73);
-
+.follow-btn:focus{
+color: rgba(155, 203, 108, 0.73);
+    text-decoration: none;
 }
-
 .follow-btn svg {
     fill: rgba(155, 203, 108, 0.73);;
 }
@@ -2329,6 +2318,7 @@ button.sign-up {
     font-size: 14px;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
     border: 1px solid rgba(155, 203, 108, 0.73);
     color: rgba(155, 203, 108, 0.73);
 
@@ -2905,7 +2895,7 @@ label {
     display: flex;
 }
 
-.member-following {
+.followings, .followed {
     background: rgba(202, 229, 175, 0.6);
     height: 40px;
     width: 85%;
@@ -2924,7 +2914,10 @@ label {
      z-index: 1;
      position: relative;
  }
-.member-following:hover {
+.followings:hover {
+    opacity: .8
+}
+.followed:hover {
     opacity: .8
 }
 .followedMember {
@@ -3152,6 +3145,19 @@ ul li {
 .comments-container h2 {
     color: #fff;
 }
+video {
+    border: 1px solid black;
+    display: none;
+}
+#upload-label svg {
+    margin-top:15px;
+}
+.create_video{
+    border: 1px solid black;
+    display: none;
+    height: 170px;
+    margin-top: -50px;
+}
 
 .green-box {
     background: rgba(78, 102, 54, 0.8);
@@ -3176,8 +3182,8 @@ ul li {
 }
 .post-slider .mySlides{
     display: block;
-    width: 65%;
-    margin: 0 auto;
+    width: 75%;
+    margin: 0 124px auto;
 }
 .post-slider .mySlides img{
     margin: auto;
