@@ -22,6 +22,7 @@ class PostController extends Controller
 {
     private $IMAGE = '';
     private $VIDEO = '';
+    private static $IMAGES = '';
 
     public function createPost($id)
     {
@@ -91,15 +92,16 @@ class PostController extends Controller
         $comments->user_id = Auth::id();
         $comments->post_id = $request->id;
         $comments->category_id = $request->cat_id;
-        $comments->save();
         if ($request->hasfile('photo')) {
             foreach ($request->file('photo') as $image) {
                 $name = time() . $image->getClientOriginalName();
-                $image->move(public_path() . '/images', $name);
-                $comments->images = $name;
-                $comments->save();
+                self::$IMAGES .= $name .'/';
+                $filename=substr(self::$IMAGES,0,-1);
+                $image->move(public_path() . '/images', $filename);
+                $comments->images = $filename;
             }
         }
+        $comments->save();
 
 //        if ($request->hasFile('video')) {
 //            foreach ($request->file('photo') as $video) {
@@ -138,6 +140,23 @@ class PostController extends Controller
 
     }
 
+    public function likePost(Request $request)
+    {
+        $post=Post::findOrFail($request->id);
+
+        if(Auth::user()->liking_posts->contains($request->id)){
+            Auth::user()->liking_posts()->detach($post->id);
+            $like=2;
+        }
+        elseif(!Auth::user()->liking_posts->contains($request->id)) {
+            Auth::user()->liking_posts()->attach($post->id);
+            $like=1;
+        }
+
+
+        return response()->json($like);
+
+    }
     public function myPosts()
     {
         $myPosts = Post::with('comments')->where('user_id', Auth::user()->getId())->paginate(5);

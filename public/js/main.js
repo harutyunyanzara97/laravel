@@ -85,6 +85,18 @@ $('.my-account').on('click', function (event) {
         }
     })
 });
+$('.checkPosts').on('click', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/check',
+        method: "get",
+        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+        success: (response) => {
+            console.log(response);
+            $(".profile-right-banner").html(response);
+        }
+    })
+});
 $('.myBalance').on('click', function (event) {
     event.preventDefault();
     $.ajax({

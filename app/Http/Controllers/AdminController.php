@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -25,7 +26,8 @@ class AdminController extends Controller
             $image=$request->img_url;
             $name = time() . $image->getClientOriginalName();
             $image->move(public_path() . '/images/', $name);
-            $data['img_url'] = $name;
+            $data['img_url'] =  str_replace(' ', '', $name);
+
         }
         $category->fill($data);
         $category->save();
@@ -59,6 +61,26 @@ class AdminController extends Controller
         Category::where("id", $request->id)->delete();
 
         return Redirect::to('/network/');
+    }
+    public function setModerator(Request $request) {
+        $moder=User::where('id',$request->id)->first();
+        $moder->notify = 1;
+        $moder->save();
+        return response()->json('This user now is moderator!');
+
+    }
+    public function unsetModerator(Request $request) {
+        $moder=User::where('id',$request->id)->first();
+        $moder->notify = 0;
+        $moder->save();
+        return response()->json('This user already does not have a moderator role!');
+
+    }
+    public function deleteUser(Request $request)
+    {
+        User::where("id", $request->id)->delete();
+
+        return Redirect::back();
     }
 
 }

@@ -458,11 +458,13 @@
                             Forum Posts ({{count($posts)}})
                         </a>
                     </li>
+                    @if($user->notify===1)
                     <li>
-                        <a class="myComments toCoursor">
-                            Forum Comments ({{count($comments)}})
+                        <a class="checkPosts toCoursor">
+                            Check posts ({{}})
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a class="myAccount toCoursor">
                             My Account
@@ -473,6 +475,12 @@
                             Balance history
                         </a>
                     </li>
+                    @if(Auth::user()->is_admin===1)
+                        <li>
+                            <a href="{{route('admin.dashboard')}}">Create category
+                            </a>
+                        </li>
+                    @endif
                 </ul>
 
                 <button  class="btn payment-btn" data-toggle="modal"
@@ -524,7 +532,7 @@
                                 <div class="lines-up"></div>
                             </div>
 
-@endforeach
+                            @endforeach
                             </div>
 
                             <div class="modal-body payment-body">

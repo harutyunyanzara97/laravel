@@ -24,7 +24,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/createCategory}', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('createCategory');
     Route::get('/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete'])->name('delete');
     Route::post('/update', [App\Http\Controllers\AdminController::class, 'update'])->name('updateCat');
+    Route::post('/moderator', [App\Http\Controllers\AdminController::class, 'setModerator'])->name('moderators');
+    Route::post('/unsetModerator', [App\Http\Controllers\AdminController::class, 'unsetModerator'])->name('unsetmoderators');
     Route::get('/edit', [App\Http\Controllers\AdminController::class, 'editCategory'])->name('edit');
+    Route::get('/deleteUser/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('deleteUser');
 });
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
@@ -34,6 +37,7 @@ Route::get('/contribute', [App\Http\Controllers\ContributeController::class, 'co
 Route::post('/editProfile', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editAbout');
 Route::post('/storeProfile', [App\Http\Controllers\UserController::class, 'storeProfile'])->name('storeProfile');
 Route::get('/account', [App\Http\Controllers\UserController::class, 'account'])->name('account');
+Route::get('/check', [App\Http\Controllers\UserController::class, 'checkPosts'])->name('check');
 Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])->name('balance');
 Route::post('/followUser', [App\Http\Controllers\UserController::class, 'followUser'])->name('follow-user');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
@@ -47,12 +51,15 @@ Route::get('/member-posts', [App\Http\Controllers\PostController::class, 'member
 Route::post('/store', [App\Http\Controllers\PostController::class, 'store'])->name('store');
 Route::post('/insertComment', [App\Http\Controllers\PostController::class, 'insertComments'])->name('insertComment');
 Route::post('/followPost', [App\Http\Controllers\PostController::class, 'followPost'])->name('follow-post');
+Route::post('/likePost', [App\Http\Controllers\PostController::class, 'likePost'])->name('like-post');
 Route::get('/createPost/{id}', [App\Http\Controllers\PostController::class, 'createPost'])->name('createPost');
 Route::get('/comments/{id}', [App\Http\Controllers\PostController::class, 'comments'])->name('comments');
 
 Route::get('/myComments', [App\Http\Controllers\CommentController::class, 'myComments'])->name('myComments');
 Route::get('/member-comments', [App\Http\Controllers\CommentController::class, 'memberComments'])->name('member-comments');
-Route::get('/insertLike', [App\Http\Controllers\CommentController::class, 'insertLikes'])->name('insertLike');
+Route::post('/likeComment', [App\Http\Controllers\CommentController::class, 'likeComment'])->name('like-comment');
+
+//Route::get('/insertLike', [App\Http\Controllers\CommentController::class, 'insertLikes'])->name('insertLike');
 Route::post('/reply', [App\Http\Controllers\CommentController::class, 'reply'])->name('replyMe');
 Route::post('/answer', [App\Http\Controllers\CommentController::class, 'reply_to_reply'])->name('answer');
 Route::post('/answer-to', [App\Http\Controllers\CommentController::class, 'answer_to_reply'])->name('answerToReply');

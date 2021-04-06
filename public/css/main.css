@@ -85,7 +85,9 @@ header #collapsingNavbar a:hover {
     display: flex;
     margin: 0;
 }
-
+.heart {
+    cursor: pointer;
+}
 .navbar-expand-md {
     justify-content: center;
     padding: 0;

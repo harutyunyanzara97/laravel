@@ -119,7 +119,7 @@
                 <div class="network-info">
                     <p>The Network
                     </p>
-                    <div class="input-row d-flex align-items-center">
+                    <div class="input-row">
                         <input type="text" class="form-controller" id="search" name="search" placeholder="search">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              class="_2_hbq desktop-header-search-icon-fill button-hover-fill"
@@ -180,7 +180,7 @@
                                        @endauth style="color:white;font-size: 13px; cursor: pointer;z-index:1;"
                                        @guest data-toggle="modal" aria-haspopup="true" aria-expanded="false"
                                        data-target=".login-modal" @else data-id="{{$category->id}}" @endguest>
-                                        @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif
+                                        @auth @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif @endauth
                                     </a>
 
                                     <div class="follow-details">
@@ -302,7 +302,7 @@
                                        @endauth style="color:white;font-size: 13px; cursor: pointer;z-index:1;"
                                        @guest data-toggle="modal" aria-haspopup="true" aria-expanded="false"
                                        data-target=".login-modal" @else data-id="{{$category->id}}" @endguest>
-                                        @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif
+                                       @auth @if(Auth::user()->following_categories->contains($category->id))Followed @else Follow @endif @endauth
                             </a>
             <div class="follow-details">
                 <button type="button" class="btn dropdown-toggle p-0"

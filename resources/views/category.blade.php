@@ -1,6 +1,4 @@
 
-
-@section('content')
 </head>
 <div class="modal show right" id="rightSideModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="display: block">
@@ -163,9 +161,6 @@
         let id = $('.cat_id').val();
         let name = $('.catname').val();
         let description = $('.description').val();
-        // let about = $("textarea#txtEditor").val();
-        // console.log(about);
-        // let formData={};
         let formdata = new FormData($(this)[0]);
         formdata.append('id', id);
         formdata.append('name', name);
@@ -189,7 +184,6 @@
                 let image=response.img_url;
                 $('#name-' + response.id).text(response.name);
                 $('#desc-' + response.id).text(response.description);
-                {{--$('#img-' + response.id).attr('src', `{{asset('images/' + ${image})}}`);--}}
             }, error: function (error) {
                 console.log(error)
             }

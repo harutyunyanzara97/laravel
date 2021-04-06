@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center justify-content-between  balance">
             <div class="green-box mb-3">
 
-                <p style="color:#fff">Your balance is {{$balance}} $</p>
+                <p style="color:#fff">Your balance is <span class="changeBalance">{{$balance}}</span> $</p>
             </div>
             <div class="d-flex align-items-center justify-content-between">
                 <button data-toggle="modal" @if($card) data-target="#stripeMod" @else
@@ -206,7 +206,7 @@
                                                 @csrf
 
                                                 <div class='form-row row'>
-                                                    <input type="number" class="form-control" id="price" name="price"
+                                                    <input type="number" class="form-control price"  name="price"
                                                            placeholder="Please enter the price">
                                                 </div>
                                                 @if($cards)
@@ -533,6 +533,18 @@
 
                 });
             });
+        </script>
+        <script>
+            $(document).on('click', '#payment-submit', function (event) {
+                let input=$('#price').val();
+                let input_price=parseInt(input);
+                let num= $('.changeBalance').text();
+                let num_price = parseInt(num);
+                num_price = num_price + input_price;
+
+                $('.changeBalance').text(num_price);
+            })
+
         </script>
 <script>
     $(document).on('click', '.reply_to_reply', function (event) {

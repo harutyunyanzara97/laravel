@@ -14,7 +14,7 @@ class AddFollowerIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('follower_id')->nullable();
+            $table->bigInteger('follower_id')->nullable();
         });
     }
 

@@ -14,7 +14,7 @@ class CreatePostFollowersTable extends Migration
     public function up()
     {
         Schema::create('post_followers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('follower_id')->unsigned();
             $table->unsignedBigInteger('leader_id')->unsigned();
             $table->timestamps();

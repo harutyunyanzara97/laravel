@@ -169,11 +169,16 @@ class StripePaymentController extends Controller
 
     public function pay(Request $request)
     {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = $request->user();
         $charged_user = User::where('id', $request->id)->first();
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $customer = Customer::retrieve($user->stripe_id);
         if ($user->balance >= $request->price) {
+//            $price = \Stripe\Price::create([
+//                'product' => $request->postId,
+//                'unit_amount' => 100 * $request->price,
+//                'currency' => 'usd'
+//            ]);
             $transaction = Stripe\Charge::create([
                 "amount" => 100 * $request->price,
                 "currency" => "usd",
