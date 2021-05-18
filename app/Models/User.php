@@ -96,4 +96,8 @@ class User extends Authenticatable
 
         return $this->hasMany(Transaction::class,'user_id','id');
     }
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

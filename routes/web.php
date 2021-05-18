@@ -42,6 +42,8 @@ Route::get('/balance', [App\Http\Controllers\UserController::class, 'balance'])-
 Route::post('/followUser', [App\Http\Controllers\UserController::class, 'followUser'])->name('follow-user');
 Route::post('/storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::post('/updateUser', [App\Http\Controllers\UserController::class, 'updateUser'])->name('update');
+Route::get('/message', [App\Http\Controllers\UserController::class, 'messages'])->name('message');
+
 
 Route::post('/update-post', [App\Http\Controllers\PostController::class, 'update'])->name('updatePost');
 Route::get('/edit-post/{id}', [App\Http\Controllers\PostController::class, 'editPost'])->name('editPost');
@@ -90,3 +92,8 @@ Route::get('/searchPost',[App\Http\Controllers\SearchController::class,'searchPo
 
 Route::get('/home', [App\Http\Controllers\MainController::class, 'index'])->name('home');
 
+///*Route::post('/messages', [App\Http\Controllers\Api\V1\MessagesController::class,'store']);
+//Route::get('/messages', [App\Http\Controllers\Api\V1\MessagesController::class,'fetchMessages']);*/
+Route::get('api/users', [App\Http\Controllers\Api\V1\UsersChatController::class, 'index']);
+Route::post('api/messages', [App\Http\Controllers\Api\V1\MessagesController::class, 'index']);
+Route::post('api/messages/send', [App\Http\Controllers\Api\V1\MessagesController::class, 'store']);

@@ -114,4 +114,8 @@ class UserController extends Controller
         return view('balance',compact('user','balance','card','transactions','seller_transactions'));
     }
 
+    public function messages() {
+        return view('comments.messages');
+    }
+
 }

@@ -5,6 +5,9 @@
     <title>sanctuaryforhumanity</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+        <meta name="userID" content="{{Auth::id() }}">
+    @endauth
     <link rel="stylesheet" type="text/css" href="{{asset('/css/reset.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
@@ -37,6 +40,7 @@
     {{--    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>--}}
 </head>
 <body translate="no">
+<div id="app">
 <div class="page-bg"></div>
 <div class="position-relative">
     <header class="header-inner">
@@ -51,7 +55,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="menu-box">
-
                     <div class="navbar-collapse collapse" id="collapsingNavbar">
                         <ul>
                             <li>
@@ -146,6 +149,7 @@
     <main class="py-4">
         @yield('content')
     </main>
+</div>
 </div>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
