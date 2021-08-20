@@ -37,7 +37,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex">
                             @if($user->avatar_url)<img class="mt-1 ava" src="{{asset('images/'.$user->avatar_url)}}" width="40px"
-                                 height="40px">@endif
+                                                       height="40px">@endif
                             <div class="d-flex ml-3 flex-column">
                                 <p class="mb-0"> {{$user->name}}</p>
                                 <p>

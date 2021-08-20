@@ -5,10 +5,11 @@
  */
 
 require('./bootstrap');
-
-window.Vue = require('vue').default;
-import VueChatScroll from 'vue-chat-scroll'
-Vue.use(VueChatScroll)
+// window.Vue = require('vue');
+import Vue from 'vue'
+// window.Vue = require('vue').default;
+// import VueChatScroll from 'vue-chat-scroll'
+// Vue.use(VueChatScroll)
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,7 +24,18 @@ Vue.use(VueChatScroll)
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 // Vue.component('chat-app', require('./components/ChatApplication.vue'));
-Vue.component('chat-application', require('./components/ChatApplication.vue').default);
+
+
+// Vue.component('chats', require('./components/ExampleComponent.vue').default);
+
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+// Vue.component('chat-component', require('./components/ChatComponent.vue').default);
+
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

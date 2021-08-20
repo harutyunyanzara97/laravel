@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Follow;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Follow;
+
+
 
 class Category extends Model
 {

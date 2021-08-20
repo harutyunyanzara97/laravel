@@ -41,4 +41,20 @@ class Reply extends Model
     {
         return $this->hasMany(Answer::class, 'reply_id');
     }
+    public function isBought(){
+
+        return $this->hasMany(Reply_transaction::class, 'reply_id')->where('reply_id', $this->id);
+    }
+    public function isAgree()
+    {
+        return $this->hasMany(Rates_reply::class, 'leader_id')->where('leader_id', $this->id)->where("title", "helpful");
+    }
+    public function isFence() {
+        return $this->hasMany(Rates_reply::class, 'leader_id')->where('leader_id', $this->id)->where("title", "inflammatory");
+
+    }
+    public function isDisAgree()
+    {
+        return $this->hasMany(Rates_reply::class, 'leader_id')->where('leader_id', $this->id)->where("title", "calculated");
+    }
 }

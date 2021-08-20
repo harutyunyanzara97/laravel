@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Post_transaction;
+use App\Models\Rates_post;
+use App\Models\Reply_transaction;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Follow;
 use App\Models\Category_follower;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Illuminate\Support\Facades\Redirect;
@@ -41,7 +47,16 @@ class CategoryController extends Controller
     public function showPosts($id)
     {
         $category = Category::where('id', $id)->first();
-        $posts = Post::with('comments', 'likes')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
-        return view('posts.posts', compact('category', $category, 'posts'));
+        $helpfully=Rates_Post::where('title','helpful')->get();
+        $helpful=json_decode($helpfully);
+        $inflammatory=Rates_Post::where('title','inflammatory')->get();
+        $calculated=Rates_Post::where('title','calculated')->get();
+        $cards = Card::where('user_id', Auth::id())->get();
+        $posts = Post::with('comments', 'likes', 'rates')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
+        if (Auth::user() && $cards) {
+            return view('posts.posts', compact('category', 'posts','helpful','inflammatory','calculated','cards'));
+        } else {
+            return view('posts.posts', compact('category', 'posts','helpful','inflammatory','calculated'));
+        }
     }
 }

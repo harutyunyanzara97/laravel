@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Comment_transaction;
+use App\Models\Post_transaction;
+use App\Models\Reply_transaction;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use mysql_xdevapi\Exception;
@@ -169,16 +173,11 @@ class StripePaymentController extends Controller
 
     public function pay(Request $request)
     {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = $request->user();
         $charged_user = User::where('id', $request->id)->first();
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $customer = Customer::retrieve($user->stripe_id);
         if ($user->balance >= $request->price) {
-//            $price = \Stripe\Price::create([
-//                'product' => $request->postId,
-//                'unit_amount' => 100 * $request->price,
-//                'currency' => 'usd'
-//            ]);
             $transaction = Stripe\Charge::create([
                 "amount" => 100 * $request->price,
                 "currency" => "usd",
@@ -190,7 +189,51 @@ class StripePaymentController extends Controller
                 $amount = floatval($request->price);
                 $user->balance -= $amount;
                 $user->save();
-                $charged_user->balance += $amount - ($amount * 10) / 100;
+                if($charged_user->payment_type !== 2) {
+                    $charged_user->balance += $amount - ($amount * 5) / 10;
+                    $charged_user->save();
+                } else {
+                    $charged_user->balance += $amount - ($amount * 9) / 10;
+                    $charged_user->save();
+                }
+
+                $user_transaction = new Transaction();
+                $user_transaction->transaction_id = $transaction->id;
+                $user_transaction->user_id = $user->id;
+                $user_transaction->to_id = $charged_user->id;
+                $user_transaction->amount = $amount;
+                $user_transaction->date = date('Y-m-d H:i:s');
+                $user_transaction->save();
+
+                $post_transaction = new Post_transaction();
+                $post_transaction->post_id=$request->postId;
+                $post_transaction->save();
+            }
+            return response()->json('Thanks,your payment was done successfully!');
+        } else {
+            return response()->json('Your balance is smaller than price you have been written! Please go to your profile and replenish your card');
+        }
+    }
+
+    public function payForComment(Request $request)
+    {
+        $user = $request->user();
+        $charged_user = User::where('id', $request->userId)->first();
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $customer = Customer::retrieve($user->stripe_id);
+        if ($user->balance >= $request->price) {
+            $transaction = Stripe\Charge::create([
+                "amount" => 100 * $request->price,
+                "currency" => "usd",
+                "description" => "Test payment.",
+                'customer' => $user->stripe_id,
+                'source' => $customer->default_source
+            ]);
+            if ($transaction) {
+                $amount = floatval($request->price);
+                $user->balance -= $amount;
+                $user->save();
+                $charged_user->balance += $amount - ($amount * 50) / 100;
                 $charged_user->save();
 
                 $user_transaction = new Transaction();
@@ -200,6 +243,10 @@ class StripePaymentController extends Controller
                 $user_transaction->amount = $amount;
                 $user_transaction->date = date('Y-m-d H:i:s');
                 $user_transaction->save();
+
+                $comment_transaction = new Comment_transaction();
+                $comment_transaction->comment_id=$request->commentId;
+                $comment_transaction->save();
             }
             return response()->json('Thanks,your payment was done successfully!');
         } else {
@@ -207,11 +254,48 @@ class StripePaymentController extends Controller
         }
     }
 
+    public function payForReply(Request $request)
+    {
 
+        $user = $request->user();
+        $charged_user = User::where('id', $request->replyUser)->first();
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $customer = Customer::retrieve($user->stripe_id);
+        if ($user->balance >= $request->price) {
+            $transaction = Stripe\Charge::create([
+                "amount" => 100 * $request->price,
+                "currency" => "usd",
+                "description" => "Test payment.",
+                'customer' => $user->stripe_id,
+                'source' => $customer->default_source
+            ]);
+            if ($transaction) {
+                $amount = floatval($request->price);
+                $user->balance -= $amount;
+                $user->save();
+                $charged_user->balance += $amount - ($amount * 50) / 100;
+                $charged_user->save();
+
+                $user_transaction = new Transaction();
+                $user_transaction->transaction_id = $transaction->id;
+                $user_transaction->user_id = $user->id;
+                $user_transaction->to_id = $charged_user->id;
+                $user_transaction->amount = $amount;
+                $user_transaction->date = date('Y-m-d H:i:s');
+                $user_transaction->save();
+
+                $reply_transaction = new Reply_transaction();
+                $reply_transaction->reply_id=$request->replyId;
+                $reply_transaction->save();
+            }
+            return response()->json('Thanks,your payment was done successfully!');
+        } else {
+            return response()->json('Your balance is smaller than price you have been written! Please go to your profile and replenish your card');
+        }
+    }
     public function donation(Request $request)
     {
         $user = Auth::user();
-
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         if (!$user) {
             Stripe\Charge::create([
@@ -243,8 +327,6 @@ class StripePaymentController extends Controller
                     $user_transaction->save();
                 }
                 return response()->json('Thanks,your payment was done successfully!');
-
-
             }
             else {
                 return response()->json('Your balance is smaller than price you have been written! Please go to your profile and replenish your card');

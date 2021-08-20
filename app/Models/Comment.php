@@ -33,4 +33,23 @@ class Comment extends Model
     {
         return $this->hasMany(Reply::class, 'comment_id');
     }
+    public function isBought(){
+        return $this->hasMany(Comment_transaction::class, 'comment_id')->where('comment_id', $this->id);
+    }
+    public function isAgree()
+    {
+        return $this->hasMany(Rates_comment::class, 'leader_id')->where('leader_id', $this->id)->where("title", "helpful");
+    }
+    public function isFence() {
+        return $this->hasMany(Rates_comment::class, 'leader_id')->where('leader_id', $this->id)->where("title", "inflammatory");
+
+    }
+    public function isDisAgree()
+    {
+        return $this->hasMany(Rates_comment::class, 'leader_id')->where('leader_id', $this->id)->where("title", "calculated");
+    }
+    public function ratings()
+    {
+        return $this->hasMany(Comment_rating::class,'comment_id');
+    }
 }

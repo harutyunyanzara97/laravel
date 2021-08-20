@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="main-section">
-            <div class="middle-content">
+            <div class="middle-content" contenteditable="true">
                 <p>
                     Welcome to the beta test for the Sanctuary for Humanity.
                 </p>
@@ -50,7 +50,28 @@
                     to go.
                 </p>
             </div>
+            @auth
+                @if(Auth::user()->is_admin==="1")
+                    <button id="edit_content" class="publish_btn">Edit</button>
+                @endif
+            @endauth
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            if(localStorage.getItem('middle-content')) {
+                document.querySelector('.middle-content').innerHTML = localStorage.getItem('middle-content');
+            }
+        }
 
+        let editBtn = document.querySelector('#edit_content');
+        let content = document.querySelector('.middle-content');
+
+        editBtn.addEventListener('click', () => {
+            content.contentEditable = !content.isContentEditable;
+            if(content.contentEditable === 'false') {
+                localStorage.setItem('middle-content', content.innerHTML);
+            }
+        });
+    </script>
 @endsection

@@ -86,9 +86,7 @@
 
         </div>
     </div>
-    <div class="d-flex pagination">
-        {{ $myPosts->links() }}
-    </div>
+
 </div>
 
 

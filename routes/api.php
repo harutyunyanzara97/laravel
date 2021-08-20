@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-//    Route::post('messages', [App\Http\Controllers\Api\V1\MessagesController::class,'index']);
-//    Route::post('messages/send', [App\Http\Controllers\Api\V1\MessagesController::class,'store']);
+//    Route::post('/messages', [App\Http\Controllers\Api\V1\MessagesController::class,'index']);
+//    Route::get('/messages', [App\Http\Controllers\Api\V1\MessagesController::class,'fetchMessages']);
+//    Route::post('/messages/send', [App\Http\Controllers\Api\V1\MessagesController::class,'store']);
+//
 //    Route::get('users', [App\Http\Controllers\Api\V1\UsersChatController::class,'index']);
 

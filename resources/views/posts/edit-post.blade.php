@@ -35,8 +35,9 @@
                         <div class="d-flex">
                             @auth
                                 @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}"
-                                                                  class="img-fluid logo" width=24px
+                                                                  class="img-fluid logo " width=24px
                                                                   height="24px"/>@endif
+
                                 <a href="{{route('profile')}}"
                                    style="color:#fff;margin-left:8px;">{{Auth::user()->name}} </a>
                             @endauth
@@ -54,10 +55,8 @@
                         <form method="post" id="myForm" enctype="multipart/form-data" action="{{url('/update-post')}}">
                             @csrf
                             <input type="hidden" value="{{$modal_post->id}}" name="id">
-                            <input type="text" name="title"
-                                   class="textEditt post-create @error('title') is-invalid @enderror"
-                                   placeholder="Give this post a title" value="{{$modal_post->title}}"
-                                   autocomplete="Off">
+                            <input type="text" name="title" class="textEditt post-create @error('title') is-invalid @enderror"
+                                   placeholder="Give this post a title" value="{{$modal_post->title}}" autocomplete="Off">
                             @error('title')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -167,7 +166,6 @@
             for (var i = 0; i < input.files.length; ++i) {
                 let url = $('#imageUpload')[i]
                 console.log(input.files[i].url, '55555555555555555');
-                // children += '<img src="'+ url + input.files.item(i).name + '" width="200px" height="200px">';
             }
             output.innerHTML = children;
         }

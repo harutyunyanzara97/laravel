@@ -32,18 +32,18 @@
     <div class="profile-banner align-items-center">
         <div class="account-form comments-container">
             <h2 class="mb-3">Forum Comments</h2>
-           @foreach($posts as $post)
+            @foreach($posts as $post)
 
                 <div class="green-box mb-3">
                     <div class="comment-inner-container mb-3">
                         <p>
-                            {{$post->title}}
+                            <a href="{{route('comments',$post->id)}}" style="color:white;text-decoration: none">
+                                {{$post->title}}
+                            </a>
+
                         </p>
                         <span class="green-border"></span>
                         <div class="d-flex align-items-center justify-content-between">
-{{--                            <p class="mt-3"> {{count($myComments)}} comments--}}
-
-{{--                            </p>--}}
                             <div class="d-flex">
                                 <p>
                                     {{count($post->likes)}}
@@ -70,34 +70,29 @@
                             <p>
                                 {{date_format(date_create($post->created_at),'M d y')}}
                             </p>
+                        </div>
+                        <div class="d-flex flex-column">
 
-
-                    </div>
-                    <div class="d-flex flex-column">
-
-                        @foreach ($post->comments as $comment)
-                        <p class="mt-3">{{$comment->description}}</p>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div></div>
-                                <div class="d-flex">
-{{--                                    <p>--}}
-{{--                                        {{count($myComment->likes)}}--}}
-{{--                                    </p>--}}
-                                    <div>
-                                        <i class="fa fa-heart ml-3"></i>
+                            @foreach ($post->comments as $comment)
+                                <p class="mt-3">{{$comment->description}}</p>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div></div>
+                                    <div class="d-flex">
+                                        <div>
+                                            <i class="fa fa-heart ml-3"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
+
+
                 </div>
-
-
-        </div>
             @endforeach
 
+        </div>
     </div>
-</div>
 
 
 </body>

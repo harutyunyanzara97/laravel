@@ -11,8 +11,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
-
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
@@ -39,16 +37,16 @@
     }
 
 
-    .credit_card{
+    .credit_card {
         width: 320px;
         height: 190px;
         -webkit-perspective: 600px;
         -moz-perspective: 600px;
-        perspective:600px;
+        perspective: 600px;
 
     }
 
-    .card__part{
+    .card__part {
         box-shadow: 1px 1px #aaa3a3;
         top: 0;
         position: absolute;
@@ -57,7 +55,7 @@
         display: inline-block;
         width: 320px;
         height: 190px;
-        background-color:#aaa3a3;
+        background-color: #aaa3a3;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -74,7 +72,7 @@
         -moz-backface-visibility: hidden;
     }
 
-    .card__front{
+    .card__front {
         padding: 18px;
         -webkit-transform: rotateY(0);
         -moz-transform: rotateY(0);
@@ -96,11 +94,12 @@
         height: 16px;
     }
 
-    .card__front-logo{
+    .card__front-logo {
         position: absolute;
         top: 18px;
         right: 18px;
     }
+
     .card__square {
         border-radius: 5px;
         height: 30px;
@@ -131,7 +130,7 @@
     .card__label {
         font-size: 10px;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.8);
+        color: rgba(255, 255, 255, 0.8);
         letter-spacing: 1px;
     }
 
@@ -148,6 +147,7 @@
     .card__back-content {
         padding: 15px 15px 0;
     }
+
     .card__secret--last {
         color: #303030;
         text-align: right;
@@ -158,11 +158,11 @@
     .card__secret {
         padding: 5px 12px;
         background-color: #fff;
-        position:relative;
+        position: relative;
     }
 
-    .card__secret:before{
-        content:'';
+    .card__secret:before {
+        content: '';
         position: absolute;
         top: -3px;
         left: -3px;
@@ -183,23 +183,25 @@
         bottom: 15px;
         left: 15px;
     }
+
     #stripeModal {
         height: 70%;
         margin: auto;
         overflow: hidden;
     }
-    #stripeModal  .modal-content {
+
+    #stripeModal .modal-content {
         padding: 20px;
         border-radius: 5px;
         height: 100%;
     }
 
-    #stripeModal  .card input {
+    #stripeModal .card input {
         margin: 0 !important;
         width: 85%;
     }
 
-    #stripeModal  .modal-dialog {
+    #stripeModal .modal-dialog {
         /* height: auto; */
         margin: auto;
         /* position: absolute; */
@@ -211,19 +213,20 @@
         top: 0;
         border-radius: 10px;
     }
-    #stripeModal  .modal-dialog h2 {
+
+    #stripeModal .modal-dialog h2 {
         font-size: 24px;
     }
 
-    #stripeModal  .modal-body {
+    #stripeModal .modal-body {
         padding: 15px 0;
     }
 
-    #stripeModal  .modal-header {
+    #stripeModal .modal-header {
         padding: 0;
     }
 
-    #stripeModal  .card-body {
+    #stripeModal .card-body {
         padding: 15px 0;
     }
 
@@ -233,14 +236,16 @@
         cursor: pointer;
     }
 
-    #stripeModal  .modal-header .close {
+    #stripeModal .modal-header .close {
         position: absolute;
         right: 10px;
         top: -5px;
     }
-    #stripeModal  .input-group {
-        border:1px solid #d6d6d6;
+
+    #stripeModal .input-group {
+        border: 1px solid #d6d6d6;
     }
+
     #payment-form {
         height: 100px;
     }
@@ -254,8 +259,6 @@
 
             <div class="navbar-expand-md navbar-dark">
                 <div class="flex-row d-flex">
-                    <!--                    <h1><a class="navbar-brand" href="home.html"><img src="images/logo.png" class="img-fluid logo"-->
-                    <!--                                                                      alt="logo" title="logo"></a></h1>-->
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -301,13 +304,6 @@
                         @auth
                             @if(Auth::user()->avatar_url)<img src="{{asset('images/'.Auth::user()->avatar_url)}}"
                                                               width="30px" height="30px">@endif
-
-                            {{--                        <svg data-bbox="0 0 50 50" data-type="shape" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" class="dropIcon">--}}
-                            {{--                            <g>--}}
-                            {{--                                <path d="M25 48.077c-5.924 0-11.31-2.252-15.396-5.921 2.254-5.362 7.492-8.267 15.373-8.267 7.889 0 13.139 3.044 15.408 8.418-4.084 3.659-9.471 5.77-15.385 5.77m.278-35.3c4.927 0 8.611 3.812 8.611 8.878 0 5.21-3.875 9.456-8.611 9.456s-8.611-4.246-8.611-9.456c0-5.066 3.684-8.878 8.611-8.878M25 0C11.193 0 0 11.193 0 25c0 .915.056 1.816.152 2.705.032.295.091.581.133.873.085.589.173 1.176.298 1.751.073.338.169.665.256.997.135.515.273 1.027.439 1.529.114.342.243.675.37 1.01.18.476.369.945.577 1.406.149.331.308.657.472.98.225.446.463.883.714 1.313.182.312.365.619.56.922.272.423.56.832.856 1.237.207.284.41.568.629.841.325.408.671.796 1.02 1.182.22.244.432.494.662.728.405.415.833.801 1.265 1.186.173.154.329.325.507.475l.004-.011A24.886 24.886 0 0 0 25 50a24.881 24.881 0 0 0 16.069-5.861.126.126 0 0 1 .003.01c.172-.144.324-.309.49-.458.442-.392.88-.787 1.293-1.209.228-.232.437-.479.655-.72.352-.389.701-.78 1.028-1.191.218-.272.421-.556.627-.838.297-.405.587-.816.859-1.24a26.104 26.104 0 0 0 1.748-3.216c.208-.461.398-.93.579-1.406.127-.336.256-.669.369-1.012.167-.502.305-1.014.44-1.53.087-.332.183-.659.256-.996.126-.576.214-1.164.299-1.754.042-.292.101-.577.133-.872.095-.89.152-1.791.152-2.707C50 11.193 38.807 0 25 0"></path>--}}
-                            {{--                            </g>--}}
-                            {{--                        </svg>--}}
-
                             <button type="button" class="btn-generic profile-arrow  dropdown-toggle"
                                     @guest data-toggle="modal" @else data-toggle="dropdown"
                                     @endguest aria-haspopup="true" aria-expanded="false"
@@ -564,21 +560,35 @@
         </div>
         <div class="profile-banner">
             <div class="profile-left-banner">
+                @if(Auth::user()->is_admin === "1")
+                    <label class="switch">
+                        <input id="checkboxinp" type="checkbox" data-id="{{$member->id}}" checked>
+                        <div class="slider round"></div>
+                    </label>
+                @endif
                 <div class="profile-inner">
 
                     <div class="avatar-upload">
 
-                        <div class="avatar-preview mt-3">
-
-                            <div id="imagePreview"
-                                 style="background-image: url({{asset('images/'. $member->avatar_url)}})">
+                        <div class="avatar-preview mt-2">
+                            <div class="avatar-preview mt-2">
+                                @if(Auth::user() && $member->avatar_url) <img
+                                    src="{{asset('images/'. $member->avatar_url)}}" id="imagePreview"
+                                    style="width:100px;height: 100px;border-radius: 50%;">
+                                @endif
                             </div>
+
+
                         </div>
                     </div>
-                    <p class="mt-3 mb-3 text-white text-center">{{$member->name}}</p>
+                    <p class="mt-3 text-white text-center">{{$member->name}}</p>
+                    @if($member->notify==="1") <p class="text-white text-center">Moderator</p> @endif
                     @auth
-                            <button type="button" id="followButton" class="edit-btn{{Auth::user()->followings->contains($member->id) ? 'followed edit-btn' : 'followings edit-btn' }}"  data-id="{{$member->id}}">@if(Auth::user()->followings->contains($member->id))Followed @else Follow @endif </button>
-                        @endauth
+                        <button type="button" id="followButton"
+                                class="edit-btn{{Auth::user()->followings->contains($member->id) ? 'followed edit-btn' : 'followings edit-btn' }}"
+                                data-id="{{$member->id}}">@if(Auth::user()->followings->contains($member->id))
+                                Followed @else Follow @endif </button>
+                    @endauth
                 </div>
                 <ul class="profile-list">
                     <li>
@@ -596,21 +606,7 @@
                             Forum Comments ({{count($comments)}})
                         </a>
                     </li>
-
-
-
-                    {{--                    <li>--}}
-                    {{--                        <a href="#">--}}
-                    {{--                            Notifications--}}
-                    {{--                        </a>--}}
-                    {{--                    </li>--}}
-                    {{--                    <li>--}}
-                    {{--                        <a href="#">--}}
-                    {{--                            Settings--}}
-                    {{--                        </a>--}}
-                    {{--                    </li>--}}
                 </ul>
-
 
 
                 @if (Session::has('success'))
@@ -633,6 +629,68 @@
                     <div class="container-fluid rich-editor">
                         <h3>About
                         </h3>
+                        <div class="container">
+                            <div class="row lead">
+                                <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='{{intval($post->ratings[0]->rate)}}'>
+                                    @for($i=0;$i<5; $i++)
+                                        @if($i <= intval($i<$post->ratings[0]->rate))
+                                            <i class='fa fa-star-o rate'></i>
+                                        @else
+                                            <i class='fa fa-star'></i>
+                                        @endif
+                                    @endfor
+                                </div>
+
+
+                                <span id="count-existing"></span>
+                            </div>
+                        </div>
+                        {{--                        <div class="container">--}}
+                        {{--                            <div class="row lead">--}}
+                        {{--                                @if($post->rating_is_one)--}}
+                        {{--                                    <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='4'>--}}
+                        {{--                                        <i class='fa fa-star'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                    </div>--}}
+                        {{--                                @elseif($post->rating_is_two)--}}
+                        {{--                                    <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='2'>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                    </div>--}}
+                        {{--                                @elseif($post->rating_is_three)--}}
+                        {{--                                    <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='3'>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                    </div>--}}
+                        {{--                                @elseif($post->rating_is_four)--}}
+                        {{--                                    <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='4'>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                    </div>--}}
+                        {{--                                @else--}}
+                        {{--                                    <div id="stars-existing" class="starrr" data-id="{{$post->id}}" data-rating='5'>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star-o rate'></i>--}}
+                        {{--                                        <i class='fa fa-star'></i>--}}
+                        {{--                                    </div>--}}
+                        {{--                                @endif--}}
+                        {{--                                <span id="count-existing"></span>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                         <div class="container-fluid">
                             <p class="pull-right">
                                 <script>document.write(new Date().getFullYear())</script>
@@ -642,7 +700,8 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 nopadding">
-                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing Here yet.
+                                        <div class="about-member">@if($member->about){{$member->about}}@else Nothing
+                                            Here yet.
                                             This member hasn't written about themselves.@endif</div>
                                     </div>
                                 </div>
@@ -665,6 +724,8 @@
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
 {{--<script src="{{asset('js/main.js')}}"></script>--}}
 <script src="{{asset('js/editor.js')}}"></script>
@@ -684,11 +745,11 @@
 <script>
     $('.comment').on('click', function (event) {
         event.preventDefault();
-        let id=$(this).data('id');
+        let id = $(this).data('id');
         $.ajax({
             url: '/member-comments',
             method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: id},
             success: (response) => {
                 console.log(response);
                 $(".profile-right-banner").html(response);
@@ -697,11 +758,11 @@
     });
     $('.posts').on('click', function (event) {
         event.preventDefault();
-        let id=$(this).data('id');
+        let id = $(this).data('id');
         $.ajax({
             url: '/member-posts',
             method: "get",
-            data: {_token: $('meta[name="csrf-token"]').attr('content'),id:id},
+            data: {_token: $('meta[name="csrf-token"]').attr('content'), id: id},
             success: (response) => {
                 console.log(response);
                 $(".profile-right-banner").html(response);
@@ -740,14 +801,167 @@
                 data: {_token: $('meta[name="csrf-token"]').attr('content'), id: toFollowId},
                 success: function (r) {
 
-                    if( r==1 ) {
+                    if (r == 1) {
                         follow.html('Followed');
 
-                    } else if( r==2 ) {
+                    } else if (r == 2) {
                         follow.html('Follow');
 
                     }
 
+                }
+            })
+        }
+    })
+
+
+    var __slice = [].slice;
+
+    (function ($, window) {
+        var Starrr;
+
+        Starrr = (function () {
+            Starrr.prototype.defaults = {
+                rating: void 0,
+                numStars: 5,
+                change: function (e, value) {
+                }
+            };
+
+            function Starrr($el, options) {
+                var i, _, _ref,
+                    _this = this;
+
+                this.options = $.extend({}, this.defaults, options);
+                this.$el = $el;
+                _ref = this.defaults;
+                for (i in _ref) {
+                    _ = _ref[i];
+                    if (this.$el.data(i) != null) {
+                        this.options[i] = this.$el.data(i);
+                    }
+                }
+                this.createStars();
+                this.syncRating();
+                this.$el.on('mouseover.starrr', 'i', function (e) {
+                    return _this.syncRating(_this.$el.find('i').index(e.currentTarget) + 1);
+                });
+                this.$el.on('mouseout.starrr', function () {
+                    return _this.syncRating();
+                });
+                this.$el.on('click.starrr', 'i', function (e) {
+                    return _this.setRating(_this.$el.find('i').index(e.currentTarget) + 1);
+                });
+                this.$el.on('starrr:change', this.options.change);
+            }
+
+            Starrr.prototype.createStars = function () {
+                var _i, _ref, _results;
+
+                _results = [];
+                for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
+                    // _results.push(this.$el.append("<i class='fa fa-star-o rate'></i>"));
+                }
+                return _results;
+            };
+
+            Starrr.prototype.setRating = function (rating) {
+                if (this.options.rating === rating) {
+                    rating = void 0;
+                }
+                this.options.rating = rating;
+                this.syncRating();
+                return this.$el.trigger('starrr:change', rating);
+            };
+
+            Starrr.prototype.syncRating = function (rating) {
+                var i, _i, _j, _ref;
+
+                rating || (rating = this.options.rating);
+                if (rating) {
+                    for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+                        this.$el.find('i').eq(i).removeClass('fa-star-o rate').addClass('fa-star rate');
+                    }
+                }
+                if (rating && rating < 5) {
+                    for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
+                        this.$el.find('i').eq(i).removeClass('fa-star rate').addClass('fa-star-o rate');
+                    }
+                }
+                if (!rating) {
+                    return this.$el.find('i').removeClass('fa-star rate').addClass('fa-star-o rate');
+                }
+            };
+
+            return Starrr;
+
+        })();
+        return $.fn.extend({
+            starrr: function () {
+                var args, option;
+
+                option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+                return this.each(function () {
+                    var data;
+
+                    data = $(this).data('star-rating');
+                    if (!data) {
+                        $(this).data('star-rating', (data = new Starrr($(this), option)));
+                    }
+                    if (typeof option === 'string') {
+                        return data[option].apply(data, args);
+                    }
+                });
+            }
+        });
+    })(window.jQuery, window);
+
+    $(function () {
+        return $(".starrr").starrr();
+    });
+
+    $(document).ready(function () {
+        $('#stars').on('starrr:change', function (e, value) {
+            $('#count').html('The rate is' + value);
+        });
+
+        $('#stars-existing').on('starrr:change', function (e, value) {
+            $('#count-existing').html('Your rate is' + ' ' + value + 'star');
+            let rate = $(this);
+            let post = rate.attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '/rating',
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: value, post: post},
+                success: function (r) {
+                    $(this).find('.star-number').text(r)
+                }
+            })
+        });
+    });
+
+    var switchStatus = false
+    $("#checkboxinp").on('change', function () {
+        if ($(this).is(':checked')) {
+            switchStatus = $(this).is(':checked');
+            var id = $(this).attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '/setType',
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: id},
+                success: function (r) {
+                    Swal.fire(r);
+                }
+            })
+
+        } else {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '/unsetType',
+                data: {_token: $('meta[name="csrf-token"]').attr('content'), id: id},
+                success: function (r) {
+                    Swal.fire(r);
                 }
             })
         }

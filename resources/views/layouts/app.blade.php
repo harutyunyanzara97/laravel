@@ -14,6 +14,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/css/responsive.css')}}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{{--    <script src="{{ mix('js/app.js') }}" defer></script>--}}
+
     {{--    <link rel="stylesheet" type="text/css" href="{{asset('/css/editor.css')}}"/>--}}
 
 
@@ -41,7 +45,7 @@
 </head>
 <body translate="no">
 <div id="app">
-<div class="page-bg"></div>
+    <div class="page-bg"></div>
 <div class="position-relative">
     <header class="header-inner">
         <div class="container">

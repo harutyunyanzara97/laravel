@@ -115,8 +115,6 @@
         }
         x[i].appendChild(b);
         a.addEventListener("click", function (e) {
-            /*when the select box is clicked, close any other select boxes,
-            and open/close the current select box:*/
             e.stopPropagation();
             closeAllSelect(this);
             this.nextSibling.classList.toggle("select-hide");
@@ -125,8 +123,6 @@
     }
 
     function closeAllSelect(elmnt) {
-        /*a function that will close all select boxes in the document,
-        except the current select box:*/
         var x, y, i, xl, yl, arrNo = [];
         x = document.getElementsByClassName("select-items");
         y = document.getElementsByClassName("select-selected");
@@ -146,8 +142,6 @@
         }
     }
 
-    /*if the user clicks anywhere outside the select box,
-    then close all select boxes:*/
     document.addEventListener("click", closeAllSelect);
 </script>
 </body>

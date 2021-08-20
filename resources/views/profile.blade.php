@@ -11,8 +11,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}"/>
-
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
@@ -109,8 +107,6 @@
 
             <div class="navbar-expand-md navbar-dark">
                 <div class="flex-row d-flex">
-                    <!--                    <h1><a class="navbar-brand" href="home.html"><img src="images/logo.png" class="img-fluid logo"-->
-                    <!--                                                                      alt="logo" title="logo"></a></h1>-->
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -414,18 +410,19 @@
         <div class="profile-banner">
             <div class="profile-left-banner">
                 <div class="profile-inner">
-                        <div class="avatar-upload">
+                    <div class="avatar-upload">
 
+                        <div class="avatar-preview mt-2">
                             <div class="avatar-preview mt-2">
-                                <div id="imagePreview"
-                                     @if(Auth::user()) @if(Auth::user()->avatar_url) style="background-image: url({{asset('images/'. Auth::user()->avatar_url)}})" @endif @endif>
-
-                                </div>
-
-
+                                @if(Auth::user() && Auth::user()->avatar_url) <img src="{{asset('images/'. Auth::user()->avatar_url)}}" id="imagePreview" style="width:100px;height: 100px;border-radius: 50%;">
+                                @endif
                             </div>
-                            <p class="mt-3 mb-3 text-white text-center">@if(Auth::user()){{Auth::user()->name}}@endif</p>
                         </div>
+                        <p class="mt-3 mb-3 text-white text-center">@if(Auth::user()){{Auth::user()->name}}@endif</p>
+                        @auth
+                            @if(Auth::user()->notify==="1") <p class="text-white text-center">Moderator</p> @endif
+                        @endauth
+                    </div>
 
                     <form action="{{url('updateUser')}}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -435,13 +432,13 @@
                                 <div class="avatar-edit">
                                     <input type='file' id="imageUpload" name="photo[]">
                                     <label for="imageUpload" style="margin:auto;color:black"><a type="button" class="edit-photos">
-                                            @if(Auth::user()) @if(Auth::user()->avatar_url) Edit photo @else Upload photo @endif @endif
+                                            @auth @if(Auth::user()->avatar_url) Edit photo @else Upload photo @endif @endauth
                                         </a></label>
                                 </div>
 
                             </div>
                         </div>
-                        <button type="submit" class="edit-btn" style="display: none;background:rgba(155, 203, 108, 0.8);">
+                        <button type="submit" class="edit-btn" style="display: none;background:rgba(155, 203, 108, 0.8); color:#0b2a3c">
                             Upload
                         </button>
                     </form>
@@ -449,42 +446,47 @@
                 </div>
                 <ul class="profile-list">
                     <li>
-                        <a href="{{route('profile')}}" class="active">
+                        <a href="{{route('profile')}}" class="active toCoursor" data-url="{{route('profile')}}">
                             Profile
                         </a>
                     </li>
                     <li>
-                        <a class="myPosts toCoursor">
+                        <a class="changePassword toCoursor" data-url="{{route('changePassword')}}">
+                            Change password
+                        </a>
+                    </li>
+                    <li>
+                        <a class="myPosts toCoursor" data-url="{{route('myPosts')}}">
                             Forum Posts ({{count($posts)}})
                         </a>
                     </li>
-                    @if($user->notify===1)
                     <li>
-                        <a class="checkPosts toCoursor">
-                            Check posts ({{}})
+                        <a class="myComments toCoursor" data-url="{{route('myComments')}}">
+                            Forum Comments ({{count($comments)}})
                         </a>
                     </li>
-                    @endif
                     <li>
-                        <a class="myAccount toCoursor">
+                        <a class="myAccount toCoursor" data-url="{{route('account')}}">
                             My Account
                         </a>
                     </li>
                     <li>
-                        <a class="myBalance toCoursor">
+                        <a class="myBalance toCoursor" data-url="{{route('balance')}}">
                             Balance history
                         </a>
                     </li>
-                    @if(Auth::user()->is_admin===1)
-                        <li>
-                            <a href="{{route('admin.dashboard')}}">Create category
-                            </a>
-                        </li>
-                    @endif
+                    @auth
+                        @if(Auth::user()->is_admin==="1")
+                            <li>
+                                <a href="{{route('admin.dashboard')}}">Create category
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
 
                 <button  class="btn payment-btn" data-toggle="modal"
-                        data-target="#stripeModal">Add card
+                         data-target="#stripeModal">Add card
                 </button>
 
                 @if (Session::has('success'))
@@ -492,7 +494,7 @@
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                         <p>{{ Session::get('success') }}</p>
                     </div>
-                        @elseif(Session::has('error'))
+                @elseif(Session::has('error'))
                     <div class="alert alert-danger text-center">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                         <p>{{ Session::get('error') }}</p>
@@ -508,31 +510,31 @@
                             </div>
                             <div class="cards">
 
-                            @foreach($cards as $card)
-                            <div class="card-i">
-                                <div class="bank-name" title="BestBank">{{$card->brand}}</div>
-                                <div class="chip">
-                                    <div class="side left"></div>
-                                    <div class="side right"></div>
-                                    <div class="vertical top"></div>
-                                    <div class="vertical bottom"></div>
-                                </div>
-                                <div class="data">
-                                    <div class="pan" title="4123 4567 8910 1112">{{$card->card_number}}</div>
-                                    <div class="exp-date-wrapper">
-                                        <div class="left-label">EXPIRES END</div>
-                                        <div class="exp-date">
-                                            <div class="upper-labels">MONTH/YEAR</div>
-                                            <div class="date" title="01/17">{{$card->exp_month}}/{{substr($card->exp_year, -2)}}</div>
+                                @foreach($cards as $card)
+                                    <div class="card-i">
+                                        <div class="bank-name" title="BestBank">{{$card->brand}}</div>
+                                        <div class="chip">
+                                            <div class="side left"></div>
+                                            <div class="side right"></div>
+                                            <div class="vertical top"></div>
+                                            <div class="vertical bottom"></div>
                                         </div>
+                                        <div class="data">
+                                            <div class="pan" title="4123 4567 8910 1112">{{$card->card_number}}</div>
+                                            <div class="exp-date-wrapper">
+                                                <div class="left-label">EXPIRES END</div>
+                                                <div class="exp-date">
+                                                    <div class="upper-labels">MONTH/YEAR</div>
+                                                    <div class="date" title="01/17">{{$card->exp_month}}/{{substr($card->exp_year, -2)}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="name-on-card" title="John Doe">@if(Auth::user()->name && Auth::user()->surname){{Auth::user()->name - Auth::user()->surname}}@endif</div>
+                                        </div>
+                                        <div class="lines-down"></div>
+                                        <div class="lines-up"></div>
                                     </div>
-                                    <div class="name-on-card" title="John Doe">@if(Auth::user()->name && Auth::user()->surname){{Auth::user()->name - Auth::user()->surname}}@endif</div>
-                                </div>
-                                <div class="lines-down"></div>
-                                <div class="lines-up"></div>
-                            </div>
 
-                            @endforeach
+                                @endforeach
                             </div>
 
                             <div class="modal-body payment-body">
@@ -566,9 +568,7 @@
 
                                             <div class='form-row row'>
                                                 <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                                    <label class='control-label'>CVC</label> <input autocomplete='off'
-                                                                                                    class='form-control card-cvc'
-                                                                                                    placeholder='ex. 311'
+                                                    <label class='control-label'>CVC</label> <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311'
                                                                                                     size='4'
                                                                                                     type='text'
                                                                                                     name="cvc">
@@ -681,7 +681,6 @@
             }
         })
     });
-
 </script>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -710,7 +709,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').attr('src', e.target.result );
                 $('#imagePreview').hide();
                 $('#imagePreview').fadeIn(650);
             }
@@ -733,13 +732,7 @@
         var about = $('textarea#txtEditor').text(edit);
         let aboutVal = about.val();
         let formdata = new FormData($(this)[0]);
-        // let about = $("textarea#txtEditor").val();
-        // console.log(about);
-        // let formData={};
         formdata.append('about', aboutVal);
-        // let formdata = new FormData($(this)[0]);
-        // formdata.append('about',about);
-        // console.log(formdata)
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

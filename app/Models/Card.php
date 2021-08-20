@@ -16,7 +16,7 @@ class Card extends Model
         'exp_month',
         'exp_year',
         'brand'
-        ];
+    ];
 
     public function user()
     {

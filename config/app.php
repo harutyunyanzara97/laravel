@@ -161,6 +161,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
+        Illuminate\Auth\AuthServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
+
+
+
 //        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
         /*
@@ -176,8 +182,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-    ],
 
+],
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

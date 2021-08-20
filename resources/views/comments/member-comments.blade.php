@@ -40,9 +40,6 @@
                         </p>
                         <span class="green-border"></span>
                         <div class="d-flex align-items-center justify-content-between">
-{{--                            <p class="mt-3"> {{count($post->comments)}} comments--}}
-
-{{--                            </p>--}}
                             <div class="d-flex">
                                 <p>
                                     {{count($comment->posts->likes)}}
@@ -74,20 +71,6 @@
 
                     </div>
                     <div class="d-flex flex-column">
-{{--                        @foreach($memberComments as $comments)--}}
-{{--                            <p class="mt-3">{{$comments->description}}</p>--}}
-{{--                            <div class="d-flex align-items-center justify-content-between">--}}
-{{--                                <div></div>--}}
-{{--                                <div class="d-flex">--}}
-{{--                                    <p>--}}
-{{--                                        {{count($comments->likes)}}--}}
-{{--                                    </p>--}}
-{{--                                    <div>--}}
-{{--                                        <i class="fa fa-heart ml-3"></i>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
                     </div>
                 </div>
             @endforeach

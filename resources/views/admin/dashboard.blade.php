@@ -5,9 +5,9 @@
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
 <div class="position-relative">
-{{--    <div class="avatar">--}}
-{{--        <img src="{{asset('images/'.$admin->avatar_url)}}"--}}
-{{--    </div>--}}
+    {{--    <div class="avatar">--}}
+    {{--        <img src="{{asset('images/'.$admin->avatar_url)}}"--}}
+    {{--    </div>--}}
     <main>
 
         <div class="members-section row">

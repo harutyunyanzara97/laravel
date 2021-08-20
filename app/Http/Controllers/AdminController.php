@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -26,8 +25,7 @@ class AdminController extends Controller
             $image=$request->img_url;
             $name = time() . $image->getClientOriginalName();
             $image->move(public_path() . '/images/', $name);
-            $data['img_url'] =  str_replace(' ', '', $name);
-
+            $data['img_url'] = $name;
         }
         $category->fill($data);
         $category->save();
@@ -43,7 +41,7 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $category = Category::where('id', $request->id)->first();
-        $user=User::where('is_admin',1)->first();
+        $user=User::where('is_admin',"1")->first();
         $category->user_id=$user->id;
         $category->update($request->all());
         if ($request->hasfile('photo')) {
@@ -81,6 +79,18 @@ class AdminController extends Controller
         User::where("id", $request->id)->delete();
 
         return Redirect::back();
+    }
+    public function checkType(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $user->payment_type = 2;
+        $user->save();
+        return response()->json('Payment type has been added to user!');
+    }
+    public function uncheckType(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $user->payment_type = 1;
+        $user->save();
+        return response()->json('Payment type has been changed for this user!');
     }
 
 }
